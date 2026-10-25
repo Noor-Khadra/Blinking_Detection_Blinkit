@@ -16,7 +16,7 @@ From the repository root:
 ```sh
 python -m pip install -r src/webcam/requirements.txt
 python src/webcam/extract_landmarks.py data/raw/noor/session1/webcam.mp4 face_landmarker.task data/derived/noor/session1/webcam_ear.csv
-python src/webcam/build_candidates.py data/derived/noor/session1/webcam_ear.csv data/derived/noor/session1 --eye mean --threshold-ratio 0.70
+python src/webcam/build_candidates.py data/derived/noor/session1/webcam_ear.csv data/derived/noor/session1 --eye mean --threshold-ratio 0.55
 ```
 
 Choose `--eye left` or `--eye right` to match the participant's EEG electrode
@@ -63,7 +63,7 @@ only a convenience. Keep each session's review page in its own directory.
 boundary edits; manually added events leave it blank. The Accept blink button requires a reviewer name. Use rows with
 `review_status=accepted`, `event_type=blink`, and `human_review_status=completed`
 for human-reviewed blink labels. AI draft assessments alone never satisfy this gate.
-Have a second reviewer spot-check them, recording their review in notes.
+For the Noor pilot, Rana completed the human review and explicitly waived an additional reviewer. The legacy second_review_status column in her exports is not a requirement gate.
 
 Hand Person C the verified CSV, EAR CSV, summary, exact source video identity,
 and acquisition timestamps/session metadata. All generated times are encoded
@@ -73,8 +73,10 @@ Person C must establish alignment and drift separately. The ±150 ms matching
 tolerance is not evidence that synchronization is correct. At roughly 30 fps,
 visual boundaries have roughly one-frame resolution, not millisecond accuracy.
 
-No participant recordings, model weights, or derived personal data are committed.
-The pre-existing Noor ZIP is a pilot artifact, not verified training ground truth.
+The committed Noor session contains the final reviewed CSV and JSON. Detailed eye
+measurements and the review video remain local. Model weights and virtual environments
+are excluded.
+Use the final labels.csv and review_state.json; older AI drafts are not the handoff.
 
 ## Validation
 

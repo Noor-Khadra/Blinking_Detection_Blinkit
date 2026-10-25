@@ -6,7 +6,7 @@
 <aside><div class="card"><div id="status"></div><div class="controls"><button onclick="selectEvent(idx-1)">Previous</button><button onclick="selectEvent(idx+1)">Next</button><button class="primary" onclick="exportCSV()">Export CSV</button></div><div class="controls"><button onclick="backup()">Save review JSON</button><label style="margin:0">Restore JSON <input id="restore" type="file" accept=".json" style="width:150px"></label></div><div id="editor"></div></div><div class="card"><div class="controls"><button onclick="addEvent()">+ Add missed event here</button><select id="filter" onchange="renderList()"><option value="all">All candidates</option><option value="unreviewed">Unreviewed</option><option value="accepted">Accepted</option><option value="uncertain">Uncertain</option><option value="rejected">Rejected</option></select></div><div class="events" id="list"></div></div></aside></div>
 </main><script>
 const DATA=__DATA__;
-const v=document.getElementById('v'), trace=DATA.trace, key='blinkit-review:'+location.pathname;let events=DATA.events,idx=0,endClip=null;
+const v=document.getElementById('v'), trace=DATA.trace, key='blinkit-review:'+location.pathname+':'+(DATA.review_version||'v1');let events=DATA.events,idx=0,endClip=null;
 try{const s=JSON.parse(localStorage.getItem(key));if(Array.isArray(s)&&s.length)events=s}catch(e){}
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const time=x=>Number(x).toFixed(3);

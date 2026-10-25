@@ -48,29 +48,34 @@ split it into several intervals. Intent/activity cannot be established from
 these eye crops alone. A three-blink synchronization pattern was not confirmed
 at the start and end; do not assume the draft acquisition protocol was followed.
 
-## Outputs and remaining review
+## Completed human review and handoff
 
-Session outputs are in `data/derived/noor/session1/` (ignored by Git):
+Rana Ezzeddine reviewed the video proposals and exported 83 records. Final counts:
+62 accepted blinks, 7 accepted sustained closures, 10 rejected closure candidates,
+and 4 rejected sustained closures. No events remain uncertain or unreviewed.
+Seven prolonged events were classified as sustained closures at Rana's direction.
+Events 76 and 77 received screenshot-supplied closing/peak/reopening timestamps.
+The final CSV and JSON agree; all timestamps are ordered and in video bounds,
+and no accepted blink has zero duration.
 
-- `webcam_ear.csv` and `.extraction.json`: new per-frame extraction and provenance.
-- `blink_candidates_UNREVIEWED.csv`: 73 automatic proposals.
-- `candidate_audit_AI_DRAFT.csv`: visual screening notes for all 105 earlier proposals.
-- `labels_AI_REVIEW_DRAFT.csv`: 75-row queue; no rows are accepted as training labels.
-- `Review_AI_DRAFT.html`, `video.mp4`, and `review_state_AI_DRAFT.json`: portable review.
+Rana explicitly waived a second reviewer. No independent review is claimed.
+The second_review_status and initial AI notes in the original exports are retained
+as historical metadata; processing_summary.json records the current review policy.
+The nine accepted blinks lasting 0.528–0.880 seconds retain Rana's classifications.
 
-Open `Review_AI_DRAFT.html`. Review each uncertain event, confirm blink versus
-wink/partial closure, set visible onset/peak/reopening at full frame resolution,
-and enter the reviewer name before accepting a blink. Check between proposals
-for misses; the sparse AI screen is not proof of no blinks in the gaps.
-Save CSV and JSON. Ask a second human reviewer to spot-check positives,
-rejections, boundaries and a sample of intervening footage, recording their
-name, intervals checked, discrepancies and resolutions in notes. The independent
-human review has NOT been performed. No external person has been contacted.
+The session folder is data/derived/noor/session1/. Only labels.csv and
+review_state.json are committed; the remaining processing artifacts below are local:
+- labels.csv: authoritative full event table; use accepted blink rows for blink labels.
+- review_state.json: matching final review backup.
+- webcam_ear.csv and webcam_ear.extraction.json: measurements and input/model provenance.
+- processing_summary.json: extraction settings, review counts and review policy.
+- review_data.json and Review_blinks.html: review page initialized with final results.
+- video.mp4: compressed source used for extraction and review.
+- blink_candidates_UNREVIEWED.csv: original automatic proposals, retained for provenance.
 
-Only accepted blink rows with `human_review_status=completed` are eligible for
-the modeling handoff after that quality check. EEG alignment remains Person C's
-stage. No EEG-clock labels, verified labels.csv, recall/precision metrics, or
-independent reviewer sign-off are claimed.
+EEG synchronization and training remain the modeling teammate's stage. These times
+are encoded video presentation times, not EEG timestamps. No detector accuracy
+metrics or independent reviewer sign-off are claimed.
 
 ## Software checks
 
