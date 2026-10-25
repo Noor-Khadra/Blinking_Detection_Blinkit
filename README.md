@@ -13,6 +13,23 @@ Real-time eye-blink detection from single-channel BITalino EEG, trained using we
 - GCO308 usb-plug camera (training/labeling only)
 
 ## Repository structure
+project/
+├── data/
+│   ├── raw/                      
+│   │   └── 25-10-2026/
+│   │       ├── eeg_opensignals.txt
+│   │       ├── eeg.csv          
+│   │       ├── webcam.mp4
+│   │       ├── webcam_timestamps.csv
+│   │       ├── eyecam.mp4
+│   │       ├── eyecam_timestamps.csv
+│   │       └── meta.json          
+│   └── derived/
+│       └── 
+├── models/                        
+├── reports/                       
+└── src/
+    ├── recording_code/ 
 
 ## Installation
 
