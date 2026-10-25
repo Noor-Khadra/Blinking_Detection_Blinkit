@@ -40,3 +40,8 @@ Rahma Bezzaouia
 Noor Khadra
 Katrina Issa
 
+
+## Webcam labeling (Rana)
+
+See [the webcam workflow](src/webcam/README.md) for extraction, candidate generation,
+manual review, timing limitations, and the handoff to EEG modeling.
