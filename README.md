@@ -40,3 +40,23 @@ Rahma Bezzaouia
 Noor Khadra
 Katrina Issa
 
+
+## Webcam labeling (Rana)
+
+See [the webcam workflow](src/webcam/README.md) for extraction, candidate generation,
+manual review, timing limitations, and the handoff to EEG modeling.
+
+## Reviewed webcam results
+
+Noor recording: 20,520 frames over approximately 11 minutes 16 seconds.
+Rana's review produced 62 accepted blinks, 7 accepted sustained closures,
+and 14 rejected proposals. Median annotated blink duration: 160 ms.
+
+![Reviewed webcam results: counts, durations, timeline and EAR example](reports/figures/webcam_results.png)
+
+These are reviewed video annotations, not detector accuracy metrics.
+EEG alignment remains separate. Final labels are in
+[data/derived/noor/session1](data/derived/noor/session1/).
+
+The figure can be regenerated with `python reports/plot_webcam_results.py`
+using NumPy and Matplotlib plus the local `webcam_ear.csv` measurements.
