@@ -73,10 +73,10 @@ Person C must establish alignment and drift separately. The ±150 ms matching
 tolerance is not evidence that synchronization is correct. At roughly 30 fps,
 visual boundaries have roughly one-frame resolution, not millisecond accuracy.
 
-The committed Noor session contains the final reviewed CSV and JSON. Detailed eye
-measurements and the review video remain local. Model weights and virtual environments
-are excluded.
-Use the final labels.csv and review_state.json; older AI drafts are not the handoff.
+The upload CSVs for sessions 1–3 contain accepted blinks and sustained closures.
+Full review exports and detailed eye measurements are retained in the project
+working files. See [labeling_runs](labeling_runs/) for the scripts used to
+produce the reviewed recordings' candidate proposals.
 
 ## Validation
 

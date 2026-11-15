@@ -48,15 +48,16 @@ manual review, timing limitations, and the handoff to EEG modeling.
 
 ## Reviewed webcam results
 
-Noor recording: 20,520 frames over approximately 11 minutes 16 seconds.
-Rana's review produced 62 accepted blinks, 7 accepted sustained closures,
-and 14 rejected proposals. Median annotated blink duration: 160 ms.
+| Recording | Accepted blinks | Accepted sustained closures | Labels |
+| --- | ---: | ---: | --- |
+| Noor 1 | 62 | 7 | [session1/labels.csv](data/derived/noor/session1/labels.csv) |
+| Noor 2 | 81 | 9 | [session2/labels.csv](data/derived/noor/session2/labels.csv) |
+| Noor 3 | 86 | 15 | [session3/labels.csv](data/derived/noor/session3/labels.csv) |
 
-![Reviewed webcam results: counts, durations, timeline and EAR example](reports/figures/webcam_results.png)
+Each CSV contains accepted visual annotations with onset, peak, and offset in source video playback seconds and corresponding zero-based frame indices.
 
-These are reviewed video annotations, not detector accuracy metrics.
-EEG alignment remains separate. Final labels are in
-[data/derived/noor/session1](data/derived/noor/session1/).
+![Noor 1 pilot review graphic](reports/figures/webcam_results.png)
 
-The figure can be regenerated with `python reports/plot_webcam_results.py`
-using NumPy and Matplotlib plus the local `webcam_ear.csv` measurements.
+The figure shows the original Noor 1 pilot. To generate an updated figure, run
+`python reports/plot_webcam_results.py` with NumPy, Matplotlib, and the
+local `webcam_ear.csv` measurements.
