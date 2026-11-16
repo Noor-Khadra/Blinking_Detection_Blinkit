@@ -107,16 +107,16 @@ def read_adc(name, channel, raw_dir, ref):
     return indices, adc
 
 
-def prepare_windows(eeg_labels, reviewed_open_eyes, raw_dir, ref, output):
+def prepare_windows(eeg_labels, reviewed_coverage, raw_dir, ref, output):
     annotations = read_csv(eeg_labels)
-    negatives = read_csv(reviewed_open_eyes) if reviewed_open_eyes else []
-    if any(row["session"] not in SESSIONS for row in [*annotations, *negatives]):
+    coverage = read_csv(reviewed_coverage) if reviewed_coverage else []
+    if any(row["session"] not in SESSIONS for row in [*annotations, *coverage]):
         raise ValueError("Unrecognized EEG session")
     windows, manifest = [], []
     stats = {}
     for session, (subject, name, channel) in SESSIONS.items():
         events = [row for row in annotations if row["session"] == session]
-        intervals = [row for row in negatives if row["session"] == session]
+        intervals = [row for row in coverage if row["session"] == session]
         if not events:
             if intervals:
                 raise ValueError(f"Reviewed intervals have no corresponding EEG annotations for {session}")
@@ -168,7 +168,7 @@ def prepare_windows(eeg_labels, reviewed_open_eyes, raw_dir, ref, output):
         for interval in intervals:
             start, end = int(interval["start_sample"]), int(interval["end_sample"])
             if not 0 <= start < end <= indices[-1] + 1:
-                raise ValueError(f"Reviewed open-eye interval outside {session}")
+                raise ValueError(f"Reviewed coverage interval outside {session}")
             for index in range(start, end - WINDOW_SAMPLES + 1, WINDOW_SAMPLES):
                 add_window(index, "no_blink")
     if not windows:
@@ -194,7 +194,8 @@ def main():
     clean.add_argument("--source-dir", type=Path, required=True)
     windows = commands.add_parser("windows", help="Build EEG tensors from prepared sample annotations")
     windows.add_argument("--eeg-events", type=Path)
-    windows.add_argument("--reviewed-open-eyes", type=Path)
+    windows.add_argument("--reviewed-coverage", "--reviewed-open-eyes", type=Path,
+                         help="Continuously reviewed intervals on the EEG sample timeline")
     windows.add_argument("--raw-dir", type=Path, default=ROOT / "data" / "eeg" / "raw")
     windows.add_argument("--eeg-ref", default="origin/feat/eeg-preprocessing")
     args = parser.parse_args()
@@ -202,8 +203,13 @@ def main():
     if args.command == "clean":
         clean_labels(args.source_dir, args.output)
     else:
-        prepare_windows(args.eeg_events or args.output / "eeg_events.csv", args.reviewed_open_eyes,
-                        args.raw_dir, args.eeg_ref, args.output)
+        eeg_events = args.eeg_events or args.output / "eeg_events.csv"
+        coverage = args.reviewed_coverage
+        if coverage is None and args.eeg_events is None:
+            default_coverage = args.output / "reviewed_coverage.csv"
+            if default_coverage.is_file():
+                coverage = default_coverage
+        prepare_windows(eeg_events, coverage, args.raw_dir, args.eeg_ref, args.output)
 
 
 if __name__ == "__main__":

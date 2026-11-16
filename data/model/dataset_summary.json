@@ -7,44 +7,44 @@
     "sustained_closure": 2
   },
   "examples": {
-    "no_blink": 0,
+    "no_blink": 1312,
     "blink": 90,
     "sustained_closure": 13
   },
   "sessions": {
     "noor1": {
       "examples": {
-        "no_blink": 0,
+        "no_blink": 490,
         "blink": 37,
         "sustained_closure": 5
       },
       "excluded_annotation": 7,
-      "overlaps_event": 0,
+      "overlaps_event": 144,
       "edge_or_gap": 0,
-      "clipping_or_flat": 20
+      "clipping_or_flat": 44
     },
     "noor2": {
       "examples": {
-        "no_blink": 0,
+        "no_blink": 405,
         "blink": 45,
         "sustained_closure": 5
       },
       "excluded_annotation": 8,
-      "overlaps_event": 28,
+      "overlaps_event": 233,
       "edge_or_gap": 0,
-      "clipping_or_flat": 4
+      "clipping_or_flat": 17
     },
     "noor3": {
       "examples": {
-        "no_blink": 0,
+        "no_blink": 417,
         "blink": 8,
         "sustained_closure": 3
       },
       "excluded_annotation": 3,
-      "overlaps_event": 21,
+      "overlaps_event": 215,
       "edge_or_gap": 0,
-      "clipping_or_flat": 66
+      "clipping_or_flat": 102
     }
   },
-  "binary_blink_training_ready": false
+  "binary_blink_training_ready": true
 }
