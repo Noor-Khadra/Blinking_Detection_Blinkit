@@ -1,0 +1,132 @@
+{
+  "rana_01_clean": {
+    "source_metadata": {
+      "session": "rana_01_clean",
+      "state": "partial",
+      "planned_duration_s": 600,
+      "session_start_utc": "2026-11-16T17:37:15.283221+00:00",
+      "session_start_monotonic_ns": 1310046000000,
+      "eeg_sampling_rate_hz": 1000,
+      "eeg_address": "COM4",
+      "eeg_channel": "A4",
+      "camera_index": 0,
+      "eeg_clock_basis": "device sample sequence fitted to host batch receipt times",
+      "webcam_clock_basis": "host frame receipt time",
+      "hardware_sync_verified": false,
+      "ear_threshold_ratio": 0.55,
+      "recorded_duration_s": 600.0,
+      "webcam_frames": 17999,
+      "eeg_rows": 600010,
+      "estimated_missing_eeg_samples": 0,
+      "error": "Could not export labels: 'charmap' codec can't decode byte 0x90 in position 2352: character maps to <undefined>"
+    },
+    "rows": 600010,
+    "missing_samples": 0,
+    "adc_min": 0,
+    "adc_max": 1018,
+    "rail_fraction": 0.022046299228346194,
+    "clock_scale": 0.9999863514927357,
+    "clock_intercept_s": -410.15653911525584,
+    "batch_residual_p95_ms": 40.26404051228383,
+    "mapping": "session_s = original_sample_index / 1000 * clock_scale + clock_intercept_s",
+    "hardware_sync_verified": false,
+    "mapping_status": "provisional; host receipt clocks, no hardware latency measurement",
+    "webcam_duplicate_times": 5,
+    "webcam_frame_interval_median_ms": 31.00000000000591,
+    "threshold_for_no_blink": 0.17143636315131786,
+    "blink_events": 410,
+    "sustained_closures": 11,
+    "alignment_polarity_selected_on_training": 1,
+    "alignment_checks": {
+      "test": {
+        "n": 78,
+        "within_150ms": 71,
+        "median_signed_ms": -34.093661711409595,
+        "median_absolute_ms": 65.91121529052657,
+        "p95_absolute_ms": 194.62149686661397,
+        "ambiguous": 11
+      },
+      "train": {
+        "n": 276,
+        "within_150ms": 260,
+        "median_signed_ms": -37.82805103585929,
+        "median_absolute_ms": 58.23342028052281,
+        "p95_absolute_ms": 156.00576308222003,
+        "ambiguous": 30
+      },
+      "validation": {
+        "n": 56,
+        "within_150ms": 52,
+        "median_signed_ms": 25.027429990274186,
+        "median_absolute_ms": 61.788549331410536,
+        "p95_absolute_ms": 168.14792427641834,
+        "ambiguous": 5
+      }
+    }
+  },
+  "rana_02": {
+    "source_metadata": {
+      "session": "rana_02",
+      "state": "partial",
+      "planned_duration_s": 600,
+      "session_start_utc": "2026-11-16T17:58:22.016995+00:00",
+      "session_start_monotonic_ns": 2576781000000,
+      "eeg_sampling_rate_hz": 1000,
+      "eeg_address": "COM4",
+      "eeg_channel": "A4",
+      "camera_index": 0,
+      "eeg_clock_basis": "device sample sequence fitted to host batch receipt times",
+      "webcam_clock_basis": "host frame receipt time",
+      "hardware_sync_verified": false,
+      "ear_threshold_ratio": 0.55,
+      "recorded_duration_s": 600.0,
+      "webcam_frames": 17999,
+      "eeg_rows": 600012,
+      "estimated_missing_eeg_samples": 0,
+      "error": "Could not export labels: 'charmap' codec can't decode byte 0x90 in position 2352: character maps to <undefined>"
+    },
+    "rows": 600012,
+    "missing_samples": 0,
+    "adc_min": 0,
+    "adc_max": 1018,
+    "rail_fraction": 0.024507843176469805,
+    "clock_scale": 0.9999849599015164,
+    "clock_intercept_s": -1676.8907092566942,
+    "batch_residual_p95_ms": 39.312001302707955,
+    "mapping": "session_s = original_sample_index / 1000 * clock_scale + clock_intercept_s",
+    "hardware_sync_verified": false,
+    "mapping_status": "provisional; host receipt clocks, no hardware latency measurement",
+    "webcam_duplicate_times": 8,
+    "webcam_frame_interval_median_ms": 31.00000000000591,
+    "threshold_for_no_blink": 0.17595171228470977,
+    "blink_events": 421,
+    "sustained_closures": 9,
+    "alignment_polarity_selected_on_training": 1,
+    "alignment_checks": {
+      "test": {
+        "n": 101,
+        "within_150ms": 90,
+        "median_signed_ms": -28.791849469598674,
+        "median_absolute_ms": 62.260104571038255,
+        "p95_absolute_ms": 177.07140927961973,
+        "ambiguous": 19
+      },
+      "train": {
+        "n": 239,
+        "within_150ms": 226,
+        "median_signed_ms": -30.2552550111983,
+        "median_absolute_ms": 57.16852541127082,
+        "p95_absolute_ms": 151.48773471985706,
+        "ambiguous": 21
+      },
+      "validation": {
+        "n": 81,
+        "within_150ms": 76,
+        "median_signed_ms": -24.221868208655906,
+        "median_absolute_ms": 57.077799105343274,
+        "p95_absolute_ms": 150.12855943780323,
+        "ambiguous": 9
+      }
+    }
+  }
+}

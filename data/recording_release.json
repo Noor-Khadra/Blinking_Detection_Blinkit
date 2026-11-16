@@ -1,0 +1,22 @@
+{
+  "repository": "Noor-Khadra/Blinking_Detection_Blinkit",
+  "tag": "blinkit-recordings-20261116",
+  "extract_to": "data/raw/datasets",
+  "assets": [
+    {
+      "asset": "rana_01_clean.zip",
+      "bytes": 119903301,
+      "sha256": "069f7df65e18e2e9ddcbb776f44db95eec19306206165e9c26c59be673058030"
+    },
+    {
+      "asset": "rana_02.zip",
+      "bytes": 128697960,
+      "sha256": "112a6581c95ae893d98b7f81e8bd60cbfd33db94f878c334a5b688c0af0ad63f"
+    },
+    {
+      "asset": "noor4-clean.zip",
+      "bytes": 111591036,
+      "sha256": "5dced927b6300df1b1096f9b8778345f58bf658ee20c6e060035255b361938a0"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "training_validation_isolation": true,
+  "noor_only_source_isolation": true,
+  "public_data_excluded": true,
+  "pooled_checkpoint_predictions_reproduced": true,
+  "live_checkpoint_hashes_unchanged": true
+}

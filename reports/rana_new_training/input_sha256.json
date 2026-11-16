@@ -1,0 +1,24 @@
+{
+  "rana_01_clean": {
+    "no_blink_coverage_auto.csv": "76092cdceaa0c2f0796f2b6de2e57cf2ed6d15e5621e499311be8a7639997b89",
+    "session.json": "e2a28f33b70691a86419f8270769aa165cd781fee3eb9ff8e455037d28b03108",
+    "webcam_frames.csv": "a7e89ed98bed0dc17cb03f43ce1aef9cfa0a07e2dc931d7e1c1bd0d4bc245b8c",
+    "eeg_timeline.npz": "1f8ffd2a1ac2f7561d192df6ecf1994fb4f1e5c43b85f66723631b7361fb3892",
+    "eeg_clock.csv": "e42870d323c02d6b07db69e222f7161c02f3eeca44455ff2da0978bb702d9702",
+    "eeg_events_auto.csv": "ac5b810c292f151a64992353f5e32287ea5a3abdecd1a743e914f9f012353209",
+    "protocol.csv": "f5b433c5458fb7cbd31c914cb74641d090f0f7000f6041c21b80a5d44228f988",
+    "eeg.csv": "f0c186833ce4dc00b00f2527a7cad61948df17d3de63681258af178e058a6933",
+    "webcam.mp4": "e741f44dd7589f9e7d7a89556a9f69ab87fc4f6fae94561f808aedcb92426f0d"
+  },
+  "rana_02": {
+    "no_blink_coverage_auto.csv": "9ffce34c6cdb437eeeec4ef678aa2d4b9915d2f13af22f9512fa299a8af2e836",
+    "session.json": "cc668da884e27bfd031cf30b64fb0d57169a1fe5bf4a475a2dfce721b139b1c6",
+    "webcam_frames.csv": "4456b7526769ef8b3ea40945899559631e136a88562cdd46dae685b2cdfb7c90",
+    "eeg_timeline.npz": "a91783ab18e724f6c845cfb72cf74e835fe77a64a525ee3027d0528deeea77d8",
+    "eeg_clock.csv": "57b1859952d10e4a53f058a48d7a8fa761f17c4250a601662b22f3728bd9a5d3",
+    "eeg_events_auto.csv": "773e41a678906268ba17203163bf7db1854e5e2214f4d8c054be7f6e6d2f6dd9",
+    "protocol.csv": "f5b433c5458fb7cbd31c914cb74641d090f0f7000f6041c21b80a5d44228f988",
+    "eeg.csv": "a17125e72a06274e40dd19370bf97b6bbd4ed052719a907af3d67cd538a666db",
+    "webcam.mp4": "f33efb9213338d4fd494d41f91e7525a5f220141e83180c760713a13d8ddeee9"
+  }
+}

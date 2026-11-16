@@ -1,0 +1,105 @@
+{
+  "xgboost_configurations": [
+    {
+      "max_depth": 2,
+      "min_child_weight": 1,
+      "learning_rate": 0.03
+    },
+    {
+      "max_depth": 2,
+      "min_child_weight": 1,
+      "learning_rate": 0.1
+    },
+    {
+      "max_depth": 2,
+      "min_child_weight": 5,
+      "learning_rate": 0.03
+    },
+    {
+      "max_depth": 2,
+      "min_child_weight": 5,
+      "learning_rate": 0.1
+    },
+    {
+      "max_depth": 3,
+      "min_child_weight": 1,
+      "learning_rate": 0.03
+    },
+    {
+      "max_depth": 3,
+      "min_child_weight": 1,
+      "learning_rate": 0.1
+    },
+    {
+      "max_depth": 3,
+      "min_child_weight": 5,
+      "learning_rate": 0.03
+    },
+    {
+      "max_depth": 3,
+      "min_child_weight": 5,
+      "learning_rate": 0.1
+    },
+    {
+      "max_depth": 5,
+      "min_child_weight": 1,
+      "learning_rate": 0.03
+    },
+    {
+      "max_depth": 5,
+      "min_child_weight": 1,
+      "learning_rate": 0.1
+    },
+    {
+      "max_depth": 5,
+      "min_child_weight": 5,
+      "learning_rate": 0.03
+    },
+    {
+      "max_depth": 5,
+      "min_child_weight": 5,
+      "learning_rate": 0.1
+    }
+  ],
+  "cnn_configurations": [
+    {
+      "width": 8,
+      "dropout": 0.2,
+      "lr": 0.001
+    },
+    {
+      "width": 16,
+      "dropout": 0.2,
+      "lr": 0.001
+    },
+    {
+      "width": 16,
+      "dropout": 0.35,
+      "lr": 0.003
+    },
+    {
+      "width": 32,
+      "dropout": 0.35,
+      "lr": 0.001
+    }
+  ],
+  "cnn_seeds": [
+    20261116,
+    20261117
+  ],
+  "cnn_max_epochs": 50,
+  "cnn_patience": 8,
+  "cnn_selection": "average precision for epoch; two-seed mean score per configuration; event F1 for config/threshold",
+  "xgboost_max_rounds": 600,
+  "xgboost_patience": 40,
+  "xgboost_selection": "validation aucpr for tree count; event F1 for config/threshold",
+  "postprocessing": "same 350ms suppression and 250ms event matching as baseline",
+  "ensemble_xgb_weights": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "test": "already viewed; reused test; never early stopping or model selection",
+  "alignment": "unchanged provisional shared host clock",
+  "public_data_used": false
+}

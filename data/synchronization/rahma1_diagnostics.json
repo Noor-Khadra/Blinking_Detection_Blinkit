@@ -1,0 +1,144 @@
+{
+  "session": "rahma1",
+  "status": "unvalidated_candidate",
+  "raw_path": "data/eeg/raw/rahma_recording1.txt",
+  "workbook_path": "data/eeg/derived/rahma_recording1.xlsx",
+  "reviewed_labels": "data/derived/noor/session4/rahma1_labels_reviewed.csv",
+  "channel": "A4",
+  "sampling_rate_hz": 1000,
+  "eeg_start_local_time": "2026-10-25T18:51:52.199",
+  "capture_start_local_time": null,
+  "channels": {
+    "A1": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 5
+    },
+    "A2": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 1
+    },
+    "A3": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 0
+    },
+    "A4": {
+      "median_adc": 512.0,
+      "min_adc": 0,
+      "max_adc": 1018
+    },
+    "A5": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 1
+    },
+    "A6": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 0
+    }
+  },
+  "observed_samples": 760950,
+  "sequence_discontinuities": 0,
+  "minimum_missing_samples": 0,
+  "rail_values_adc": [
+    0,
+    1018
+  ],
+  "raw_clipping_fraction": 0.02006570733950982,
+  "workbook": {
+    "rows_checked": 760950,
+    "row_index_matches": true,
+    "time_matches_nominal_row_index": true,
+    "adc_matches_selected_channel": true
+  },
+  "clock": {
+    "equation": "eeg_s = rate * source_s + offset_s",
+    "rate": 0.9527559695664691,
+    "offset_s": 63.522155545308834,
+    "estimated_on": "every third non-overlapping accepted reviewed blink, sorted by peak time",
+    "grid_offsets_s": [
+      -120.0,
+      120.0
+    ],
+    "grid_rates": [
+      0.93,
+      1.21
+    ],
+    "grid_score": 13.153880145411161,
+    "alternative_grid_score": [
+      13.044268319376163,
+      1.0322499999999888,
+      21.87500000003226
+    ]
+  },
+  "candidate_dips": 650,
+  "fit": {
+    "total": 23,
+    "within_150ms": 16,
+    "unique_within_150ms": 16,
+    "outside_eeg": 0,
+    "median_signed_ms": 8.1,
+    "median_absolute_ms": 34.275,
+    "p95_absolute_ms": 118.50325000000001
+  },
+  "held_out": {
+    "total": 44,
+    "within_150ms": 15,
+    "unique_within_150ms": 15,
+    "outside_eeg": 0,
+    "median_signed_ms": 12.68,
+    "median_absolute_ms": 49.177,
+    "p95_absolute_ms": 132.12879999999998
+  },
+  "held_out_in_bounds": {
+    "total": 44,
+    "within_150ms": 15,
+    "unique_within_150ms": 15,
+    "outside_eeg": 0,
+    "median_signed_ms": 12.68,
+    "median_absolute_ms": 49.177,
+    "p95_absolute_ms": 132.12879999999998
+  },
+  "held_out_shifted_controls": [
+    {
+      "shift_s": -10,
+      "n": 44,
+      "within_150ms": 12
+    },
+    {
+      "shift_s": -5,
+      "n": 44,
+      "within_150ms": 9
+    },
+    {
+      "shift_s": -2,
+      "n": 44,
+      "within_150ms": 6
+    },
+    {
+      "shift_s": 2,
+      "n": 44,
+      "within_150ms": 12
+    },
+    {
+      "shift_s": 5,
+      "n": 44,
+      "within_150ms": 12
+    },
+    {
+      "shift_s": 10,
+      "n": 44,
+      "within_150ms": 8
+    }
+  ],
+  "accepted_blinks": 80,
+  "accepted_sustained_closures": 0,
+  "overlapping_accepted_events": 13,
+  "atypical_blink_durations_over_800ms": 16,
+  "negative_examples": 0,
+  "negative_example_reason": "No independently confirmed continuous-review intervals supplied.",
+  "source_provenance": "Reviewed GitHub CSV at 83db882; compatible with the 20,397-frame Rahma 1 review video. No session-matched capture log or high-confidence shared timing anchor."
+}

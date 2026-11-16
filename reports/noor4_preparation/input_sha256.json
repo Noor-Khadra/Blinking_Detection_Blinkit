@@ -1,0 +1,13 @@
+{
+  "noor4-clean": {
+    "no_blink_coverage_auto.csv": "bb8e3a0348c34c616618611a8adaa38a8bde9d09fa920ec28363403d21f5e9b8",
+    "session.json": "7a81d442a323b456e076abb5ec83ef688518b1241261430bb276cd28195b1403",
+    "webcam_frames.csv": "f3fe630747bf67544d3eb692da168df85c94ce0b067cf1f3d0bb85fb0ff6aa90",
+    "eeg_timeline.npz": "3ad2ce86dec353d219c3377615a5c73075d130d12b8ffcd4c138d9701e1b3f89",
+    "eeg_clock.csv": "c7c0d487c6ded993df327cefea36d01a99bdd3b343ac68d2266eb64c9f9ae797",
+    "eeg_events_auto.csv": "fe4b01958a6d397510acbf8ed7e8b9135baa9281be0fbca6a916faae81e241bb",
+    "protocol.csv": "f5b433c5458fb7cbd31c914cb74641d090f0f7000f6041c21b80a5d44228f988",
+    "eeg.csv": "f226676820c9d50ac90a7cb4a4ec76ecee580af1a17e91493949668b164dbc27",
+    "webcam.mp4": "1d6dd22d86c2376cd30f4f8a37da14e49c31cbcd37e55ca1ebecf4b68a9d2b42"
+  }
+}

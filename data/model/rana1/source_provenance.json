@@ -1,0 +1,8 @@
+{
+  "session_alias": "rana1",
+  "subject": "eegeyenet_ep10",
+  "source_release": "https://doi.org/10.18112/openneuro.ds007338.v1.0.0",
+  "source_recording": "OpenNeuro ds007338 v1.0.0 / sub-EP10 / ses-01 / task-dots run-01",
+  "source_provenance_path": "data/derived/rana/session1/provenance.json",
+  "data_origin": "external_public_dataset_import"
+}

@@ -1,0 +1,210 @@
+{
+  "noor123_to_rana1": {
+    "boosted/f1": {
+      "precision": 0.2857142857142857,
+      "recall": 0.029411764705882353,
+      "f1": 0.05333333333333334,
+      "f0_5": 0.10416666666666667,
+      "tp": 2,
+      "fp": 5,
+      "fn": 66,
+      "unscored_alerts_outside_reference": 0,
+      "scored_minutes": 5.33925,
+      "false_alarms_per_minute": 0.9364611134522639,
+      "threshold": 0.6919909654942705
+    },
+    "boosted/precision": {
+      "precision": 1.0,
+      "recall": 0.014705882352941176,
+      "f1": 0.028985507246376812,
+      "f0_5": 0.06944444444444445,
+      "tp": 1,
+      "fp": 0,
+      "fn": 67,
+      "unscored_alerts_outside_reference": 0,
+      "scored_minutes": 5.33925,
+      "false_alarms_per_minute": 0.0,
+      "threshold": 0.8916967475380169
+    },
+    "ensemble/f1": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "f0_5": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 68,
+      "unscored_alerts_outside_reference": 0,
+      "scored_minutes": 5.33925,
+      "false_alarms_per_minute": 0.0,
+      "threshold": 0.807686362462526
+    },
+    "ensemble/precision": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "f0_5": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 68,
+      "unscored_alerts_outside_reference": 0,
+      "scored_minutes": 5.33925,
+      "false_alarms_per_minute": 0.0,
+      "threshold": 0.9167225095073749
+    }
+  },
+  "rana1_to_noor123": {
+    "f1": {
+      "precision": 0.20995962314939434,
+      "recall": 0.6812227074235808,
+      "f1": 0.32098765432098764,
+      "f0_5": 0.2436738519212746,
+      "tp": 156,
+      "fp": 587,
+      "fn": 73,
+      "false_alarms_per_minute": 18.258874761849217,
+      "postprocessing": "smooth_peak160",
+      "threshold": 0.5839992634258235,
+      "training_only_calibration": {
+        "precision": 0.927536231884058,
+        "recall": 0.9411764705882353,
+        "f1": 0.9343065693430657,
+        "f0_5": 0.9302325581395349
+      },
+      "per_recording": {
+        "noor1": {
+          "precision": 0.22289156626506024,
+          "recall": 0.5967741935483871,
+          "f1": 0.32456140350877194,
+          "f0_5": 0.2548209366391185,
+          "tp": 37,
+          "fp": 129,
+          "fn": 25,
+          "unscored_alerts_outside_reference": 0,
+          "scored_minutes": 10.9672,
+          "false_alarms_per_minute": 11.762345904150559,
+          "threshold": 0.5839992634258235
+        },
+        "noor2": {
+          "precision": 0.2987012987012987,
+          "recall": 0.5679012345679012,
+          "f1": 0.39148936170212767,
+          "f0_5": 0.3299856527977044,
+          "tp": 46,
+          "fp": 108,
+          "fn": 35,
+          "unscored_alerts_outside_reference": 0,
+          "scored_minutes": 10.39335,
+          "false_alarms_per_minute": 10.391259795927203,
+          "threshold": 0.5839992634258235
+        },
+        "noor3": {
+          "precision": 0.17257683215130024,
+          "recall": 0.8488372093023255,
+          "f1": 0.2868369351669941,
+          "f0_5": 0.20528683914510687,
+          "tp": 73,
+          "fp": 350,
+          "fn": 13,
+          "unscored_alerts_outside_reference": 0,
+          "scored_minutes": 10.7882,
+          "false_alarms_per_minute": 32.442854229621254,
+          "threshold": 0.5839992634258235
+        }
+      }
+    },
+    "precision": {
+      "precision": 0.17882117882117882,
+      "recall": 0.7816593886462883,
+      "f1": 0.2910569105691057,
+      "f0_5": 0.21143397117883297,
+      "tp": 179,
+      "fp": 822,
+      "fn": 50,
+      "false_alarms_per_minute": 25.568645748279483,
+      "postprocessing": "smooth_peak160",
+      "threshold": 0.43135337041554267,
+      "training_only_calibration": {
+        "precision": 0.8441558441558441,
+        "recall": 0.9558823529411765,
+        "f1": 0.896551724137931,
+        "f0_5": 0.8643617021276596
+      },
+      "per_recording": {
+        "noor1": {
+          "precision": 0.1896551724137931,
+          "recall": 0.7096774193548387,
+          "f1": 0.29931972789115646,
+          "f0_5": 0.2222222222222222,
+          "tp": 44,
+          "fp": 188,
+          "fn": 18,
+          "unscored_alerts_outside_reference": 0,
+          "scored_minutes": 10.9672,
+          "false_alarms_per_minute": 17.14202348821942,
+          "threshold": 0.43135337041554267
+        },
+        "noor2": {
+          "precision": 0.30526315789473685,
+          "recall": 0.7160493827160493,
+          "f1": 0.4280442804428044,
+          "f0_5": 0.3448275862068966,
+          "tp": 58,
+          "fp": 132,
+          "fn": 23,
+          "unscored_alerts_outside_reference": 0,
+          "scored_minutes": 10.39335,
+          "false_alarms_per_minute": 12.700428639466582,
+          "threshold": 0.43135337041554267
+        },
+        "noor3": {
+          "precision": 0.13298791018998274,
+          "recall": 0.8953488372093024,
+          "f1": 0.23157894736842105,
+          "f0_5": 0.16028309741881766,
+          "tp": 77,
+          "fp": 502,
+          "fn": 9,
+          "unscored_alerts_outside_reference": 0,
+          "scored_minutes": 10.7882,
+          "false_alarms_per_minute": 46.53232235219963,
+          "threshold": 0.43135337041554267
+        }
+      }
+    }
+  },
+  "noor12_rana1_to_rahma1": {
+    "training_recordings": [
+      "noor1",
+      "noor2",
+      "rana1"
+    ],
+    "inference_recording": "rahma1",
+    "labels_used_for_rahma": false,
+    "rahma_scored": false,
+    "policies": {
+      "f1": {
+        "unverified_alerts": 141,
+        "postprocessing": "peak120_long",
+        "threshold": 0.8931194106913756,
+        "noor_calibration_only": {
+          "precision": 0.6959459459459459,
+          "recall": 0.7202797202797203,
+          "f1": 0.7079037800687286,
+          "f0_5": 0.7006802721088435
+        }
+      },
+      "precision": {
+        "unverified_alerts": 85,
+        "postprocessing": "peak120",
+        "threshold": 0.9755418133008071,
+        "noor_calibration_only": {
+          "precision": 0.8,
+          "recall": 0.4755244755244755,
+          "f1": 0.5964912280701754,
+          "f0_5": 0.7039337474120083
+        }
+      }
+    }
+  }
+}

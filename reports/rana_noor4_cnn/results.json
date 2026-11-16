@@ -1,0 +1,254 @@
+{
+  "experiments": [
+    {
+      "name": "frozen_Rana_to_Noor_all",
+      "threshold": 0.8,
+      "window": {
+        "accuracy": 0.9168372569089048,
+        "balanced_accuracy": 0.5774861189725344,
+        "precision": 0.5333333333333333,
+        "recall": 0.1686746987951807,
+        "f1": 0.2562929061784897,
+        "average_precision": 0.32924845553158927,
+        "confusion_matrix": [
+          [
+            3527,
+            49
+          ],
+          [
+            276,
+            56
+          ]
+        ],
+        "n": 3908,
+        "positive_windows": 332
+      },
+      "event": {
+        "precision": 0.4426229508196721,
+        "recall": 0.23893805309734514,
+        "f1": 0.3103448275862069,
+        "tp": 27,
+        "fp": 34,
+        "fn": 86,
+        "false_alarms_per_minute": 4.263322884012539,
+        "evaluated_minutes": 7.975,
+        "reference_events": 113,
+        "matching_tolerance_ms": 250
+      },
+      "by_person": {
+        "Noor": {
+          "precision": 0.4426229508196721,
+          "recall": 0.23893805309734514,
+          "f1": 0.3103448275862069,
+          "tp": 27,
+          "fp": 34,
+          "fn": 86,
+          "false_alarms_per_minute": 4.263322884012539,
+          "evaluated_minutes": 7.975,
+          "reference_events": 113,
+          "matching_tolerance_ms": 250
+        }
+      }
+    },
+    {
+      "name": "frozen_Rana_to_Noor_test_blocks",
+      "threshold": 0.8,
+      "window": {
+        "accuracy": 0.9189526184538653,
+        "balanced_accuracy": 0.5379597012822319,
+        "precision": 0.17857142857142858,
+        "recall": 0.10638297872340426,
+        "f1": 0.13333333333333333,
+        "average_precision": 0.18939686781689424,
+        "confusion_matrix": [
+          [
+            732,
+            23
+          ],
+          [
+            42,
+            5
+          ]
+        ],
+        "n": 802,
+        "positive_windows": 47
+      },
+      "event": {
+        "precision": 0.1875,
+        "recall": 0.17647058823529413,
+        "f1": 0.1818181818181818,
+        "tp": 3,
+        "fp": 13,
+        "fn": 14,
+        "false_alarms_per_minute": 8.487486398258977,
+        "evaluated_minutes": 1.5316666666666667,
+        "reference_events": 17,
+        "matching_tolerance_ms": 250
+      },
+      "by_person": {
+        "Noor": {
+          "precision": 0.1875,
+          "recall": 0.17647058823529413,
+          "f1": 0.1818181818181818,
+          "tp": 3,
+          "fp": 13,
+          "fn": 14,
+          "false_alarms_per_minute": 8.487486398258977,
+          "evaluated_minutes": 1.5316666666666667,
+          "reference_events": 17,
+          "matching_tolerance_ms": 250
+        }
+      }
+    },
+    {
+      "name": "pooled_Rana_Noor_test_blocks",
+      "threshold": 0.725,
+      "window": {
+        "accuracy": 0.86112493777999,
+        "balanced_accuracy": 0.7741584642993093,
+        "precision": 0.8169761273209549,
+        "recall": 0.5945945945945946,
+        "f1": 0.6882681564245811,
+        "average_precision": 0.802649534747981,
+        "confusion_matrix": [
+          [
+            1422,
+            69
+          ],
+          [
+            210,
+            308
+          ]
+        ],
+        "n": 2009,
+        "positive_windows": 518
+      },
+      "event": {
+        "precision": 0.7515527950310559,
+        "recall": 0.6914285714285714,
+        "f1": 0.7202380952380952,
+        "tp": 121,
+        "fp": 40,
+        "fn": 54,
+        "false_alarms_per_minute": 7.973421926910299,
+        "evaluated_minutes": 5.016666666666667,
+        "reference_events": 175,
+        "matching_tolerance_ms": 250
+      },
+      "by_person": {
+        "Noor": {
+          "precision": 0.25,
+          "recall": 0.29411764705882354,
+          "f1": 0.27027027027027023,
+          "tp": 5,
+          "fp": 15,
+          "fn": 12,
+          "false_alarms_per_minute": 9.793253536452665,
+          "evaluated_minutes": 1.5316666666666667,
+          "reference_events": 17,
+          "matching_tolerance_ms": 250
+        },
+        "Rana": {
+          "precision": 0.8226950354609929,
+          "recall": 0.7341772151898734,
+          "f1": 0.7759197324414716,
+          "tp": 116,
+          "fp": 25,
+          "fn": 42,
+          "false_alarms_per_minute": 7.173601147776183,
+          "evaluated_minutes": 3.4850000000000003,
+          "reference_events": 158,
+          "matching_tolerance_ms": 250
+        }
+      }
+    },
+    {
+      "name": "Noor_to_Rana_all",
+      "threshold": 0.32499999999999996,
+      "window": {
+        "accuracy": 0.7961947758787488,
+        "balanced_accuracy": 0.8025127873367192,
+        "precision": 0.6777286135693216,
+        "recall": 0.8249551166965888,
+        "f1": 0.7441295546558705,
+        "average_precision": 0.7973785304913846,
+        "confusion_matrix": [
+          [
+            3100,
+            874
+          ],
+          [
+            390,
+            1838
+          ]
+        ],
+        "n": 6202,
+        "positive_windows": 2228
+      },
+      "event": {
+        "precision": 0.6091417910447762,
+        "recall": 0.8788694481830417,
+        "f1": 0.7195592286501378,
+        "tp": 653,
+        "fp": 419,
+        "fn": 90,
+        "false_alarms_per_minute": 23.694627709707827,
+        "evaluated_minutes": 17.68333333333333,
+        "reference_events": 743,
+        "matching_tolerance_ms": 250
+      },
+      "by_person": {
+        "Rana": {
+          "precision": 0.6091417910447762,
+          "recall": 0.8788694481830417,
+          "f1": 0.7195592286501378,
+          "tp": 653,
+          "fp": 419,
+          "fn": 90,
+          "false_alarms_per_minute": 23.694627709707827,
+          "evaluated_minutes": 17.68333333333333,
+          "reference_events": 743,
+          "matching_tolerance_ms": 250
+        }
+      }
+    }
+  ],
+  "pooled_validation": {
+    "precision": 0.7393939393939394,
+    "recall": 0.7577639751552795,
+    "f1": 0.7484662576687117,
+    "tp": 122,
+    "fp": 43,
+    "fn": 39,
+    "false_alarms_per_minute": 8.195679796696313,
+    "evaluated_minutes": 5.246666666666668,
+    "reference_events": 161,
+    "matching_tolerance_ms": 250
+  },
+  "noor_only_validation": {
+    "precision": 0.3384615384615385,
+    "recall": 0.6285714285714286,
+    "f1": 0.44,
+    "tp": 22,
+    "fp": 43,
+    "fn": 13,
+    "false_alarms_per_minute": 24.736337488015337,
+    "evaluated_minutes": 1.7383333333333335,
+    "reference_events": 35,
+    "matching_tolerance_ms": 250
+  },
+  "pooled_threshold": 0.725,
+  "noor_only_threshold": 0.32499999999999996,
+  "training_counts": {
+    "Noor": 720,
+    "Rana": 3690
+  },
+  "saved_model_check_passed": true,
+  "live_model_replaced": false,
+  "limitations": [
+    "Two people only; no third-person validation after pooled training.",
+    "Rana data already used in architecture development, so reverse transfer is exploratory.",
+    "Automatic labels and host-clock alignment remain provisional.",
+    "Same online deployment caveats as earlier CNN; offline event suppression."
+  ]
+}

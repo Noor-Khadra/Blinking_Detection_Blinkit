@@ -1,0 +1,3 @@
+-r requirements-rana-new.txt
+torch>=2.2
+xgboost>=2.1

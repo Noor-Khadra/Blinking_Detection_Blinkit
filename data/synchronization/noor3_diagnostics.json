@@ -1,0 +1,147 @@
+{
+  "session": "noor3",
+  "status": "provisional_visual_review_required",
+  "raw_path": "data/eeg/raw/noor recording_3.txt",
+  "workbook_path": "data/eeg/derived/noor_recording3.xlsx",
+  "reviewed_labels": "data/derived/noor/session3/labels.csv",
+  "channel": "A2",
+  "sampling_rate_hz": 1000,
+  "eeg_start_local_time": "2026-11-11T12:12:27.789",
+  "capture_start_local_time": "2026-11-11T12:12:24.987878",
+  "channels": {
+    "A1": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 3
+    },
+    "A2": {
+      "median_adc": 513.0,
+      "min_adc": 0,
+      "max_adc": 1018
+    },
+    "A3": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 3
+    },
+    "A4": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 0
+    },
+    "A5": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 0
+    },
+    "A6": {
+      "median_adc": 0.0,
+      "min_adc": 0,
+      "max_adc": 0
+    }
+  },
+  "observed_samples": 652200,
+  "sequence_discontinuities": 0,
+  "minimum_missing_samples": 0,
+  "rail_values_adc": [
+    0,
+    1018
+  ],
+  "raw_clipping_fraction": 0.07121435142594296,
+  "workbook": {
+    "rows_checked": 652200,
+    "row_index_matches": true,
+    "time_matches_nominal_row_index": true,
+    "adc_matches_selected_channel": true
+  },
+  "clock": {
+    "equation": "eeg_s = rate * source_s + offset_s",
+    "rate": 1.000056959777894,
+    "offset_s": -2.2108663417484093,
+    "estimated_on": "every third non-overlapping accepted reviewed blink, sorted by peak time",
+    "grid_offsets_s": [
+      -5.0,
+      0.0
+    ],
+    "grid_rates": [
+      0.997,
+      1.003
+    ],
+    "grid_score": 24.661785259136135,
+    "alternative_grid_score": [
+      15.535073288083751,
+      0.9989999999999998,
+      -1.7249999999999535
+    ]
+  },
+  "candidate_dips": 580,
+  "fit": {
+    "total": 29,
+    "within_150ms": 28,
+    "unique_within_150ms": 28,
+    "outside_eeg": 0,
+    "median_signed_ms": -4.2755,
+    "median_absolute_ms": 19.616999999999997,
+    "p95_absolute_ms": 91.85939999999997
+  },
+  "held_out": {
+    "total": 57,
+    "within_150ms": 55,
+    "unique_within_150ms": 55,
+    "outside_eeg": 0,
+    "median_signed_ms": 6.694,
+    "median_absolute_ms": 16.615000000000002,
+    "p95_absolute_ms": 100.63789999999997
+  },
+  "held_out_in_bounds": {
+    "total": 57,
+    "within_150ms": 55,
+    "unique_within_150ms": 55,
+    "outside_eeg": 0,
+    "median_signed_ms": 6.694,
+    "median_absolute_ms": 16.615000000000002,
+    "p95_absolute_ms": 100.63789999999997
+  },
+  "held_out_shifted_controls": [
+    {
+      "shift_s": -10,
+      "n": 57,
+      "within_150ms": 21
+    },
+    {
+      "shift_s": -5,
+      "n": 57,
+      "within_150ms": 12
+    },
+    {
+      "shift_s": -2,
+      "n": 57,
+      "within_150ms": 16
+    },
+    {
+      "shift_s": 2,
+      "n": 57,
+      "within_150ms": 19
+    },
+    {
+      "shift_s": 5,
+      "n": 57,
+      "within_150ms": 15
+    },
+    {
+      "shift_s": 10,
+      "n": 56,
+      "within_150ms": 13
+    }
+  ],
+  "accepted_blinks": 86,
+  "accepted_sustained_closures": 15,
+  "overlapping_accepted_events": 0,
+  "atypical_blink_durations_over_800ms": 0,
+  "negative_examples": 0,
+  "negative_example_reason": "No independently confirmed continuous-review intervals supplied.",
+  "capture_minus_eeg_start_s": -2.801122,
+  "capture_frame_count": 18966,
+  "capture_elapsed_s": 649.6168175,
+  "capture_max_frame_interval_s": 0.29305460000000494
+}

@@ -1,0 +1,7 @@
+{
+  "port": "/dev/cu.BITalino-8C-2A",
+  "channel": "A4",
+  "utc": "2026-11-16T17:16:01.445772+00:00",
+  "samples_received": 0,
+  "error": "BITalino (opening the port and reading board firmware): The computer lost communication with the device."
+}

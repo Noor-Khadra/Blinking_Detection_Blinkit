@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlinkIt · Live webcam</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101713;color:#eff7f0;font:16px system-ui,sans-serif}
+main{max-width:1320px;margin:auto;padding:clamp(16px,4vw,40px)}h1{font-size:clamp(26px,5vw,42px);margin:0 0 6px}
+p{color:#c2d3c9;margin:0 0 15px}.stage{position:relative;background:#080e0a;border:1px solid #364d40;border-radius:18px;overflow:hidden;aspect-ratio:4/3}
+.stage video,#overlay{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1)}#overlay{pointer-events:none}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}button,a{background:#a3efb9;color:#0f2416;border:0;border-radius:9px;padding:10px 15px;font:inherit;font-weight:650}
+button:disabled{opacity:.46}button:not(:disabled),a{cursor:pointer}.secondary{background:#263a2e;color:#eff7f0}a[hidden]{display:none}
+#status{min-height:1.5em}.live{display:grid;gap:16px;align-items:start}
+@media(min-width:850px){.live{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)}}
+.ear-panel{min-width:0;padding:16px;border:1px solid #364d40;border-radius:18px;background:#152019}
+.ear-panel h2{font-size:1.1rem;margin:0 0 12px}.ear-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 10px}
+.ear-values div{padding:8px;background:#0e1812;border-radius:8px}.ear-values dt{font-size:.76rem;color:#c2d3c9}
+.ear-values dd{font-size:clamp(1rem,2.5vw,1.55rem);margin:3px 0 0;font-variant-numeric:tabular-nums}
+.eye-left{color:#8eefff}.eye-right{color:#a3ffb9}#earChart{width:100%;height:180px;display:block}
+#eyedata{font-size:.85rem;margin:8px 0 0}
+</style>
+<main>
+  <h1>Live face landmarks</h1>
+  <p id="status" role="status">Choose Start camera and allow access.</p>
+  <div class="live">
+    <div class="stage" id="stage">
+      <video id="video" autoplay muted playsinline aria-label="Mirrored webcam preview"></video>
+      <canvas id="overlay" aria-hidden="true"></canvas>
+    </div>
+    <section class="ear-panel" aria-labelledby="earTitle">
+      <h2 id="earTitle">Live eye aspect ratio (EAR)</h2>
+      <dl class="ear-values">
+        <div><dt>Left eye · solid</dt><dd class="eye-left" id="leftEar">—</dd></div>
+        <div><dt>Right eye · dashed</dt><dd class="eye-right" id="rightEar">—</dd></div>
+        <div><dt>Both eyes · mean</dt><dd id="meanEar">—</dd></div>
+      </dl>
+      <canvas id="earChart" role="img" aria-label="Left and right eye aspect ratio over the last ten seconds"></canvas>
+      <p id="eyedata">Waiting for camera. EAR drops as your eyes close.</p>
+    </section>
+  </div>
+  <div class="controls">
+    <button type="button" id="camera">Start camera</button>
+    <button type="button" id="record" class="secondary" disabled>Start recording</button>
+    <a id="saveVideo" hidden>Save video</a>
+    <a id="saveCsv" hidden>Save eye measurements</a>
+  </div>
+  <p>Look straight ahead, blink a few times, then briefly close both eyes. Recordings stay in this browser until you save them.</p>
+</main>
+<script type="module">
+const $ = id => document.getElementById(id);
+const video = $("video"), overlay = $("overlay"), ctx = overlay.getContext("2d");
+const chart = $("earChart"), graph = chart.getContext("2d");
+const camera = $("camera"), record = $("record"), status = $("status"), eyeData = $("eyedata");
+const left = [362,385,387,263,373,380], right = [33,160,158,133,153,144];
+const history = [], graphSpan = 10;
+let stream, detector, recorder, chunks, rows, sourceStart, trialUtc;
+let lastMediaTime = -1;
+const dropped = () => "Camera stopped. Select Start camera to reconnect.";
+const distance = (a,b) => Math.hypot((a.x-b.x)*overlay.width,(a.y-b.y)*overlay.height);
+const ear = (points, indices) => {
+  const [a,b,c,d,e,f] = indices.map(i => points[i]);
+  const width = distance(a,d);
+  return width > 0 ? (distance(b,f)+distance(c,e))/(2*width) : NaN;
+};
+const meanEar = (a,b) => (a + b) / 2;
+const formatEar = (value, places, missing) => Number.isFinite(value) ? value.toFixed(places) : missing;
+function showEar(a,b) {
+  $("leftEar").textContent = formatEar(a,3,"—");
+  $("rightEar").textContent = formatEar(b,3,"—");
+  $("meanEar").textContent = formatEar(meanEar(a,b),3,"—");
+}
+function drawEarGraph() {
+  const w = chart.clientWidth, h = chart.clientHeight;
+  if (!w || !h) return;
+  const scale = Math.min(devicePixelRatio || 1, 2);
+  const width = Math.round(w * scale), height = Math.round(h * scale);
+  if (chart.width !== width || chart.height !== height) {
+    chart.width = width;
+    chart.height = height;
+  }
+  graph.setTransform(scale,0,0,scale,0,0);
+  graph.clearRect(0,0,w,h);
+  const startX = 38, endX = w - 13, startY = 13, endY = h - 24;
+  const latest = history.at(-1)?.time ?? 0;
+  const oldest = latest - graphSpan;
+  let ceiling = .6;
+  for (const {a,b} of history) {
+    if (Number.isFinite(a)) ceiling = Math.max(ceiling,a);
+    if (Number.isFinite(b)) ceiling = Math.max(ceiling,b);
+  }
+  ceiling = Math.ceil((ceiling - 1e-9) / .2) * .2;
+  const x = time => startX + (time - oldest) * (endX - startX) / graphSpan;
+  const y = value => endY - value * (endY - startY) / ceiling;
+  graph.font = "11px system-ui";
+  graph.fillStyle = "#b6c9bd";
+  graph.strokeStyle = "#34493c";
+  graph.lineWidth = 1;
+  graph.setLineDash([]);
+  graph.textAlign = "right";
+  for (let i = 0; i <= 4; i++) {
+    const value = ceiling * i / 4, py = y(value);
+    graph.fillText(value.toFixed(2),startX-6,py+4);
+    graph.beginPath();
+    graph.moveTo(startX,py);
+    graph.lineTo(endX,py);
+    graph.stroke();
+  }
+  graph.textAlign = "center";
+  graph.fillText("−10 s",startX,endY+17);
+  graph.fillText("−5 s",(startX+endX)/2,endY+17);
+  graph.textAlign = "right";
+  graph.fillText("Now",endX,endY+17);
+  for (const [key,color,dash] of [["a","#8eefff",[]],["b","#a3ffb9",[4,3]]]) {
+    graph.strokeStyle = color;
+    graph.lineWidth = 2;
+    graph.setLineDash(dash);
+    graph.beginPath();
+    let previous = null;
+    for (const frame of history) {
+      if (!Number.isFinite(frame[key])) {
+        previous = null;
+        continue;
+      }
+      const px = x(frame.time), py = y(frame[key]);
+      if (previous === null || frame.time - previous > .15) graph.moveTo(px,py);
+      else graph.lineTo(px,py);
+      previous = frame.time;
+    }
+    graph.stroke();
+  }
+}
+window.addEventListener("resize",drawEarGraph);
+drawEarGraph();
+function draw(points) {
+  ctx.clearRect(0,0,overlay.width,overlay.height);
+  if (!points) return;
+  ctx.fillStyle = "#8eefff";
+  for (const p of points) ctx.fillRect(p.x*overlay.width-1,p.y*overlay.height-1,2,2);
+  ctx.strokeStyle = "#a3ffb9";
+  ctx.lineWidth = 2;
+  for (const eye of [left,right]) {
+    ctx.beginPath();
+    eye.forEach((i,j) => {
+      const p = points[i], x = p.x*overlay.width, y = p.y*overlay.height;
+      if (j === 0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    });
+    ctx.closePath();
+    ctx.stroke();
+  }
+}
+function nextFrame(activeStream) {
+  const capture = (now, metadata) => {
+    if (stream === activeStream) processFrame(now, metadata);
+  };
+  if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(capture);
+  else requestAnimationFrame(now => capture(now,{mediaTime:video.currentTime}));
+}
+function processFrame(now, metadata) {
+  if (!stream) return;
+  if (video.readyState >= 2 && metadata.mediaTime !== lastMediaTime) {
+    lastMediaTime = metadata.mediaTime;
+    const result = detector.detectForVideo(video, now);
+    const points = result.faceLandmarks[0];
+    const a = points ? ear(points,left) : NaN, b = points ? ear(points,right) : NaN;
+    draw(points);
+    showEar(a,b);
+    history.push({time:metadata.mediaTime,a,b});
+    while (history[0].time < metadata.mediaTime - graphSpan) history.shift();
+    drawEarGraph();
+    const message = points ? "EAR drops as your eyes close." : "No face detected. Keep both eyes in the frame.";
+    if (eyeData.textContent !== message) eyeData.textContent = message;
+    if (recorder?.state === "recording") {
+      sourceStart ??= metadata.mediaTime;
+      rows.push([rows.length,(metadata.mediaTime-sourceStart).toFixed(6),metadata.mediaTime.toFixed(6),Number(Boolean(points)),formatEar(a,5,""),formatEar(b,5,""),formatEar(meanEar(a,b),5,"")]);
+    }
+  }
+  nextFrame(stream);
+}
+function stopCamera(message) {
+  if (recorder?.state === "recording") recorder.stop();
+  stream?.getTracks().forEach(track => track.stop());
+  stream = null;
+  video.srcObject = null;
+  lastMediaTime = -1;
+  draw(null);
+  camera.textContent = "Start camera";
+  record.disabled = true;
+  history.length = 0;
+  showEar(NaN,NaN);
+  drawEarGraph();
+  eyeData.textContent = "Waiting for camera. EAR drops as your eyes close.";
+  status.textContent = message;
+}
+camera.onclick = async () => {
+  if (stream) { stopCamera("Camera off."); return; }
+  camera.disabled = true;
+  status.textContent = "Waiting for camera permission…";
+  try {
+    if (!navigator.mediaDevices?.getUserMedia) throw new Error("Open this page from the local server in Chrome or Safari.");
+    stream = await navigator.mediaDevices.getUserMedia({video:{width:{ideal:960},height:{ideal:720},facingMode:"user"},audio:false});
+    stream.getVideoTracks()[0].addEventListener("ended", () => stopCamera(dropped()),{once:true});
+    video.srcObject = stream;
+    await video.play();
+    overlay.width = video.videoWidth;
+    overlay.height = video.videoHeight;
+    $("stage").style.aspectRatio = `${video.videoWidth}/${video.videoHeight}`;
+    status.textContent = "Camera on · loading MediaPipe…";
+    if (!detector) {
+      const {FaceLandmarker,FilesetResolver} = await import("./vision/vision_bundle.mjs");
+      const fileset = await FilesetResolver.forVisionTasks("./vision/wasm");
+      detector = await FaceLandmarker.createFromOptions(fileset,{
+        baseOptions:{modelAssetPath:"./face_landmarker.task"},runningMode:"VIDEO",numFaces:1
+      });
+    }
+    if (!stream) return;
+    camera.textContent = "Turn camera off";
+    record.disabled = typeof MediaRecorder !== "function";
+    status.textContent = record.disabled ? "Tracking live. Recording is unavailable in this browser." : "Tracking live · ready to record.";
+    nextFrame(stream);
+  } catch (error) {
+    const detail = error.name === "NotAllowedError"
+      ? "Camera blocked. Allow it from the camera icon by the address bar, then try again."
+      : error.name === "NotReadableError" ? "Camera busy. Close the Terminal preview or any other app using it, then try again."
+      : error.message;
+    stopCamera(detail);
+  } finally { camera.disabled = false; }
+};
+function saveLink(id, blob, name) {
+  const link = $(id);
+  if (link.href.startsWith("blob:")) URL.revokeObjectURL(link.href);
+  link.href = URL.createObjectURL(blob);
+  link.download = name;
+  link.hidden = false;
+}
+record.onclick = () => {
+  if (recorder?.state === "recording") { record.disabled = true; recorder.stop(); return; }
+  try {
+    recorder = new MediaRecorder(stream);
+    chunks = [];
+    rows = [];
+    sourceStart = null;
+    trialUtc = new Date().toISOString().replaceAll(":","-");
+    recorder.ondataavailable = event => { if (event.data.size) chunks.push(event.data); };
+    recorder.onstop = () => {
+      const type = recorder.mimeType || chunks[0]?.type || "video/webm";
+      const extension = type.includes("mp4") ? "mp4" : "webm";
+      saveLink("saveVideo",new Blob(chunks,{type}),`blinkit-${trialUtc}.${extension}`);
+      const header = "processed_frame,elapsed_from_first_processed_frame_s,preview_media_time_s,face_found,ear_left,ear_right,ear_mean";
+      saveLink("saveCsv",new Blob([header+"\n"+rows.map(row=>row.join(",")).join("\n")+"\n"],{type:"text/csv"}),`blinkit-${trialUtc}.csv`);
+      record.textContent = "Start recording";
+      record.disabled = !stream;
+      status.textContent = "Recording ready · save the video and eye measurements below.";
+    };
+    recorder.start(1000);
+    record.textContent = "Stop recording";
+    status.textContent = "Recording…";
+  } catch (error) { status.textContent = `Recording could not start. ${error.message}`; }
+};
+</script>

@@ -1,0 +1,109 @@
+{
+  "source": {
+    "session_alias": "rana1",
+    "subject": "eegeyenet_ep10",
+    "data_origin": "external_public_dataset_import",
+    "source_recording": "OpenNeuro ds007338 v1.0.0 / sub-EP10 / ses-01 / task-dots run-01",
+    "source_release": "https://doi.org/10.18112/openneuro.ds007338.v1.0.0",
+    "source_license": "CC0",
+    "source_files": {
+      "source.edf": {
+        "url": "https://data.nemar.org/on007338/v1.0.0/sub-EP10/ses-01/eeg/sub-EP10_ses-01_task-dots_run-01_eeg.edf",
+        "sha256": "e30c0eb22c323977d8af03f242ebeef2ec2f8c90119e191b46f4e7a0d37e07f4"
+      },
+      "eye-events.tsv": {
+        "url": "https://data.nemar.org/on007338/v1.0.0/sub-EP10/ses-01/eeg/sub-EP10_ses-01_task-dots_run-01_recording-eye1_physioevents.tsv",
+        "sha256": "d067324a49ca331d442906060219552c91b1379f82ebde586f63df8000a2d1a4"
+      },
+      "eye-events.json": {
+        "url": "https://data.nemar.org/on007338/v1.0.0/sub-EP10/ses-01/eeg/sub-EP10_ses-01_task-dots_run-01_recording-eye1_physioevents.json",
+        "sha256": "53f33784a39fc313e3de8bd1d12e404f4339d233dd784fe923792468c96c525c"
+      },
+      "eye-samples.tsv": {
+        "url": "https://data.nemar.org/on007338/v1.0.0/sub-EP10/ses-01/eeg/sub-EP10_ses-01_task-dots_run-01_recording-eye1_physio.tsv",
+        "sha256": "5498b339e3ba96297c1461fd315327f0b61253916563e14f871989df5e610937"
+      },
+      "eye-samples.json": {
+        "url": "https://data.nemar.org/on007338/v1.0.0/sub-EP10/ses-01/eeg/sub-EP10_ses-01_task-dots_run-01_recording-eye1_physio.json",
+        "sha256": "fd6bd0ddc48322aaa3770d7a33d4194d8d9c6661be58860dffee6d8b0de9ecf6"
+      },
+      "channels.tsv": {
+        "url": "https://data.nemar.org/on007338/v1.0.0/sub-EP10/ses-01/eeg/sub-EP10_ses-01_task-dots_run-01_channels.tsv",
+        "sha256": "39bfebeca3eaec5f134cdc04686c8dba9ddc142ed7df1fcb48601cd091a0483c"
+      }
+    },
+    "eeg_source": {
+      "device": "EGI HydroCel",
+      "channel": "E22",
+      "sampling_rate_hz": 500
+    },
+    "eeg_export": {
+      "format": "OpenSignals-compatible single-channel import; not captured with BITalino",
+      "active_channel": "A3",
+      "sampling_rate_hz": 1000,
+      "resample": "polyphase 2x",
+      "samples": 323466,
+      "duration_s": 323.466,
+      "adc_center_uv": -1.2937688328312802,
+      "adc_counts_per_uv": 4.628216362441064,
+      "adc_rail_fraction": 0.000646126640821601,
+      "physical_signal_column": "data/eeg/derived/rana_recording1.csv",
+      "synthetic_columns": "nSeq is generated; unused digital and analog channels are zero-filled.",
+      "adc_center_count": 512
+    },
+    "labels": {
+      "source": "EyeLink blink events in the synchronized BIDS eye-tracker event table",
+      "onset_and_offset": "Eye tracker onset and onset + duration on the public recording timeline",
+      "peak": "Estimated as strongest absolute 0.5\u201312 Hz EEG deflection inside the annotated interval",
+      "frame_fields": "Virtual 30 fps indices rounded from source times; no measured webcam frames or webcam video",
+      "human_review": "No local human review; label review field records external eye-tracker annotation",
+      "blink_events": 68,
+      "sustained_closures": 0,
+      "background_eligibility": "Continuous valid gaze and pupil samples; EEG quality and 150 ms event margin applied"
+    },
+    "training": {
+      "package": "data/model/rana1",
+      "label_codes": {
+        "no_blink": 0,
+        "blink": 1,
+        "sustained_closure": 2
+      },
+      "partition": "Standalone external data; existing Noor model arrays and split manifests remain separate.",
+      "summary": {
+        "sample_rate_hz": 1000,
+        "window_samples": 1000,
+        "class_codes": {
+          "no_blink": 0,
+          "blink": 1,
+          "sustained_closure": 2
+        },
+        "examples": {
+          "no_blink": 221,
+          "blink": 56,
+          "sustained_closure": 0
+        },
+        "sessions": {
+          "rana1": {
+            "examples": {
+              "no_blink": 221,
+              "blink": 56,
+              "sustained_closure": 0
+            },
+            "excluded_annotation": 0,
+            "overlaps_event": 75,
+            "edge_or_gap": 0,
+            "clipping_or_flat": 1
+          }
+        },
+        "binary_blink_training_ready": true
+      }
+    }
+  },
+  "used_for": "hyperparameter selection only, not final model fitting",
+  "target": "eye-tracker interval midpoint; NOT earlier EEG-derived peak",
+  "raw_derived_sha256": "d9ee344babd97396b02afd9d67599349d55a18e1c8ad558f3d4e25de293eeee6",
+  "public_blinks": 68,
+  "folds": "minute modulo 3, two-second plus half-window guards; filters independent per minute",
+  "rows": 2587,
+  "positives": 176
+}

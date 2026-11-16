@@ -28,6 +28,34 @@ from a verified eyes-open segment. Tune on the pilot, then record the settings.
 
 ## Method and files
 
+### Live laptop webcam trial
+
+On macOS, double-click `Run_Live_Webcam.command`, or run it from the repository root:
+
+```sh
+src/webcam/Run_Live_Webcam.command
+```
+
+The launcher uses `.venv/live-webcam`. To set it up on another checkout, run
+`python3 -m venv .venv/live-webcam` and then
+`.venv/live-webcam/bin/python -m pip install -r src/webcam/requirements.txt`.
+Put the Face Landmarker model linked above in the repository root. If macOS
+prompts for camera access, allow it for the terminal running the launcher.
+Use `--camera 1` if the default camera index selects the wrong device.
+
+The mirrored preview shows live face landmarks, eye contours, and both eyes'
+EAR. With the preview window focused, press **R** to start or stop recording
+and **Q** to quit. For a quick trial, look straight ahead, blink a few times,
+then hold your eyes closed briefly and reopen them.
+
+Each trial saves a clean `webcam.mp4` and a frame-by-frame
+`webcam_timestamps.csv` under `data/raw/live_webcam/`. Capture times are
+measured when the app receives a frame. The CSV includes elapsed time,
+monotonic time, UTC, and MediaPipe eye measurements. It does not measure
+the camera's hardware exposure time. The preview overlay is drawn on a copy.
+
+### Offline extraction
+
 Extraction uses every decoded frame, source presentation timestamps, one face,
 pixel-coordinate EAR for each eye, mean EAR, and optional blink blendshape
 scores. Missing face frames remain missing. Blendshape scores are not blink

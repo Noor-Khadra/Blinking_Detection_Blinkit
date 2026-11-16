@@ -1,0 +1,432 @@
+{
+  "selected_model_from_validation": "svm_rbf",
+  "seed": 20261116,
+  "training_windows": 3690,
+  "training_positive_windows": 1379,
+  "training_negative_windows": 2311,
+  "split_counts": {
+    "test/0": 1620,
+    "test/1": 471,
+    "train/0": 5035,
+    "train/1": 1379,
+    "validation/0": 1727,
+    "validation/1": 378
+  },
+  "experiments": [
+    {
+      "model": "logistic",
+      "threshold": 0.37499999999999994,
+      "validation_event": {
+        "precision": 0.32934131736526945,
+        "recall": 0.873015873015873,
+        "f1": 0.4782608695652173,
+        "tp": 110,
+        "fp": 224,
+        "fn": 16,
+        "false_alarms_per_minute": 63.847980997624695,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      },
+      "test_window": {
+        "accuracy": 0.623860811930406,
+        "balanced_accuracy": 0.6090158543339794,
+        "precision": 0.5172413793103449,
+        "recall": 0.5414012738853503,
+        "f1": 0.529045643153527,
+        "average_precision": 0.5446574646208879,
+        "confusion_matrix": [
+          [
+            498,
+            238
+          ],
+          [
+            216,
+            255
+          ]
+        ],
+        "n": 1207,
+        "positive_windows": 471
+      },
+      "test_event": {
+        "precision": 0.4014084507042254,
+        "recall": 0.7215189873417721,
+        "f1": 0.5158371040723982,
+        "tp": 114,
+        "fp": 170,
+        "fn": 44,
+        "false_alarms_per_minute": 48.78048780487804,
+        "evaluated_minutes": 3.4850000000000003,
+        "reference_events": 158,
+        "matching_tolerance_ms": 250
+      },
+      "test_by_session": {
+        "rana_01_clean": {
+          "precision": 0.3706293706293706,
+          "recall": 0.7571428571428571,
+          "f1": 0.49765258215962443,
+          "tp": 53,
+          "fp": 90,
+          "fn": 17,
+          "false_alarms_per_minute": 51.9730510105871,
+          "evaluated_minutes": 1.7316666666666667,
+          "reference_events": 70,
+          "matching_tolerance_ms": 250
+        },
+        "rana_02": {
+          "precision": 0.4326241134751773,
+          "recall": 0.6931818181818182,
+          "f1": 0.5327510917030568,
+          "tp": 61,
+          "fp": 80,
+          "fn": 27,
+          "false_alarms_per_minute": 45.62737642585551,
+          "evaluated_minutes": 1.7533333333333336,
+          "reference_events": 88,
+          "matching_tolerance_ms": 250
+        }
+      },
+      "test_by_time": {
+        "early": {
+          "precision": 0.38028169014084506,
+          "recall": 0.675,
+          "f1": 0.48648648648648646,
+          "tp": 54,
+          "fp": 88,
+          "fn": 26,
+          "false_alarms_per_minute": 48.7985212569316,
+          "evaluated_minutes": 1.8033333333333337,
+          "reference_events": 80,
+          "matching_tolerance_ms": 250
+        },
+        "late": {
+          "precision": 0.4225352112676056,
+          "recall": 0.7692307692307693,
+          "f1": 0.5454545454545455,
+          "tp": 60,
+          "fp": 82,
+          "fn": 18,
+          "false_alarms_per_minute": 48.7611496531219,
+          "evaluated_minutes": 1.6816666666666669,
+          "reference_events": 78,
+          "matching_tolerance_ms": 250
+        }
+      }
+    },
+    {
+      "model": "svm_rbf",
+      "threshold": 0.625,
+      "validation_event": {
+        "precision": 0.848,
+        "recall": 0.8412698412698413,
+        "f1": 0.844621513944223,
+        "tp": 106,
+        "fp": 19,
+        "fn": 20,
+        "false_alarms_per_minute": 5.415676959619952,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      },
+      "test_window": {
+        "accuracy": 0.772162386081193,
+        "balanced_accuracy": 0.7145657366380505,
+        "precision": 0.9260869565217391,
+        "recall": 0.45222929936305734,
+        "f1": 0.6077032810271041,
+        "average_precision": 0.8339935262047709,
+        "confusion_matrix": [
+          [
+            719,
+            17
+          ],
+          [
+            258,
+            213
+          ]
+        ],
+        "n": 1207,
+        "positive_windows": 471
+      },
+      "test_event": {
+        "precision": 0.8240740740740741,
+        "recall": 0.5632911392405063,
+        "f1": 0.6691729323308271,
+        "tp": 89,
+        "fp": 19,
+        "fn": 69,
+        "false_alarms_per_minute": 5.451936872309899,
+        "evaluated_minutes": 3.4850000000000003,
+        "reference_events": 158,
+        "matching_tolerance_ms": 250
+      },
+      "test_by_session": {
+        "rana_01_clean": {
+          "precision": 0.84,
+          "recall": 0.6,
+          "f1": 0.7000000000000001,
+          "tp": 42,
+          "fp": 8,
+          "fn": 28,
+          "false_alarms_per_minute": 4.619826756496631,
+          "evaluated_minutes": 1.7316666666666667,
+          "reference_events": 70,
+          "matching_tolerance_ms": 250
+        },
+        "rana_02": {
+          "precision": 0.8103448275862069,
+          "recall": 0.5340909090909091,
+          "f1": 0.6438356164383561,
+          "tp": 47,
+          "fp": 11,
+          "fn": 41,
+          "false_alarms_per_minute": 6.273764258555132,
+          "evaluated_minutes": 1.7533333333333336,
+          "reference_events": 88,
+          "matching_tolerance_ms": 250
+        }
+      },
+      "test_by_time": {
+        "early": {
+          "precision": 0.8421052631578947,
+          "recall": 0.6,
+          "f1": 0.7007299270072991,
+          "tp": 48,
+          "fp": 9,
+          "fn": 32,
+          "false_alarms_per_minute": 4.99075785582255,
+          "evaluated_minutes": 1.8033333333333337,
+          "reference_events": 80,
+          "matching_tolerance_ms": 250
+        },
+        "late": {
+          "precision": 0.803921568627451,
+          "recall": 0.5256410256410257,
+          "f1": 0.6356589147286822,
+          "tp": 41,
+          "fp": 10,
+          "fn": 37,
+          "false_alarms_per_minute": 5.946481665014866,
+          "evaluated_minutes": 1.6816666666666669,
+          "reference_events": 78,
+          "matching_tolerance_ms": 250
+        }
+      }
+    },
+    {
+      "model": "extra_trees",
+      "threshold": 0.65,
+      "validation_event": {
+        "precision": 0.8559322033898306,
+        "recall": 0.8015873015873016,
+        "f1": 0.8278688524590164,
+        "tp": 101,
+        "fp": 17,
+        "fn": 25,
+        "false_alarms_per_minute": 4.845605700712588,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      },
+      "test_window": {
+        "accuracy": 0.7804473902236951,
+        "balanced_accuracy": 0.7251814478907044,
+        "precision": 0.9291666666666667,
+        "recall": 0.4734607218683652,
+        "f1": 0.6272855133614628,
+        "average_precision": 0.8448524551968764,
+        "confusion_matrix": [
+          [
+            719,
+            17
+          ],
+          [
+            248,
+            223
+          ]
+        ],
+        "n": 1207,
+        "positive_windows": 471
+      },
+      "test_event": {
+        "precision": 0.8476190476190476,
+        "recall": 0.5632911392405063,
+        "f1": 0.6768060836501901,
+        "tp": 89,
+        "fp": 16,
+        "fn": 69,
+        "false_alarms_per_minute": 4.591104734576757,
+        "evaluated_minutes": 3.4850000000000003,
+        "reference_events": 158,
+        "matching_tolerance_ms": 250
+      },
+      "test_by_session": {
+        "rana_01_clean": {
+          "precision": 0.875,
+          "recall": 0.6,
+          "f1": 0.711864406779661,
+          "tp": 42,
+          "fp": 6,
+          "fn": 28,
+          "false_alarms_per_minute": 3.4648700673724733,
+          "evaluated_minutes": 1.7316666666666667,
+          "reference_events": 70,
+          "matching_tolerance_ms": 250
+        },
+        "rana_02": {
+          "precision": 0.8245614035087719,
+          "recall": 0.5340909090909091,
+          "f1": 0.6482758620689655,
+          "tp": 47,
+          "fp": 10,
+          "fn": 41,
+          "false_alarms_per_minute": 5.703422053231939,
+          "evaluated_minutes": 1.7533333333333336,
+          "reference_events": 88,
+          "matching_tolerance_ms": 250
+        }
+      },
+      "test_by_time": {
+        "early": {
+          "precision": 0.8545454545454545,
+          "recall": 0.5875,
+          "f1": 0.6962962962962964,
+          "tp": 47,
+          "fp": 8,
+          "fn": 33,
+          "false_alarms_per_minute": 4.4362292051756,
+          "evaluated_minutes": 1.8033333333333337,
+          "reference_events": 80,
+          "matching_tolerance_ms": 250
+        },
+        "late": {
+          "precision": 0.84,
+          "recall": 0.5384615384615384,
+          "f1": 0.6562499999999999,
+          "tp": 42,
+          "fp": 8,
+          "fn": 36,
+          "false_alarms_per_minute": 4.757185332011892,
+          "evaluated_minutes": 1.6816666666666669,
+          "reference_events": 78,
+          "matching_tolerance_ms": 250
+        }
+      }
+    },
+    {
+      "model": "gradient_boosting",
+      "threshold": 0.825,
+      "validation_event": {
+        "precision": 0.8188976377952756,
+        "recall": 0.8253968253968254,
+        "f1": 0.8221343873517786,
+        "tp": 104,
+        "fp": 23,
+        "fn": 22,
+        "false_alarms_per_minute": 6.555819477434679,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      },
+      "test_window": {
+        "accuracy": 0.776304888152444,
+        "balanced_accuracy": 0.7191091456660206,
+        "precision": 0.935064935064935,
+        "recall": 0.4585987261146497,
+        "f1": 0.6153846153846154,
+        "average_precision": 0.8389898393111352,
+        "confusion_matrix": [
+          [
+            721,
+            15
+          ],
+          [
+            255,
+            216
+          ]
+        ],
+        "n": 1207,
+        "positive_windows": 471
+      },
+      "test_event": {
+        "precision": 0.8434782608695652,
+        "recall": 0.6139240506329114,
+        "f1": 0.7106227106227107,
+        "tp": 97,
+        "fp": 18,
+        "fn": 61,
+        "false_alarms_per_minute": 5.164992826398851,
+        "evaluated_minutes": 3.4850000000000003,
+        "reference_events": 158,
+        "matching_tolerance_ms": 250
+      },
+      "test_by_session": {
+        "rana_01_clean": {
+          "precision": 0.9056603773584906,
+          "recall": 0.6857142857142857,
+          "f1": 0.7804878048780488,
+          "tp": 48,
+          "fp": 5,
+          "fn": 22,
+          "false_alarms_per_minute": 2.8873917228103947,
+          "evaluated_minutes": 1.7316666666666667,
+          "reference_events": 70,
+          "matching_tolerance_ms": 250
+        },
+        "rana_02": {
+          "precision": 0.7903225806451613,
+          "recall": 0.5568181818181818,
+          "f1": 0.6533333333333332,
+          "tp": 49,
+          "fp": 13,
+          "fn": 39,
+          "false_alarms_per_minute": 7.414448669201519,
+          "evaluated_minutes": 1.7533333333333336,
+          "reference_events": 88,
+          "matching_tolerance_ms": 250
+        }
+      },
+      "test_by_time": {
+        "early": {
+          "precision": 0.8867924528301887,
+          "recall": 0.5875,
+          "f1": 0.7067669172932332,
+          "tp": 47,
+          "fp": 6,
+          "fn": 33,
+          "false_alarms_per_minute": 3.3271719038817,
+          "evaluated_minutes": 1.8033333333333337,
+          "reference_events": 80,
+          "matching_tolerance_ms": 250
+        },
+        "late": {
+          "precision": 0.8064516129032258,
+          "recall": 0.6410256410256411,
+          "f1": 0.7142857142857142,
+          "tp": 50,
+          "fp": 12,
+          "fn": 28,
+          "false_alarms_per_minute": 7.135777998017838,
+          "evaluated_minutes": 1.6816666666666669,
+          "reference_events": 78,
+          "matching_tolerance_ms": 250
+        }
+      }
+    }
+  ],
+  "versions": {
+    "python": "3.13.12",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1",
+    "sklearn": "1.8.0"
+  },
+  "limitations": [
+    "Same-person held-out time blocks, not unseen people or sessions.",
+    "Automatic webcam labels are proxy truth; errors are unreviewed.",
+    "Clock alignment is provisional; one millisecond sample spacing is not synchronization accuracy.",
+    "Scripted protocol was not followed; no condition-specific labels inferred.",
+    "Sustained closures and tracking-invalid intervals are excluded; no separate closure classifier trained.",
+    "No test-driven model selection. Test reused across predeclared models only for descriptive reporting.",
+    "Centered 1.5-second windows require 750ms lookahead; not a validated live detector."
+  ]
+}

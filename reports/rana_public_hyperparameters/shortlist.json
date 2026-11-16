@@ -1,0 +1,128 @@
+[
+  {
+    "id": "extra_trees_12",
+    "family": "extra_trees",
+    "params": {
+      "min_samples_leaf": 2,
+      "max_depth": 10,
+      "n_estimators": 200,
+      "max_features": 0.7
+    },
+    "public_fold_ap": [
+      0.9616591023251454,
+      0.8803445198803146,
+      0.6879792295458
+    ],
+    "public_mean_ap": 0.84332761725042,
+    "public_std_ap": 0.11475439425533411
+  },
+  {
+    "id": "extra_trees_13",
+    "family": "extra_trees",
+    "params": {
+      "min_samples_leaf": 2,
+      "max_depth": null,
+      "n_estimators": 200,
+      "max_features": 0.7
+    },
+    "public_fold_ap": [
+      0.9616591023251453,
+      0.8810762293720783,
+      0.683315413902962
+    ],
+    "public_mean_ap": 0.8420169152000619,
+    "public_std_ap": 0.11694165137311734
+  },
+  {
+    "id": "gradient_boosting_19",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 7,
+      "l2_regularization": 1,
+      "learning_rate": 0.1,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.9651573538948517,
+      0.915462490684459,
+      0.768745665511054
+    ],
+    "public_mean_ap": 0.8831218366967883,
+    "public_std_ap": 0.0833819575156248
+  },
+  {
+    "id": "gradient_boosting_22",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 15,
+      "l2_regularization": 1,
+      "learning_rate": 0.05,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.9645216853334387,
+      0.9110250437353267,
+      0.7525610221597999
+    ],
+    "public_mean_ap": 0.8760359170761883,
+    "public_std_ap": 0.09000003674639659
+  },
+  {
+    "id": "logistic_28",
+    "family": "logistic",
+    "params": {
+      "C": 1
+    },
+    "public_fold_ap": [
+      0.941905685842395,
+      0.8599638133106476,
+      0.6007909631808969
+    ],
+    "public_mean_ap": 0.8008868207779799,
+    "public_std_ap": 0.14539000834338964
+  },
+  {
+    "id": "logistic_27",
+    "family": "logistic",
+    "params": {
+      "C": 0.1
+    },
+    "public_fold_ap": [
+      0.9339280622972755,
+      0.8658339297039602,
+      0.5501510000149087
+    ],
+    "public_mean_ap": 0.7833043306720482,
+    "public_std_ap": 0.1671916254298184
+  },
+  {
+    "id": "svm_06",
+    "family": "svm",
+    "params": {
+      "C": 10,
+      "gamma": 0.003
+    },
+    "public_fold_ap": [
+      0.965506684549937,
+      0.8969489297981029,
+      0.9611403683606816
+    ],
+    "public_mean_ap": 0.9411986609029072,
+    "public_std_ap": 0.03134001921294615
+  },
+  {
+    "id": "svm_09",
+    "family": "svm",
+    "params": {
+      "C": 100,
+      "gamma": 0.003
+    },
+    "public_fold_ap": [
+      0.9652217815681713,
+      0.8643760789531063,
+      0.9738091806009352
+    ],
+    "public_mean_ap": 0.9344690137074042,
+    "public_std_ap": 0.04968702367412564
+  }
+]

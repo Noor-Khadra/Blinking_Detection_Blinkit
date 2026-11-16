@@ -1,0 +1,268 @@
+{
+  "seed": 20261116,
+  "configs": [
+    {
+      "id": "svm_00",
+      "family": "svm",
+      "params": {
+        "C": 0.1,
+        "gamma": 0.003
+      }
+    },
+    {
+      "id": "svm_01",
+      "family": "svm",
+      "params": {
+        "C": 0.1,
+        "gamma": 0.03
+      }
+    },
+    {
+      "id": "svm_02",
+      "family": "svm",
+      "params": {
+        "C": 0.1,
+        "gamma": 0.3
+      }
+    },
+    {
+      "id": "svm_03",
+      "family": "svm",
+      "params": {
+        "C": 1,
+        "gamma": 0.003
+      }
+    },
+    {
+      "id": "svm_04",
+      "family": "svm",
+      "params": {
+        "C": 1,
+        "gamma": 0.03
+      }
+    },
+    {
+      "id": "svm_05",
+      "family": "svm",
+      "params": {
+        "C": 1,
+        "gamma": 0.3
+      }
+    },
+    {
+      "id": "svm_06",
+      "family": "svm",
+      "params": {
+        "C": 10,
+        "gamma": 0.003
+      }
+    },
+    {
+      "id": "svm_07",
+      "family": "svm",
+      "params": {
+        "C": 10,
+        "gamma": 0.03
+      }
+    },
+    {
+      "id": "svm_08",
+      "family": "svm",
+      "params": {
+        "C": 10,
+        "gamma": 0.3
+      }
+    },
+    {
+      "id": "svm_09",
+      "family": "svm",
+      "params": {
+        "C": 100,
+        "gamma": 0.003
+      }
+    },
+    {
+      "id": "svm_10",
+      "family": "svm",
+      "params": {
+        "C": 100,
+        "gamma": 0.03
+      }
+    },
+    {
+      "id": "svm_11",
+      "family": "svm",
+      "params": {
+        "C": 100,
+        "gamma": 0.3
+      }
+    },
+    {
+      "id": "extra_trees_12",
+      "family": "extra_trees",
+      "params": {
+        "min_samples_leaf": 2,
+        "max_depth": 10,
+        "n_estimators": 200,
+        "max_features": 0.7
+      }
+    },
+    {
+      "id": "extra_trees_13",
+      "family": "extra_trees",
+      "params": {
+        "min_samples_leaf": 2,
+        "max_depth": null,
+        "n_estimators": 200,
+        "max_features": 0.7
+      }
+    },
+    {
+      "id": "extra_trees_14",
+      "family": "extra_trees",
+      "params": {
+        "min_samples_leaf": 8,
+        "max_depth": 10,
+        "n_estimators": 200,
+        "max_features": 0.7
+      }
+    },
+    {
+      "id": "extra_trees_15",
+      "family": "extra_trees",
+      "params": {
+        "min_samples_leaf": 8,
+        "max_depth": null,
+        "n_estimators": 200,
+        "max_features": 0.7
+      }
+    },
+    {
+      "id": "extra_trees_16",
+      "family": "extra_trees",
+      "params": {
+        "min_samples_leaf": 16,
+        "max_depth": 10,
+        "n_estimators": 200,
+        "max_features": 0.7
+      }
+    },
+    {
+      "id": "extra_trees_17",
+      "family": "extra_trees",
+      "params": {
+        "min_samples_leaf": 16,
+        "max_depth": null,
+        "n_estimators": 200,
+        "max_features": 0.7
+      }
+    },
+    {
+      "id": "gradient_boosting_18",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 7,
+        "l2_regularization": 1,
+        "learning_rate": 0.05,
+        "max_iter": 200
+      }
+    },
+    {
+      "id": "gradient_boosting_19",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 7,
+        "l2_regularization": 1,
+        "learning_rate": 0.1,
+        "max_iter": 200
+      }
+    },
+    {
+      "id": "gradient_boosting_20",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 7,
+        "l2_regularization": 10,
+        "learning_rate": 0.05,
+        "max_iter": 200
+      }
+    },
+    {
+      "id": "gradient_boosting_21",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 7,
+        "l2_regularization": 10,
+        "learning_rate": 0.1,
+        "max_iter": 200
+      }
+    },
+    {
+      "id": "gradient_boosting_22",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 15,
+        "l2_regularization": 1,
+        "learning_rate": 0.05,
+        "max_iter": 200
+      }
+    },
+    {
+      "id": "gradient_boosting_23",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 15,
+        "l2_regularization": 1,
+        "learning_rate": 0.1,
+        "max_iter": 200
+      }
+    },
+    {
+      "id": "gradient_boosting_24",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 15,
+        "l2_regularization": 10,
+        "learning_rate": 0.05,
+        "max_iter": 200
+      }
+    },
+    {
+      "id": "gradient_boosting_25",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 15,
+        "l2_regularization": 10,
+        "learning_rate": 0.1,
+        "max_iter": 200
+      }
+    },
+    {
+      "id": "logistic_26",
+      "family": "logistic",
+      "params": {
+        "C": 0.01
+      }
+    },
+    {
+      "id": "logistic_27",
+      "family": "logistic",
+      "params": {
+        "C": 0.1
+      }
+    },
+    {
+      "id": "logistic_28",
+      "family": "logistic",
+      "params": {
+        "C": 1
+      }
+    }
+  ],
+  "public_objective": "mean average precision over 3 held-out time-block folds",
+  "shortlist": "top two configs per family by public CV average precision",
+  "rana_objective": "event F1 on existing validation blocks; threshold grid 0.05:0.025:0.95",
+  "test_policy": "evaluate once after validation selection; test previously exposed in baseline",
+  "public_data_not_in_final_fit": true,
+  "timing": "unchanged provisional host-clock alignment; no tuning on test blinks"
+}

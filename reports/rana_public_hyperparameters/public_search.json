@@ -1,0 +1,462 @@
+[
+  {
+    "id": "svm_00",
+    "family": "svm",
+    "params": {
+      "C": 0.1,
+      "gamma": 0.003
+    },
+    "public_fold_ap": [
+      0.9312942949431363,
+      0.8201018912563423,
+      0.6544168092388799
+    ],
+    "public_mean_ap": 0.8019376651461195,
+    "public_std_ap": 0.11376214910978417
+  },
+  {
+    "id": "svm_01",
+    "family": "svm",
+    "params": {
+      "C": 0.1,
+      "gamma": 0.03
+    },
+    "public_fold_ap": [
+      0.9097502071016702,
+      0.8409902091728001,
+      0.9221453695830996
+    ],
+    "public_mean_ap": 0.89096192861919,
+    "public_std_ap": 0.03569584076197844
+  },
+  {
+    "id": "svm_02",
+    "family": "svm",
+    "params": {
+      "C": 0.1,
+      "gamma": 0.3
+    },
+    "public_fold_ap": [
+      0.8917618667807676,
+      0.7658369851203304,
+      0.8861510851968847
+    ],
+    "public_mean_ap": 0.8479166456993276,
+    "public_std_ap": 0.058084267681062875
+  },
+  {
+    "id": "svm_03",
+    "family": "svm",
+    "params": {
+      "C": 1,
+      "gamma": 0.003
+    },
+    "public_fold_ap": [
+      0.9611859818210904,
+      0.8621430186909346,
+      0.8419542288187194
+    ],
+    "public_mean_ap": 0.8884277431102481,
+    "public_std_ap": 0.05210385644303145
+  },
+  {
+    "id": "svm_04",
+    "family": "svm",
+    "params": {
+      "C": 1,
+      "gamma": 0.03
+    },
+    "public_fold_ap": [
+      0.9622413376666922,
+      0.9041372970055501,
+      0.8863930501963831
+    ],
+    "public_mean_ap": 0.9175905616228751,
+    "public_std_ap": 0.03239324440571405
+  },
+  {
+    "id": "svm_05",
+    "family": "svm",
+    "params": {
+      "C": 1,
+      "gamma": 0.3
+    },
+    "public_fold_ap": [
+      0.8917618667807676,
+      0.7657865524612022,
+      0.8847802338260333
+    ],
+    "public_mean_ap": 0.847442884356001,
+    "public_std_ap": 0.05781005220296217
+  },
+  {
+    "id": "svm_06",
+    "family": "svm",
+    "params": {
+      "C": 10,
+      "gamma": 0.003
+    },
+    "public_fold_ap": [
+      0.965506684549937,
+      0.8969489297981029,
+      0.9611403683606816
+    ],
+    "public_mean_ap": 0.9411986609029072,
+    "public_std_ap": 0.03134001921294615
+  },
+  {
+    "id": "svm_07",
+    "family": "svm",
+    "params": {
+      "C": 10,
+      "gamma": 0.03
+    },
+    "public_fold_ap": [
+      0.9626270987851573,
+      0.8899242847009381,
+      0.9105507633653307
+    ],
+    "public_mean_ap": 0.9210340489504754,
+    "public_std_ap": 0.030592474580479336
+  },
+  {
+    "id": "svm_08",
+    "family": "svm",
+    "params": {
+      "C": 10,
+      "gamma": 0.3
+    },
+    "public_fold_ap": [
+      0.8911988037177045,
+      0.7850909125494343,
+      0.9031201517725813
+    ],
+    "public_mean_ap": 0.8598032893465734,
+    "public_std_ap": 0.053053332096860445
+  },
+  {
+    "id": "svm_09",
+    "family": "svm",
+    "params": {
+      "C": 100,
+      "gamma": 0.003
+    },
+    "public_fold_ap": [
+      0.9652217815681713,
+      0.8643760789531063,
+      0.9738091806009352
+    ],
+    "public_mean_ap": 0.9344690137074042,
+    "public_std_ap": 0.04968702367412564
+  },
+  {
+    "id": "svm_10",
+    "family": "svm",
+    "params": {
+      "C": 100,
+      "gamma": 0.03
+    },
+    "public_fold_ap": [
+      0.9626270987851573,
+      0.8883756356752841,
+      0.9105022008167681
+    ],
+    "public_mean_ap": 0.9205016450924032,
+    "public_std_ap": 0.031126747424633183
+  },
+  {
+    "id": "svm_11",
+    "family": "svm",
+    "params": {
+      "C": 100,
+      "gamma": 0.3
+    },
+    "public_fold_ap": [
+      0.8911988037177045,
+      0.7850909125494343,
+      0.9031201517725813
+    ],
+    "public_mean_ap": 0.8598032893465734,
+    "public_std_ap": 0.053053332096860445
+  },
+  {
+    "id": "extra_trees_12",
+    "family": "extra_trees",
+    "params": {
+      "min_samples_leaf": 2,
+      "max_depth": 10,
+      "n_estimators": 200,
+      "max_features": 0.7
+    },
+    "public_fold_ap": [
+      0.9616591023251454,
+      0.8803445198803146,
+      0.6879792295458
+    ],
+    "public_mean_ap": 0.84332761725042,
+    "public_std_ap": 0.11475439425533411
+  },
+  {
+    "id": "extra_trees_13",
+    "family": "extra_trees",
+    "params": {
+      "min_samples_leaf": 2,
+      "max_depth": null,
+      "n_estimators": 200,
+      "max_features": 0.7
+    },
+    "public_fold_ap": [
+      0.9616591023251453,
+      0.8810762293720783,
+      0.683315413902962
+    ],
+    "public_mean_ap": 0.8420169152000619,
+    "public_std_ap": 0.11694165137311734
+  },
+  {
+    "id": "extra_trees_14",
+    "family": "extra_trees",
+    "params": {
+      "min_samples_leaf": 8,
+      "max_depth": 10,
+      "n_estimators": 200,
+      "max_features": 0.7
+    },
+    "public_fold_ap": [
+      0.9610455138055536,
+      0.8602839461653617,
+      0.6728228798908903
+    ],
+    "public_mean_ap": 0.8313841132872685,
+    "public_std_ap": 0.11942772411368809
+  },
+  {
+    "id": "extra_trees_15",
+    "family": "extra_trees",
+    "params": {
+      "min_samples_leaf": 8,
+      "max_depth": null,
+      "n_estimators": 200,
+      "max_features": 0.7
+    },
+    "public_fold_ap": [
+      0.9610455138055536,
+      0.8602839461653617,
+      0.672814100722102
+    ],
+    "public_mean_ap": 0.8313811868976725,
+    "public_std_ap": 0.11943160941723183
+  },
+  {
+    "id": "extra_trees_16",
+    "family": "extra_trees",
+    "params": {
+      "min_samples_leaf": 16,
+      "max_depth": 10,
+      "n_estimators": 200,
+      "max_features": 0.7
+    },
+    "public_fold_ap": [
+      0.9586947154115569,
+      0.8148966762918762,
+      0.6226767662258534
+    ],
+    "public_mean_ap": 0.7987560526430956,
+    "public_std_ap": 0.13765271602253304
+  },
+  {
+    "id": "extra_trees_17",
+    "family": "extra_trees",
+    "params": {
+      "min_samples_leaf": 16,
+      "max_depth": null,
+      "n_estimators": 200,
+      "max_features": 0.7
+    },
+    "public_fold_ap": [
+      0.9586947154115569,
+      0.8148966762918762,
+      0.6226767662258534
+    ],
+    "public_mean_ap": 0.7987560526430956,
+    "public_std_ap": 0.13765271602253304
+  },
+  {
+    "id": "gradient_boosting_18",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 7,
+      "l2_regularization": 1,
+      "learning_rate": 0.05,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.9653636517078243,
+      0.9116233025244295,
+      0.74356016169342
+    ],
+    "public_mean_ap": 0.8735157053085579,
+    "public_std_ap": 0.09447517758585346
+  },
+  {
+    "id": "gradient_boosting_19",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 7,
+      "l2_regularization": 1,
+      "learning_rate": 0.1,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.9651573538948517,
+      0.915462490684459,
+      0.768745665511054
+    ],
+    "public_mean_ap": 0.8831218366967883,
+    "public_std_ap": 0.0833819575156248
+  },
+  {
+    "id": "gradient_boosting_20",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 7,
+      "l2_regularization": 10,
+      "learning_rate": 0.05,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.9633224729355311,
+      0.8607263005940301,
+      0.7253046971108749
+    ],
+    "public_mean_ap": 0.8497844902134787,
+    "public_std_ap": 0.09747788745123014
+  },
+  {
+    "id": "gradient_boosting_21",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 7,
+      "l2_regularization": 10,
+      "learning_rate": 0.1,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.9641569237413188,
+      0.8931116446560113,
+      0.736045263280592
+    ],
+    "public_mean_ap": 0.8644379438926407,
+    "public_std_ap": 0.09530781096404764
+  },
+  {
+    "id": "gradient_boosting_22",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 15,
+      "l2_regularization": 1,
+      "learning_rate": 0.05,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.9645216853334387,
+      0.9110250437353267,
+      0.7525610221597999
+    ],
+    "public_mean_ap": 0.8760359170761883,
+    "public_std_ap": 0.09000003674639659
+  },
+  {
+    "id": "gradient_boosting_23",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 15,
+      "l2_regularization": 1,
+      "learning_rate": 0.1,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.9648095549911986,
+      0.9060160066901772,
+      0.7545602261727782
+    ],
+    "public_mean_ap": 0.8751285959513847,
+    "public_std_ap": 0.08856906598340539
+  },
+  {
+    "id": "gradient_boosting_24",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 15,
+      "l2_regularization": 10,
+      "learning_rate": 0.05,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.963663575614167,
+      0.8705266765812976,
+      0.7200789646405403
+    ],
+    "public_mean_ap": 0.8514230722786683,
+    "public_std_ap": 0.10035628679462269
+  },
+  {
+    "id": "gradient_boosting_25",
+    "family": "gradient_boosting",
+    "params": {
+      "max_leaf_nodes": 15,
+      "l2_regularization": 10,
+      "learning_rate": 0.1,
+      "max_iter": 200
+    },
+    "public_fold_ap": [
+      0.964157312997555,
+      0.8962762318030798,
+      0.7021296655637024
+    ],
+    "public_mean_ap": 0.8541877367881124,
+    "public_std_ap": 0.11103513877567031
+  },
+  {
+    "id": "logistic_26",
+    "family": "logistic",
+    "params": {
+      "C": 0.01
+    },
+    "public_fold_ap": [
+      0.9035787679538152,
+      0.8372210066434483,
+      0.49895512177927137
+    ],
+    "public_mean_ap": 0.7465849654588451,
+    "public_std_ap": 0.177183977326974
+  },
+  {
+    "id": "logistic_27",
+    "family": "logistic",
+    "params": {
+      "C": 0.1
+    },
+    "public_fold_ap": [
+      0.9339280622972755,
+      0.8658339297039602,
+      0.5501510000149087
+    ],
+    "public_mean_ap": 0.7833043306720482,
+    "public_std_ap": 0.1671916254298184
+  },
+  {
+    "id": "logistic_28",
+    "family": "logistic",
+    "params": {
+      "C": 1
+    },
+    "public_fold_ap": [
+      0.941905685842395,
+      0.8599638133106476,
+      0.6007909631808969
+    ],
+    "public_mean_ap": 0.8008868207779799,
+    "public_std_ap": 0.14539000834338964
+  }
+]

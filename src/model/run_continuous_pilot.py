@@ -101,6 +101,37 @@ def read_streams(data, raw_dir, ref, quality_limit):
     return streams
 
 
+@dataclass
+class TrainingWindows:
+    session: str
+    signal: np.ndarray
+    labels: np.ndarray
+
+
+def read_auxiliary_windows(folder, fraction):
+    """Read a separate, source-attributed batch for training folds only."""
+    provenance = json.loads((folder / "source_provenance.json").read_text())
+    session = provenance["session_alias"]
+    if provenance["data_origin"] != "external_public_dataset_import":
+        raise ValueError("Auxiliary training data must include public source provenance")
+    with np.load(folder / "eeg_windows.npz", allow_pickle=False) as dataset:
+        x, y = dataset["X"], dataset["y"]
+    rows = read_csv(folder / "window_index.csv")
+    expected = {"no_blink": 0, "blink": 1, "sustained_closure": 2}
+    if (x.shape != (len(rows), WINDOW) or y.shape != (len(rows),) or not np.isfinite(x).all()
+            or not np.array_equal(y, [expected[row["label"]] for row in rows])
+            or any(row["session"] != session or row["subject"] != provenance["subject"] for row in rows)):
+        raise ValueError("Auxiliary data and index do not match the attributed source")
+    positive = np.flatnonzero(y == 1)
+    background = np.flatnonzero(y == 0)
+    if len(positive) == 0:
+        raise ValueError("Auxiliary data has no blink windows")
+    count = max(1, round(len(positive) * fraction))
+    selected = np.random.default_rng(42).choice(positive, count, replace=False)
+    keep = np.sort(np.r_[selected, background])
+    signal = resample_poly(x[keep], 1, 10, axis=1).astype(np.float32)
+    return TrainingWindows(session, signal, y[keep])
+
 def orient(x):
     smooth = gaussian_filter1d(x, sigma=2, axis=1)
     peak = smooth[np.arange(len(x)), np.abs(smooth).argmax(axis=1)]
@@ -291,23 +322,84 @@ def calibrate(validation, criterion):
     return max(points, key=lambda p: p[1]["f1"])
 
 
-def run(streams, out, models, quality_limit, localize):
+def combine_training(train, auxiliary, match_gain):
+    if not (auxiliary and match_gain):
+        return [*train, *auxiliary], {}
+    target = np.concatenate([stream.signal[stream.labels == 1] for stream in train])
+    target_amplitude = np.median(waveform_features(target)[:, 0])
+    adjusted = []
+    gains = {}
+    for source in auxiliary:
+        source_amplitude = np.median(waveform_features(source.signal[source.labels == 1])[:, 0])
+        gain = float(np.clip(target_amplitude / max(source_amplitude, 1e-6), 0.5, 3.0))
+        adjusted.append(TrainingWindows(source.session, source.signal * np.float32(gain), source.labels))
+        gains[source.session] = gain
+    return [*train, *adjusted], gains
+
+
+def blocked_calibration(recordings):
+    """Hold out one chronological quarter of each calibration recording."""
+    half_window = WINDOW // 2
+    for block in range(4):
+        training, validation, metadata = [], [], []
+        for stream in recordings:
+            begin = int(stream.centers[0]) - half_window
+            length = round(stream.duration_minutes * 60_000)
+            left = begin + block * length // 4
+            right = begin + (block + 1) * length // 4
+            window_start = stream.centers - half_window
+            window_end = window_start + WINDOW
+            val = (window_start >= left) & (window_end <= right)
+            fit_mask = (window_end <= left - MATCH_MARGIN) | (window_start >= right + MATCH_MARGIN)
+            positives = stream.blinks[(stream.blinks[:, 1] >= left) & (stream.blinks[:, 1] < right)]
+            closures = stream.closures[(stream.closures[:, 2] >= left) & (stream.closures[:, 0] < right)]
+            training.append(TrainingWindows(stream.session, stream.signal[fit_mask], stream.labels[fit_mask]))
+            validation.append(Stream(stream.session, stream.centers[val], stream.signal[val], stream.valid[val],
+                                     stream.labels[val], positives, closures, (right - left) / 60_000))
+            metadata.append({
+                "session": stream.session, "validation_start_sample": left,
+                "validation_end_sample_exclusive": right,
+                "training_positive_windows": int(np.count_nonzero(stream.labels[fit_mask] == 1)),
+                "validation_blinks": len(positives),
+                "training_candidate_windows": int(fit_mask.sum()),
+                "total_candidate_windows": len(stream.centers),
+            })
+        yield training, validation, metadata
+
+
+def run(streams, out, models, quality_limit, localize, auxiliary=(), match_gain=False,
+        calibration_split="recording"):
+    if any(extra.session in streams for extra in auxiliary):
+        raise ValueError("Auxiliary data must be independent of the evaluation recordings")
     results = []
     predictions = []
+    calibration_blocks = {}
     for session, test in streams.items():
         train = [stream for name, stream in streams.items() if name != session]
+        combined, gains = combine_training(train, auxiliary, match_gain)
+        if calibration_split == "blocked":
+            blocked = list(blocked_calibration(train))
+            calibration_blocks[session] = [metadata for _, _, metadata in blocked]
+            folds = [(source, validation) for source, validation, _ in blocked]
+        else:
+            folds = [([source], [held_out]) for source, held_out in (train, train[::-1])]
+        calibration_folds = [(combine_training(source, auxiliary, match_gain)[0], validation)
+                             for source, validation in folds]
         for name in models:
             validation = []
-            for source, held_out in (train, train[::-1]):
-                validation.append((held_out, candidate_peaks(fit(name, [source]), held_out, name, localize)))
+            for source, held_out in calibration_folds:
+                predictor = fit(name, source)
+                validation.extend((block, candidate_peaks(predictor, block, name, localize))
+                                  for block in held_out)
             policies = {policy: calibrate(validation, policy) for policy in ("f1", "precision")}
-            candidates = candidate_peaks(fit(name, train), test, name, localize)
+            candidates = candidate_peaks(fit(name, combined), test, name, localize)
             for policy, (threshold, validation_stats) in policies.items():
                 retained = [(center, score) for center, score in candidates if score >= threshold]
                 tp, fp, fn, alerts = event_counts(test, [center for center, _ in retained])
                 results.append({
                     "session": session, "model": name, "policy": policy,
                     "threshold": threshold, "validation": validation_stats,
+                    "auxiliary_gain": gains,
                     **metrics(tp, fp, fn), "true_positives": tp, "false_positives": fp,
                     "missed_blinks": fn, "closure_false_alarms": alerts,
                     "false_alarms_per_minute": fp / test.duration_minutes,
@@ -333,7 +425,13 @@ def run(streams, out, models, quality_limit, localize):
     (out / "metrics.json").write_text(json.dumps({
         "max_clipped_fraction": quality_limit, "window_samples": WINDOW, "stride_samples": STRIDE,
         "suppression_samples": REFRACTORY, "event_matching_margin_samples": MATCH_MARGIN,
-        "localize_peak": localize,
+        "localize_peak": localize, "match_auxiliary_gain": match_gain,
+        "calibration_split": calibration_split, "calibration_blocks": calibration_blocks,
+        "auxiliary_training_only": {
+            extra.session: {"blink_windows": int(np.count_nonzero(extra.labels == 1)),
+                            "background_candidates": int(np.count_nonzero(extra.labels == 0))}
+            for extra in auxiliary
+        },
         "streams": metadata, "pooled": totals, "held_out": results,
     }, indent=2) + "\n")
     with (out / "detections.csv").open("w", newline="") as handle:
@@ -343,23 +441,39 @@ def run(streams, out, models, quality_limit, localize):
     print(json.dumps(totals, indent=2))
 
 
-def freeze_candidate(streams, out, name, quality_limit, localize):
+def freeze_candidate(streams, out, name, quality_limit, localize, auxiliary=(), match_gain=False,
+                     calibration_split="recording"):
     """Calibrate on out-of-fold predictions and fit a candidate for a future independent test."""
+    if any(extra.session in streams for extra in auxiliary):
+        raise ValueError("Auxiliary data must be independent of the calibration recordings")
+    if calibration_split == "blocked":
+        folds = [(training, holdout) for training, holdout, _ in blocked_calibration(streams.values())]
+    else:
+        folds = [
+            ([stream for key, stream in streams.items() if key != session], [held_out])
+            for session, held_out in streams.items()
+        ]
     validation = []
-    for session, held_out in streams.items():
-        train = [stream for key, stream in streams.items() if key != session]
-        validation.append((held_out, candidate_peaks(fit(name, train), held_out, name, localize)))
+    for train, holdout in folds:
+        combined, _ = combine_training(train, auxiliary, match_gain)
+        predict = fit(name, combined)
+        validation.extend((block, candidate_peaks(predict, block, name, localize))
+                          for block in holdout)
     out.mkdir(parents=True, exist_ok=True)
     policies = {}
     for policy in ("f1", "precision"):
         threshold, scores = calibrate(validation, policy)
         policies[policy] = {"threshold": threshold, "noor_out_of_fold_calibration": scores}
-    fit(name, list(streams.values()), weights_dir=out)
+    combined, gains = combine_training(list(streams.values()), auxiliary, match_gain)
+    fit(name, combined, weights_dir=out)
     config = {
         "model": name, "calibration_sessions": list(streams), "training_seed": 42,
+        "calibration_split": calibration_split,
         "max_clipped_fraction": quality_limit, "window_samples": WINDOW,
         "stride_samples": STRIDE, "suppression_samples": REFRACTORY,
         "localize_peak": localize, "policies": policies,
+        "auxiliary_training_sessions": [extra.session for extra in auxiliary],
+        "auxiliary_gain": gains,
     }
     (out / "detector.json").write_text(json.dumps(config, indent=2) + "\n")
     print(json.dumps(config, indent=2))
@@ -377,13 +491,26 @@ def main():
                         help="Place each alert at a nearby EEG deflection")
     parser.add_argument("--freeze-model", choices=MODELS,
                         help="Fit one candidate on all three recordings for a future external test")
+    parser.add_argument("--auxiliary-windows", type=Path,
+                        help="Attributed external EEG window package used only in training")
+    parser.add_argument("--auxiliary-fraction", type=float, choices=(0.5, 1.0), default=1.0)
+    parser.add_argument("--calibration-split", choices=("recording", "blocked"), default="recording",
+                        help="Threshold calibration using entire recordings or temporal quarters")
+    parser.add_argument("--match-auxiliary-gain", action="store_true",
+                        help="Scale external amplitudes to the current Noor training fold")
     args = parser.parse_args()
     torch.set_num_threads(1)
     streams = read_streams(args.data, args.raw_dir, args.eeg_ref, args.max_clipped_fraction)
+    auxiliary = (
+        [read_auxiliary_windows(args.auxiliary_windows, args.auxiliary_fraction)]
+        if args.auxiliary_windows else []
+    )
     if args.freeze_model:
-        freeze_candidate(streams, args.output, args.freeze_model, args.max_clipped_fraction, args.localize_peak)
+        freeze_candidate(streams, args.output, args.freeze_model, args.max_clipped_fraction,
+                         args.localize_peak, auxiliary, args.match_auxiliary_gain, args.calibration_split)
     else:
-        run(streams, args.output, args.models, args.max_clipped_fraction, args.localize_peak)
+        run(streams, args.output, args.models, args.max_clipped_fraction, args.localize_peak,
+            auxiliary, args.match_auxiliary_gain, args.calibration_split)
 
 
 if __name__ == "__main__":

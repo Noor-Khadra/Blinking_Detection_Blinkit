@@ -1,0 +1,23 @@
+{
+  "seed": 20261116,
+  "sessions": [
+    "noor4-clean"
+  ],
+  "minutes_zero_based": {
+    "0": "train",
+    "1": "train",
+    "2": "validation",
+    "3": "train",
+    "4": "test",
+    "5": "train",
+    "6": "train",
+    "7": "validation",
+    "8": "train",
+    "9": "test"
+  },
+  "purge_seconds": 2,
+  "window_seconds": 1.5,
+  "stride_seconds": 0.1,
+  "center_tolerance_seconds": 0.15,
+  "note": "Only these real sessions; protocol sections ignored. No prior/public recordings."
+}

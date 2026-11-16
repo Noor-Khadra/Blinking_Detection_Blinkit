@@ -1,0 +1,9 @@
+section,activity,instruction,countdown_start_s,activity_start_s,end_s
+rest,Rest with eyes open,Look at one point and blink naturally.,0,3,82
+reading,Read silently,Read text on the screen and blink naturally.,82,85,164
+video,Watch a video,Watch a video and blink naturally.,164,167,246
+talking,Talk or read aloud,Speak normally and blink naturally.,246,249,328
+voluntary,Voluntary blinks,"Try single, double, hard, and slow blinks, with pauses.",328,331,435
+eye_movements,Eye movements,"Look left and right, up and down, then track a moving point.",435,438,490
+artifacts,Other artifacts,"Raise eyebrows, clench jaw, swallow, then move your head.",490,493,545
+eyes_closed,Rest with eyes closed,Close both eyes and keep still. Reopen when recording ends.,545,548,600

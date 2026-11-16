@@ -1,0 +1,186 @@
+{
+  "checks_passed": [
+    "finite inputs",
+    "new real sessions only",
+    "training selection excludes validation/test",
+    "no raw sample overlap across minute blocks",
+    "saved model predictions reproduce output"
+  ],
+  "models": {
+    "logistic": {
+      "rail_over_1pct": {
+        "accuracy": 0.5555555555555556,
+        "balanced_accuracy": 0.5562205882352941,
+        "precision": 0.5335820895522388,
+        "recall": 0.572,
+        "f1": 0.5521235521235521,
+        "average_precision": 0.5860655768680016,
+        "confusion_matrix": [
+          [
+            147,
+            125
+          ],
+          [
+            107,
+            143
+          ]
+        ],
+        "n": 522,
+        "positive_windows": 250
+      },
+      "rail_at_most_1pct": {
+        "accuracy": 0.6759124087591241,
+        "balanced_accuracy": 0.6316264237790608,
+        "precision": 0.49777777777777776,
+        "recall": 0.5067873303167421,
+        "f1": 0.5022421524663677,
+        "average_precision": 0.49612675242368054,
+        "confusion_matrix": [
+          [
+            351,
+            113
+          ],
+          [
+            109,
+            112
+          ]
+        ],
+        "n": 685,
+        "positive_windows": 221
+      }
+    },
+    "svm_rbf": {
+      "rail_over_1pct": {
+        "accuracy": 0.685823754789272,
+        "balanced_accuracy": 0.6741029411764705,
+        "precision": 0.8839285714285714,
+        "recall": 0.396,
+        "f1": 0.5469613259668509,
+        "average_precision": 0.8159775453886744,
+        "confusion_matrix": [
+          [
+            259,
+            13
+          ],
+          [
+            151,
+            99
+          ]
+        ],
+        "n": 522,
+        "positive_windows": 250
+      },
+      "rail_at_most_1pct": {
+        "accuracy": 0.8379562043795621,
+        "balanced_accuracy": 0.753608207208613,
+        "precision": 0.9661016949152542,
+        "recall": 0.5158371040723982,
+        "f1": 0.672566371681416,
+        "average_precision": 0.8551187351704845,
+        "confusion_matrix": [
+          [
+            460,
+            4
+          ],
+          [
+            107,
+            114
+          ]
+        ],
+        "n": 685,
+        "positive_windows": 221
+      }
+    },
+    "extra_trees": {
+      "rail_over_1pct": {
+        "accuracy": 0.7011494252873564,
+        "balanced_accuracy": 0.6905882352941176,
+        "precision": 0.873015873015873,
+        "recall": 0.44,
+        "f1": 0.5851063829787234,
+        "average_precision": 0.8102732304647294,
+        "confusion_matrix": [
+          [
+            256,
+            16
+          ],
+          [
+            140,
+            110
+          ]
+        ],
+        "n": 522,
+        "positive_windows": 250
+      },
+      "rail_at_most_1pct": {
+        "accuracy": 0.8408759124087591,
+        "balanced_accuracy": 0.7545785223903885,
+        "precision": 0.9912280701754386,
+        "recall": 0.5113122171945701,
+        "f1": 0.6746268656716418,
+        "average_precision": 0.8829934751763806,
+        "confusion_matrix": [
+          [
+            463,
+            1
+          ],
+          [
+            108,
+            113
+          ]
+        ],
+        "n": 685,
+        "positive_windows": 221
+      }
+    },
+    "gradient_boosting": {
+      "rail_over_1pct": {
+        "accuracy": 0.6934865900383141,
+        "balanced_accuracy": 0.6822647058823529,
+        "precision": 0.8813559322033898,
+        "recall": 0.416,
+        "f1": 0.5652173913043478,
+        "average_precision": 0.8068885469131171,
+        "confusion_matrix": [
+          [
+            258,
+            14
+          ],
+          [
+            146,
+            104
+          ]
+        ],
+        "n": 522,
+        "positive_windows": 250
+      },
+      "rail_at_most_1pct": {
+        "accuracy": 0.8394160583941606,
+        "balanced_accuracy": 0.7523160789514745,
+        "precision": 0.9911504424778761,
+        "recall": 0.5067873303167421,
+        "f1": 0.6706586826347305,
+        "average_precision": 0.8791312067154841,
+        "confusion_matrix": [
+          [
+            463,
+            1
+          ],
+          [
+            109,
+            112
+          ]
+        ],
+        "n": 685,
+        "positive_windows": 221
+      }
+    }
+  },
+  "always_no_blink_window_accuracy": 0.6097763048881525,
+  "window_counts": {
+    "test": 2091,
+    "train": 6414,
+    "validation": 2105
+  },
+  "eligible_test_windows": 1207
+}

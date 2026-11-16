@@ -1,0 +1,14 @@
+{
+  "model": "cnn_01",
+  "threshold": 0.8,
+  "source_report": "reports/rana_cnn_xgb/results.json",
+  "source_sessions": [
+    "rana_01_clean",
+    "rana_02"
+  ],
+  "public_data_used": false,
+  "checkpoints": {
+    "cnn_01_20261117.pt": "1f42fd8398004379e794dd865105015365912eb9da80f8e34e96e1c4efda5beb",
+    "cnn_01_20261116.pt": "e91b503665666830fecd02f3c8cdeccf18957bcda7342af0ddcfe4aa87b9eb25"
+  }
+}

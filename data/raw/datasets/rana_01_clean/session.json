@@ -1,0 +1,20 @@
+{
+  "session": "rana_01_clean",
+  "state": "partial",
+  "planned_duration_s": 600,
+  "session_start_utc": "2026-11-16T17:37:15.283221+00:00",
+  "session_start_monotonic_ns": 1310046000000,
+  "eeg_sampling_rate_hz": 1000,
+  "eeg_address": "COM4",
+  "eeg_channel": "A4",
+  "camera_index": 0,
+  "eeg_clock_basis": "device sample sequence fitted to host batch receipt times",
+  "webcam_clock_basis": "host frame receipt time",
+  "hardware_sync_verified": false,
+  "ear_threshold_ratio": 0.55,
+  "recorded_duration_s": 600.0,
+  "webcam_frames": 17999,
+  "eeg_rows": 600010,
+  "estimated_missing_eeg_samples": 0,
+  "error": "Could not export labels: 'charmap' codec can't decode byte 0x90 in position 2352: character maps to <undefined>"
+}

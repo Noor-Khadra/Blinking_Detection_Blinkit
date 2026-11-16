@@ -1,0 +1,278 @@
+[
+  {
+    "name": "xgb_00",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 2,
+      "min_child_weight": 1,
+      "learning_rate": 0.03
+    },
+    "best_iteration": 548,
+    "threshold": 0.7,
+    "validation_event": {
+      "precision": 0.7906976744186046,
+      "recall": 0.8095238095238095,
+      "f1": 0.8,
+      "tp": 102,
+      "fp": 27,
+      "fn": 24,
+      "false_alarms_per_minute": 7.695961995249405,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_01",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 2,
+      "min_child_weight": 1,
+      "learning_rate": 0.1
+    },
+    "best_iteration": 200,
+    "threshold": 0.825,
+    "validation_event": {
+      "precision": 0.8518518518518519,
+      "recall": 0.7301587301587301,
+      "f1": 0.7863247863247863,
+      "tp": 92,
+      "fp": 16,
+      "fn": 34,
+      "false_alarms_per_minute": 4.560570071258907,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_02",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 2,
+      "min_child_weight": 5,
+      "learning_rate": 0.03
+    },
+    "best_iteration": 542,
+    "threshold": 0.7,
+    "validation_event": {
+      "precision": 0.8031496062992126,
+      "recall": 0.8095238095238095,
+      "f1": 0.8063241106719368,
+      "tp": 102,
+      "fp": 25,
+      "fn": 24,
+      "false_alarms_per_minute": 7.125890736342042,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_03",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 2,
+      "min_child_weight": 5,
+      "learning_rate": 0.1
+    },
+    "best_iteration": 269,
+    "threshold": 0.75,
+    "validation_event": {
+      "precision": 0.8031496062992126,
+      "recall": 0.8095238095238095,
+      "f1": 0.8063241106719368,
+      "tp": 102,
+      "fp": 25,
+      "fn": 24,
+      "false_alarms_per_minute": 7.125890736342042,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_04",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 3,
+      "min_child_weight": 1,
+      "learning_rate": 0.03
+    },
+    "best_iteration": 420,
+    "threshold": 0.725,
+    "validation_event": {
+      "precision": 0.8174603174603174,
+      "recall": 0.8174603174603174,
+      "f1": 0.8174603174603176,
+      "tp": 103,
+      "fp": 23,
+      "fn": 23,
+      "false_alarms_per_minute": 6.555819477434679,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_05",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 3,
+      "min_child_weight": 1,
+      "learning_rate": 0.1
+    },
+    "best_iteration": 181,
+    "threshold": 0.825,
+    "validation_event": {
+      "precision": 0.8584070796460177,
+      "recall": 0.7698412698412699,
+      "f1": 0.8117154811715481,
+      "tp": 97,
+      "fp": 16,
+      "fn": 29,
+      "false_alarms_per_minute": 4.560570071258907,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_06",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 3,
+      "min_child_weight": 5,
+      "learning_rate": 0.03
+    },
+    "best_iteration": 429,
+    "threshold": 0.7,
+    "validation_event": {
+      "precision": 0.8,
+      "recall": 0.8253968253968254,
+      "f1": 0.8125,
+      "tp": 104,
+      "fp": 26,
+      "fn": 22,
+      "false_alarms_per_minute": 7.410926365795723,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_07",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 3,
+      "min_child_weight": 5,
+      "learning_rate": 0.1
+    },
+    "best_iteration": 174,
+    "threshold": 0.7999999999999999,
+    "validation_event": {
+      "precision": 0.8448275862068966,
+      "recall": 0.7777777777777778,
+      "f1": 0.8099173553719008,
+      "tp": 98,
+      "fp": 18,
+      "fn": 28,
+      "false_alarms_per_minute": 5.13064133016627,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_08",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 5,
+      "min_child_weight": 1,
+      "learning_rate": 0.03
+    },
+    "best_iteration": 475,
+    "threshold": 0.825,
+    "validation_event": {
+      "precision": 0.8559322033898306,
+      "recall": 0.8015873015873016,
+      "f1": 0.8278688524590164,
+      "tp": 101,
+      "fp": 17,
+      "fn": 25,
+      "false_alarms_per_minute": 4.845605700712588,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_09",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 5,
+      "min_child_weight": 1,
+      "learning_rate": 0.1
+    },
+    "best_iteration": 72,
+    "threshold": 0.75,
+    "validation_event": {
+      "precision": 0.8278688524590164,
+      "recall": 0.8015873015873016,
+      "f1": 0.814516129032258,
+      "tp": 101,
+      "fp": 21,
+      "fn": 25,
+      "false_alarms_per_minute": 5.985748218527315,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_10",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 5,
+      "min_child_weight": 5,
+      "learning_rate": 0.03
+    },
+    "best_iteration": 261,
+    "threshold": 0.775,
+    "validation_event": {
+      "precision": 0.8521739130434782,
+      "recall": 0.7777777777777778,
+      "f1": 0.8132780082987553,
+      "tp": 98,
+      "fp": 17,
+      "fn": 28,
+      "false_alarms_per_minute": 4.845605700712588,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  },
+  {
+    "name": "xgb_11",
+    "family": "xgboost",
+    "config": {
+      "max_depth": 5,
+      "min_child_weight": 5,
+      "learning_rate": 0.1
+    },
+    "best_iteration": 185,
+    "threshold": 0.7999999999999999,
+    "validation_event": {
+      "precision": 0.8548387096774194,
+      "recall": 0.8412698412698413,
+      "f1": 0.848,
+      "tp": 106,
+      "fp": 18,
+      "fn": 20,
+      "false_alarms_per_minute": 5.13064133016627,
+      "evaluated_minutes": 3.5083333333333337,
+      "reference_events": 126,
+      "matching_tolerance_ms": 250
+    }
+  }
+]

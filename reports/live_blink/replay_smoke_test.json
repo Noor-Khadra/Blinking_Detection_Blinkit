@@ -1,0 +1,32 @@
+{
+  "source": "REPLAY only: first 15 seconds rana_01_clean",
+  "scores": 116,
+  "alerts": [
+    {
+      "peak_s": 6.1495,
+      "score": 0.9438305497169495,
+      "emitted_s": 7.199,
+      "algorithm_delay_s": 1.0495
+    },
+    {
+      "peak_s": 7.9495,
+      "score": 0.9999713897705078,
+      "emitted_s": 8.999,
+      "algorithm_delay_s": 1.049500000000001
+    },
+    {
+      "peak_s": 10.2495,
+      "score": 0.9350287914276123,
+      "emitted_s": 11.299,
+      "algorithm_delay_s": 1.0495
+    },
+    {
+      "peak_s": 11.6495,
+      "score": 0.9525569677352905,
+      "emitted_s": 12.699,
+      "algorithm_delay_s": 1.0495
+    }
+  ],
+  "gaps": 0,
+  "hardware_verified": false
+}

@@ -1,0 +1,242 @@
+{
+  "winner": "svm_09",
+  "candidates": [
+    {
+      "id": "extra_trees_12",
+      "family": "extra_trees",
+      "params": {
+        "min_samples_leaf": 2,
+        "max_depth": 10,
+        "n_estimators": 200,
+        "max_features": 0.7
+      },
+      "public_fold_ap": [
+        0.9616591023251454,
+        0.8803445198803146,
+        0.6879792295458
+      ],
+      "public_mean_ap": 0.84332761725042,
+      "public_std_ap": 0.11475439425533411,
+      "threshold": 0.625,
+      "validation_event": {
+        "precision": 0.7923076923076923,
+        "recall": 0.8174603174603174,
+        "f1": 0.8046874999999999,
+        "tp": 103,
+        "fp": 27,
+        "fn": 23,
+        "false_alarms_per_minute": 7.695961995249405,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      }
+    },
+    {
+      "id": "extra_trees_13",
+      "family": "extra_trees",
+      "params": {
+        "min_samples_leaf": 2,
+        "max_depth": null,
+        "n_estimators": 200,
+        "max_features": 0.7
+      },
+      "public_fold_ap": [
+        0.9616591023251453,
+        0.8810762293720783,
+        0.683315413902962
+      ],
+      "public_mean_ap": 0.8420169152000619,
+      "public_std_ap": 0.11694165137311734,
+      "threshold": 0.7,
+      "validation_event": {
+        "precision": 0.8660714285714286,
+        "recall": 0.7698412698412699,
+        "f1": 0.8151260504201681,
+        "tp": 97,
+        "fp": 15,
+        "fn": 29,
+        "false_alarms_per_minute": 4.275534441805225,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      }
+    },
+    {
+      "id": "gradient_boosting_19",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 7,
+        "l2_regularization": 1,
+        "learning_rate": 0.1,
+        "max_iter": 200
+      },
+      "public_fold_ap": [
+        0.9651573538948517,
+        0.915462490684459,
+        0.768745665511054
+      ],
+      "public_mean_ap": 0.8831218366967883,
+      "public_std_ap": 0.0833819575156248,
+      "threshold": 0.775,
+      "validation_event": {
+        "precision": 0.8064516129032258,
+        "recall": 0.7936507936507936,
+        "f1": 0.7999999999999999,
+        "tp": 100,
+        "fp": 24,
+        "fn": 26,
+        "false_alarms_per_minute": 6.84085510688836,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      }
+    },
+    {
+      "id": "gradient_boosting_22",
+      "family": "gradient_boosting",
+      "params": {
+        "max_leaf_nodes": 15,
+        "l2_regularization": 1,
+        "learning_rate": 0.05,
+        "max_iter": 200
+      },
+      "public_fold_ap": [
+        0.9645216853334387,
+        0.9110250437353267,
+        0.7525610221597999
+      ],
+      "public_mean_ap": 0.8760359170761883,
+      "public_std_ap": 0.09000003674639659,
+      "threshold": 0.825,
+      "validation_event": {
+        "precision": 0.8596491228070176,
+        "recall": 0.7777777777777778,
+        "f1": 0.8166666666666668,
+        "tp": 98,
+        "fp": 16,
+        "fn": 28,
+        "false_alarms_per_minute": 4.560570071258907,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      }
+    },
+    {
+      "id": "logistic_28",
+      "family": "logistic",
+      "params": {
+        "C": 1
+      },
+      "public_fold_ap": [
+        0.941905685842395,
+        0.8599638133106476,
+        0.6007909631808969
+      ],
+      "public_mean_ap": 0.8008868207779799,
+      "public_std_ap": 0.14539000834338964,
+      "threshold": 0.44999999999999996,
+      "validation_event": {
+        "precision": 0.36059479553903345,
+        "recall": 0.7698412698412699,
+        "f1": 0.4911392405063291,
+        "tp": 97,
+        "fp": 172,
+        "fn": 29,
+        "false_alarms_per_minute": 49.02612826603325,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      }
+    },
+    {
+      "id": "logistic_27",
+      "family": "logistic",
+      "params": {
+        "C": 0.1
+      },
+      "public_fold_ap": [
+        0.9339280622972755,
+        0.8658339297039602,
+        0.5501510000149087
+      ],
+      "public_mean_ap": 0.7833043306720482,
+      "public_std_ap": 0.1671916254298184,
+      "threshold": 0.37499999999999994,
+      "validation_event": {
+        "precision": 0.32934131736526945,
+        "recall": 0.873015873015873,
+        "f1": 0.4782608695652173,
+        "tp": 110,
+        "fp": 224,
+        "fn": 16,
+        "false_alarms_per_minute": 63.847980997624695,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      }
+    },
+    {
+      "id": "svm_06",
+      "family": "svm",
+      "params": {
+        "C": 10,
+        "gamma": 0.003
+      },
+      "public_fold_ap": [
+        0.965506684549937,
+        0.8969489297981029,
+        0.9611403683606816
+      ],
+      "public_mean_ap": 0.9411986609029072,
+      "public_std_ap": 0.03134001921294615,
+      "threshold": 0.525,
+      "validation_event": {
+        "precision": 0.7666666666666667,
+        "recall": 0.9126984126984127,
+        "f1": 0.8333333333333334,
+        "tp": 115,
+        "fp": 35,
+        "fn": 11,
+        "false_alarms_per_minute": 9.97624703087886,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      }
+    },
+    {
+      "id": "svm_09",
+      "family": "svm",
+      "params": {
+        "C": 100,
+        "gamma": 0.003
+      },
+      "public_fold_ap": [
+        0.9652217815681713,
+        0.8643760789531063,
+        0.9738091806009352
+      ],
+      "public_mean_ap": 0.9344690137074042,
+      "public_std_ap": 0.04968702367412564,
+      "threshold": 0.65,
+      "validation_event": {
+        "precision": 0.7945205479452054,
+        "recall": 0.9206349206349206,
+        "f1": 0.8529411764705882,
+        "tp": 116,
+        "fp": 30,
+        "fn": 10,
+        "false_alarms_per_minute": 8.55106888361045,
+        "evaluated_minutes": 3.5083333333333337,
+        "reference_events": 126,
+        "matching_tolerance_ms": 250
+      }
+    }
+  ],
+  "final_fit_sessions": [
+    "rana_01_clean",
+    "rana_02"
+  ],
+  "training_rows": 3690,
+  "training_windows_sha256": "8bd407c32d6ceba6a0b91d34688890d3340b6455997bd71be9c57c0fd43622ce",
+  "test_used_for_selection": false
+}

@@ -1,0 +1,39 @@
+{
+  "new_recording": "noor4-clean",
+  "source_archive_sha256": "5dced927b6300df1b1096f9b8778345f58bf658ee20c6e060035255b361938a0",
+  "cnn_config": {
+    "width": 16,
+    "dropout": 0.2,
+    "lr": 0.001
+  },
+  "seeds": [
+    20261116,
+    20261117
+  ],
+  "experiments": [
+    "frozen_Rana_to_Noor_all",
+    "frozen_Rana_to_Noor_test_blocks",
+    "pooled_Rana_Noor_test_blocks",
+    "Noor_to_Rana_all"
+  ],
+  "split": {
+    "0": "train",
+    "1": "train",
+    "2": "validation",
+    "3": "train",
+    "4": "test",
+    "5": "train",
+    "6": "train",
+    "7": "validation",
+    "8": "train",
+    "9": "test"
+  },
+  "notes": [
+    "Use only two real Rana sessions plus new Noor4; no historical Noor or public data.",
+    "Raw timestamps aligned using same provisional clock mapping.",
+    "Protocol labels ignored as unverified; no activity-specific claims.",
+    "Rana results are reused-test; pooled held-out times are familiar-person tests.",
+    "Noor-only threshold and epoch selected using Noor validation only.",
+    "Current live model is not replaced."
+  ]
+}

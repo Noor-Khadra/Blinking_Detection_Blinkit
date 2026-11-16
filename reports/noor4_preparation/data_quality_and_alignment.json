@@ -1,0 +1,67 @@
+{
+  "noor4-clean": {
+    "source_metadata": {
+      "session": "noor4-clean",
+      "state": "partial",
+      "planned_duration_s": 600,
+      "session_start_utc": "2026-11-16T18:14:17.379518+00:00",
+      "session_start_monotonic_ns": 3532156000000,
+      "eeg_sampling_rate_hz": 1000,
+      "eeg_address": "COM4",
+      "eeg_channel": "A4",
+      "camera_index": 0,
+      "eeg_clock_basis": "device sample sequence fitted to host batch receipt times",
+      "webcam_clock_basis": "host frame receipt time",
+      "hardware_sync_verified": false,
+      "ear_threshold_ratio": 0.55,
+      "recorded_duration_s": 600.0,
+      "webcam_frames": 17996,
+      "eeg_rows": 600009,
+      "estimated_missing_eeg_samples": 0,
+      "error": "Could not export labels: 'charmap' codec can't decode byte 0x90 in position 2352: character maps to <undefined>"
+    },
+    "rows": 600009,
+    "missing_samples": 0,
+    "adc_min": 0,
+    "adc_max": 1018,
+    "rail_fraction": 0.00960318928549405,
+    "clock_scale": 0.999986040634576,
+    "clock_intercept_s": -2632.2695515452397,
+    "batch_residual_p95_ms": 40.676840690650806,
+    "mapping": "session_s = original_sample_index / 1000 * clock_scale + clock_intercept_s",
+    "hardware_sync_verified": false,
+    "mapping_status": "provisional; host receipt clocks, no hardware latency measurement",
+    "webcam_duplicate_times": 3,
+    "webcam_frame_interval_median_ms": 31.00000000000591,
+    "threshold_for_no_blink": 0.1944607161704587,
+    "blink_events": 130,
+    "sustained_closures": 18,
+    "alignment_polarity_selected_on_training": -1,
+    "alignment_checks": {
+      "test": {
+        "n": 22,
+        "within_150ms": 21,
+        "median_signed_ms": 9.47278581060118,
+        "median_absolute_ms": 71.13467297794784,
+        "p95_absolute_ms": 137.46311068932187,
+        "ambiguous": 3
+      },
+      "train": {
+        "n": 67,
+        "within_150ms": 63,
+        "median_signed_ms": 17.688859379177302,
+        "median_absolute_ms": 52.236806675466596,
+        "p95_absolute_ms": 186.1464340918073,
+        "ambiguous": 5
+      },
+      "validation": {
+        "n": 41,
+        "within_150ms": 39,
+        "median_signed_ms": -29.702358735562484,
+        "median_absolute_ms": 83.94546108416989,
+        "p95_absolute_ms": 145.99170846219067,
+        "ambiguous": 8
+      }
+    }
+  }
+}

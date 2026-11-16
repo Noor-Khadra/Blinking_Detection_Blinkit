@@ -1,0 +1,102 @@
+[
+  {
+    "name": "frozen_Rana_to_Noor_all",
+    "threshold": 0.8,
+    "window": {
+      "accuracy": 0.9168372569089048,
+      "balanced_accuracy": 0.5774861189725344,
+      "precision": 0.5333333333333333,
+      "recall": 0.1686746987951807,
+      "f1": 0.2562929061784897,
+      "average_precision": 0.32924845553158927,
+      "confusion_matrix": [
+        [
+          3527,
+          49
+        ],
+        [
+          276,
+          56
+        ]
+      ],
+      "n": 3908,
+      "positive_windows": 332
+    },
+    "event": {
+      "precision": 0.4426229508196721,
+      "recall": 0.23893805309734514,
+      "f1": 0.3103448275862069,
+      "tp": 27,
+      "fp": 34,
+      "fn": 86,
+      "false_alarms_per_minute": 4.263322884012539,
+      "evaluated_minutes": 7.975,
+      "reference_events": 113,
+      "matching_tolerance_ms": 250
+    },
+    "by_person": {
+      "Noor": {
+        "precision": 0.4426229508196721,
+        "recall": 0.23893805309734514,
+        "f1": 0.3103448275862069,
+        "tp": 27,
+        "fp": 34,
+        "fn": 86,
+        "false_alarms_per_minute": 4.263322884012539,
+        "evaluated_minutes": 7.975,
+        "reference_events": 113,
+        "matching_tolerance_ms": 250
+      }
+    }
+  },
+  {
+    "name": "frozen_Rana_to_Noor_test_blocks",
+    "threshold": 0.8,
+    "window": {
+      "accuracy": 0.9189526184538653,
+      "balanced_accuracy": 0.5379597012822319,
+      "precision": 0.17857142857142858,
+      "recall": 0.10638297872340426,
+      "f1": 0.13333333333333333,
+      "average_precision": 0.18939686781689424,
+      "confusion_matrix": [
+        [
+          732,
+          23
+        ],
+        [
+          42,
+          5
+        ]
+      ],
+      "n": 802,
+      "positive_windows": 47
+    },
+    "event": {
+      "precision": 0.1875,
+      "recall": 0.17647058823529413,
+      "f1": 0.1818181818181818,
+      "tp": 3,
+      "fp": 13,
+      "fn": 14,
+      "false_alarms_per_minute": 8.487486398258977,
+      "evaluated_minutes": 1.5316666666666667,
+      "reference_events": 17,
+      "matching_tolerance_ms": 250
+    },
+    "by_person": {
+      "Noor": {
+        "precision": 0.1875,
+        "recall": 0.17647058823529413,
+        "f1": 0.1818181818181818,
+        "tp": 3,
+        "fp": 13,
+        "fn": 14,
+        "false_alarms_per_minute": 8.487486398258977,
+        "evaluated_minutes": 1.5316666666666667,
+        "reference_events": 17,
+        "matching_tolerance_ms": 250
+      }
+    }
+  }
+]
