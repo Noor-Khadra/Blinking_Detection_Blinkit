@@ -1,0 +1,34 @@
+{
+  "model": "waveform_svm",
+  "calibration_sessions": [
+    "noor1",
+    "noor2",
+    "noor3"
+  ],
+  "training_seed": 42,
+  "max_clipped_fraction": 0.25,
+  "window_samples": 1000,
+  "stride_samples": 100,
+  "suppression_samples": 350,
+  "localize_peak": false,
+  "policies": {
+    "f1": {
+      "threshold": 0.8572771459245488,
+      "noor_out_of_fold_calibration": {
+        "precision": 0.28205128205128205,
+        "recall": 0.5283842794759825,
+        "f1": 0.3677811550151976,
+        "f0_5": 0.3110539845758355
+      }
+    },
+    "precision": {
+      "threshold": 0.901350775763257,
+      "noor_out_of_fold_calibration": {
+        "precision": 0.2922636103151863,
+        "recall": 0.44541484716157204,
+        "f1": 0.35294117647058826,
+        "f0_5": 0.31384615384615383
+      }
+    }
+  }
+}

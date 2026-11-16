@@ -63,3 +63,7 @@ The figure shows the original Noor 1 pilot. To generate an updated figure, run
 local `webcam_ear.csv` measurements.
 
 The [model data guide](data/model/README.md) documents the cleaned event tables, EEG tensors, and commands to rebuild them.
+
+## EEG training experiments
+
+See the [experiment results and plots](reports/blink_experiments/README.md) for the window-classification pilot, continuous EEG comparisons, and false-alarm analysis.
