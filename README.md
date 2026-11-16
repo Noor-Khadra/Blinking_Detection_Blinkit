@@ -61,3 +61,5 @@ Each CSV contains accepted visual annotations with onset, peak, and offset in so
 The figure shows the original Noor 1 pilot. To generate an updated figure, run
 `python reports/plot_webcam_results.py` with NumPy, Matplotlib, and the
 local `webcam_ear.csv` measurements.
+
+The [model data guide](data/model/README.md) documents the cleaned event tables, EEG tensors, and commands to rebuild them.

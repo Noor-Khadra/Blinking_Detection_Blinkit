@@ -1,0 +1,50 @@
+{
+  "sample_rate_hz": 1000,
+  "window_samples": 1000,
+  "class_codes": {
+    "no_blink": 0,
+    "blink": 1,
+    "sustained_closure": 2
+  },
+  "examples": {
+    "no_blink": 0,
+    "blink": 90,
+    "sustained_closure": 13
+  },
+  "sessions": {
+    "noor1": {
+      "examples": {
+        "no_blink": 0,
+        "blink": 37,
+        "sustained_closure": 5
+      },
+      "excluded_annotation": 7,
+      "overlaps_event": 0,
+      "edge_or_gap": 0,
+      "clipping_or_flat": 20
+    },
+    "noor2": {
+      "examples": {
+        "no_blink": 0,
+        "blink": 45,
+        "sustained_closure": 5
+      },
+      "excluded_annotation": 8,
+      "overlaps_event": 28,
+      "edge_or_gap": 0,
+      "clipping_or_flat": 4
+    },
+    "noor3": {
+      "examples": {
+        "no_blink": 0,
+        "blink": 8,
+        "sustained_closure": 3
+      },
+      "excluded_annotation": 3,
+      "overlaps_event": 21,
+      "edge_or_gap": 0,
+      "clipping_or_flat": 66
+    }
+  },
+  "binary_blink_training_ready": false
+}
