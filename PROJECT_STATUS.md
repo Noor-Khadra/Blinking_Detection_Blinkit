@@ -2,9 +2,13 @@
 
 ## Active live model
 
-**The live interface uses the Rana-only `cnn_01` model**, averaging seeds 20261116 and 20261117. Its checkpoints are in `src/live_blink/models/`, with provenance and hashes in `manifest.json`. The Rana+Noor model has NOT replaced it.
+**The BITalino desktop app in `src/live_blink/` uses the Rana-only `cnn_01` model**, averaging seeds 20261116 and 20261117. Its checkpoints are in `src/live_blink/models/`, with provenance and hashes in `manifest.json`.
 
 Windows: extract `dist/BlinkIt_Live_CNN.zip`, run `src/live_blink/Setup_Windows.cmd`, then `Run_Live_Blinks.cmd`. The interface plots EEG, marks detected blinks and plays a sound. The model has about 1.05 seconds of algorithm delay plus device delivery latency. See [live interface documentation](src/live_blink/README.md).
+
+## Best evaluated Rana replay
+
+The [Rana + Noor 2 replay candidate](reports/rana_noor2_replay/README.md) matched 118 of 159 review-adjusted Rana blink labels with 14 unmatched alerts. It reached 89.4% precision and 74.2% recall, with 0.95 seconds of algorithmic delay. The report includes the candidate weights, validation choices and limitations. This replay result uses different weights and alert settings from the live demo.
 
 ## Experiments
 

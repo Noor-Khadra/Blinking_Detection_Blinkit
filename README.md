@@ -1,6 +1,11 @@
 # Blinking_Detection_Blinkit
 Real-time eye-blink detection from single-channel BITalino EEG, trained using webcam-labeled blinks as ground truth.
 
+## Demo and results
+
+- [BITalino desktop demo](src/live_blink/README.md) uses the Rana-only CNN.
+- [Best evaluated Rana replay candidate](reports/rana_noor2_replay/README.md) uses Rana + Noor 2 and a faster alert rule. It matched 118 of 159 review-adjusted blink labels with 14 unmatched alerts in replay. The candidate checkpoints and settings are included with the report.
+
 ## How it works
 1. SENSE    - BITalino EEG (3 electrodes, 1 channel) + webcam recorded together
 2. PROCESS  - Video blinks are detected and checked, then used to label the
