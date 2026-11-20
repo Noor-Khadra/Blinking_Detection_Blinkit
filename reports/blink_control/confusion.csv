@@ -1,0 +1,37 @@
+detector,max_gap_s,gesture,blinks,correct,missed,wrong
+CNN Rana+Noor2 replay,0.5,NEXT,2,0.266,0.728,0.007
+CNN Rana+Noor2 replay,0.5,PREVIOUS,3,0.093,0.552,0.355
+CNN Rana+Noor2 replay,0.5,PLAY_PAUSE,4,0.03,0.445,0.524
+CNN Rana+Noor2 replay,0.6,NEXT,2,0.466,0.517,0.017
+CNN Rana+Noor2 replay,0.6,PREVIOUS,3,0.306,0.342,0.352
+CNN Rana+Noor2 replay,0.6,PLAY_PAUSE,4,0.18,0.225,0.596
+CNN Rana+Noor2 replay,0.7,NEXT,2,0.516,0.459,0.025
+CNN Rana+Noor2 replay,0.7,PREVIOUS,3,0.374,0.301,0.325
+CNN Rana+Noor2 replay,0.7,PLAY_PAUSE,4,0.254,0.189,0.557
+CNN Rana+Noor2 replay,0.8,NEXT,2,0.525,0.444,0.031
+CNN Rana+Noor2 replay,0.8,PREVIOUS,3,0.381,0.284,0.335
+CNN Rana+Noor2 replay,0.8,PLAY_PAUSE,4,0.264,0.183,0.553
+CNN Rana+Noor2 replay,1.0,NEXT,2,0.519,0.433,0.048
+CNN Rana+Noor2 replay,1.0,PREVIOUS,3,0.385,0.216,0.399
+CNN Rana+Noor2 replay,1.0,PLAY_PAUSE,4,0.272,0.149,0.579
+CNN Rana+Noor2 replay,1.2,NEXT,2,0.517,0.422,0.061
+CNN Rana+Noor2 replay,1.2,PREVIOUS,3,0.393,0.158,0.449
+CNN Rana+Noor2 replay,1.2,PLAY_PAUSE,4,0.281,0.125,0.595
+"Boosted model, Noor held-out",0.5,NEXT,2,0.217,0.778,0.004
+"Boosted model, Noor held-out",0.5,PREVIOUS,3,0.067,0.629,0.303
+"Boosted model, Noor held-out",0.5,PLAY_PAUSE,4,0.021,0.515,0.464
+"Boosted model, Noor held-out",0.6,NEXT,2,0.382,0.609,0.009
+"Boosted model, Noor held-out",0.6,PREVIOUS,3,0.231,0.437,0.332
+"Boosted model, Noor held-out",0.6,PLAY_PAUSE,4,0.124,0.299,0.577
+"Boosted model, Noor held-out",0.7,NEXT,2,0.425,0.561,0.013
+"Boosted model, Noor held-out",0.7,PREVIOUS,3,0.284,0.397,0.32
+"Boosted model, Noor held-out",0.7,PLAY_PAUSE,4,0.179,0.264,0.557
+"Boosted model, Noor held-out",0.8,NEXT,2,0.432,0.551,0.017
+"Boosted model, Noor held-out",0.8,PREVIOUS,3,0.287,0.383,0.33
+"Boosted model, Noor held-out",0.8,PLAY_PAUSE,4,0.181,0.253,0.566
+"Boosted model, Noor held-out",1.0,NEXT,2,0.433,0.542,0.025
+"Boosted model, Noor held-out",1.0,PREVIOUS,3,0.295,0.317,0.388
+"Boosted model, Noor held-out",1.0,PLAY_PAUSE,4,0.19,0.207,0.603
+"Boosted model, Noor held-out",1.2,NEXT,2,0.437,0.53,0.033
+"Boosted model, Noor held-out",1.2,PREVIOUS,3,0.3,0.256,0.444
+"Boosted model, Noor held-out",1.2,PLAY_PAUSE,4,0.196,0.167,0.637
