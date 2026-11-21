@@ -1,0 +1,25 @@
+session,section,activity,auto_blinks,per_min
+rana_01_clean,rest,Rest with eyes open,60,45.6
+rana_01_clean,reading,Read silently,43,32.7
+rana_01_clean,video,Watch a video,47,35.7
+rana_01_clean,talking,Talk or read aloud,54,41.0
+rana_01_clean,voluntary,Voluntary blinks,82,47.3
+rana_01_clean,eye_movements,Eye movements,29,33.5
+rana_01_clean,artifacts,Other artifacts,60,69.2
+rana_01_clean,eyes_closed,Rest with eyes closed,35,40.4
+rana_02,rest,Rest with eyes open,59,44.8
+rana_02,reading,Read silently,62,47.1
+rana_02,video,Watch a video,57,43.3
+rana_02,talking,Talk or read aloud,51,38.7
+rana_02,voluntary,Voluntary blinks,81,46.7
+rana_02,eye_movements,Eye movements,31,35.8
+rana_02,artifacts,Other artifacts,32,36.9
+rana_02,eyes_closed,Rest with eyes closed,48,55.4
+noor4-clean,rest,Rest with eyes open,17,12.9
+noor4-clean,reading,Read silently,15,11.4
+noor4-clean,video,Watch a video,17,12.9
+noor4-clean,talking,Talk or read aloud,4,3.0
+noor4-clean,voluntary,Voluntary blinks,22,12.7
+noor4-clean,eye_movements,Eye movements,22,25.4
+noor4-clean,artifacts,Other artifacts,20,23.1
+noor4-clean,eyes_closed,Rest with eyes closed,13,15.0
