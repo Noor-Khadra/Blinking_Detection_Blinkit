@@ -1,6 +1,5 @@
 {
   "source": {
-    "session_alias": "rana1",
     "subject": "eegeyenet_ep10",
     "data_origin": "external_public_dataset_import",
     "source_recording": "OpenNeuro ds007338 v1.0.0 / sub-EP10 / ses-01 / task-dots run-01",
@@ -47,57 +46,11 @@
       "adc_center_uv": -1.2937688328312802,
       "adc_counts_per_uv": 4.628216362441064,
       "adc_rail_fraction": 0.000646126640821601,
-      "physical_signal_column": "data/eeg/derived/rana_recording1.csv",
+      "physical_signal_column": "data/external/eegeyenet_ep10/eeg_adc.csv",
       "synthetic_columns": "nSeq is generated; unused digital and analog channels are zero-filled.",
       "adc_center_count": 512
     },
-    "labels": {
-      "source": "EyeLink blink events in the synchronized BIDS eye-tracker event table",
-      "onset_and_offset": "Eye tracker onset and onset + duration on the public recording timeline",
-      "peak": "Estimated as strongest absolute 0.5\u201312 Hz EEG deflection inside the annotated interval",
-      "frame_fields": "Virtual 30 fps indices rounded from source times; no measured webcam frames or webcam video",
-      "human_review": "No local human review; label review field records external eye-tracker annotation",
-      "blink_events": 68,
-      "sustained_closures": 0,
-      "background_eligibility": "Continuous valid gaze and pupil samples; EEG quality and 150 ms event margin applied"
-    },
-    "training": {
-      "package": "data/model/rana1",
-      "label_codes": {
-        "no_blink": 0,
-        "blink": 1,
-        "sustained_closure": 2
-      },
-      "partition": "Standalone external data; existing Noor model arrays and split manifests remain separate.",
-      "summary": {
-        "sample_rate_hz": 1000,
-        "window_samples": 1000,
-        "class_codes": {
-          "no_blink": 0,
-          "blink": 1,
-          "sustained_closure": 2
-        },
-        "examples": {
-          "no_blink": 221,
-          "blink": 56,
-          "sustained_closure": 0
-        },
-        "sessions": {
-          "rana1": {
-            "examples": {
-              "no_blink": 221,
-              "blink": 56,
-              "sustained_closure": 0
-            },
-            "excluded_annotation": 0,
-            "overlaps_event": 75,
-            "edge_or_gap": 0,
-            "clipping_or_flat": 1
-          }
-        },
-        "binary_blink_training_ready": true
-      }
-    }
+    "use": "Public SVM and feature-model settings search using E22 and the source eye tracker. All submitted CNN weights were fitted on project recordings."
   },
   "used_for": "hyperparameter selection only, not final model fitting",
   "target": "eye-tracker interval midpoint; NOT earlier EEG-derived peak",

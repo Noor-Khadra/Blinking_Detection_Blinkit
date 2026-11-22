@@ -4,7 +4,7 @@ Validation-selected model: **svm_09**.
 
 29 configurations across SVM, extra trees, gradient boosting and logistic regression were compared using three public time-block folds (87 public fits). The top two per family were instantiated afresh and fitted only on the existing real Rana training split (8 fresh fits). Validation event F1 selected thresholds and the final model. Public trained weights were not transferred.
 
-Public source: EEGEyeNet EP10, OpenNeuro ds007338 v1.0.0, https://openneuro.org/datasets/ds007338/versions/1.0.0 . The historical folder alias `rana1` is an external public import, NOT a recording of Rana. EEG E22 originally 500Hz, resampled to 1000Hz and mapped to ADC in the prior import. Target times here are independent eye-tracker blink interval midpoints, not EEG-derived peaks.
+Public source: EEGEyeNet EP10, OpenNeuro ds007338 v1.0.0, https://openneuro.org/datasets/ds007338/versions/1.0.0 . Public inputs are stored in data/external/eegeyenet_ep10. EEG E22 originally 500Hz, resampled to 1000Hz and mapped to ADC in the prior import. Target times here are independent eye-tracker blink interval midpoints, not EEG-derived peaks.
 
 The public set has only 68 blink annotations from one recording, so the search provides limited evidence about transferable settings. “Best” means best among this explicit search, not a global optimum.
 
@@ -45,6 +45,6 @@ No guarantee of improvement: compare the validation-selected model to the origin
 
 ## Reproduce
 
-`python3 src/model/tune_public_transfer.py` after `python3 src/model/train_rana_new.py`; dependencies: `src/model/requirements-rana-new.txt`. All outputs remain local.
+`python3 src/model/tune_public_transfer.py` after `python3 src/model/train_rana_new.py`; dependencies: `src/model/requirements-rana-new.txt`.
 
 ![Results](results.png)

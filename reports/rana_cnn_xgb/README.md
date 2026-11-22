@@ -21,6 +21,6 @@ These test blocks were already inspected in earlier experiments: this is a reuse
 
 ## Reproduce
 
-`src/model/Run_Rana_CNN_XGB.command` on macOS (uses the PyTorch-bundled OpenMP library), or `python src/model/train_rana_cnn_xgb.py` elsewhere, after generating `data/model/rana_new` with `train_rana_new.py`. Requirements are in `src/model/requirements-rana-cnn-xgb.txt`. Model files, validation searches, training histories, scores, and frozen decisions are in this folder. Raw files and baseline results are unchanged; nothing was pushed.
+`src/model/Run_Rana_CNN_XGB.command` on macOS (uses the PyTorch-bundled OpenMP library), or `python src/model/train_rana_cnn_xgb.py` elsewhere, after generating `data/model/rana_new` with `train_rana_new.py`. Requirements are in `src/model/requirements-rana-cnn-xgb.txt`. Model files, validation searches, training histories, scores, and frozen decisions are in this folder.
 
 ![Comparison](comparison.png)

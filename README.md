@@ -1,74 +1,45 @@
-# Blinking_Detection_Blinkit
-Real-time eye-blink detection from single-channel BITalino EEG, trained using webcam-labeled blinks as ground truth.
+# BlinkIt · EEG blink detection
 
-## Demo and results
+A single BITalino EEG channel drives the live blink marker, counter and tone. The webcam provided reference labels during data collection. The deployed detector averages two CNNs trained on Rana 01 and Rana 02. Noor 4 is the second-wearer transfer experiment.
 
-- [BITalino desktop demo](src/live_blink/README.md) uses the Rana-only CNN.
-- [Best evaluated Rana replay candidate](reports/rana_noor2_replay/README.md) uses Rana + Noor 2 and a faster alert rule. It matched 118 of 159 review-adjusted blink labels with 14 unmatched alerts in replay. The candidate checkpoints and settings are included with the report.
+[Project report](submission/BlinkIt_Report.pdf) · [Presentation](submission/BlinkIt_Presentation.pptx) · [Live detector](src/live_blink/README.md) · [Recorder](src/acquisition/README.md)
 
-## How it works
-1. SENSE    - BITalino EEG (3 electrodes, 1 channel) + webcam recorded together
-2. PROCESS  - Video blinks are detected and checked, then used to label the
-              EEG; a model learns the blink pattern from the labeled signal
-3. SHOW     - Live EEG with detected blinks marked
+## Run the demo
 
-## Hardware
-- BITalino (EEG, 3 electrodes, 1 channel)
-- Webcam (training/labeling only)
-- GCO308 usb-plug camera (training/labeling only)
+On Windows, install 64-bit Python 3.12 with the Python Launcher and Tcl/Tk. Clone this repository or extract its ZIP. Open `src/live_blink/Setup_Windows.cmd` once, then `Run_Live_Blinks.cmd`. Pair the BITalino, close any other acquisition app and select the outgoing COM port and EEG input A4. For a hardware-free demonstration choose replay and open `data/raw/datasets/rana_01_clean/eeg.csv`. The saved weights and scaling values are in [models](src/live_blink/models).
 
-## Repository structure
+## What was evaluated
 
-project/
-├── data/
-│   ├── raw/                      
-│   │   └── 25-10-2026/
-│   │       ├── eeg_opensignals.txt
-│   │       ├── eeg.csv          
-│   │       ├── webcam.mp4
-│   │       ├── webcam_timestamps.csv
-│   │       ├── eyecam.mp4
-│   │       ├── eyecam_timestamps.csv
-│   │       └── meta.json          
-│   └── derived/
-│       └── 
-├── models/                        
-├── reports/                       
-└── src/
-    ├── recording_code/ 
+| Question | Training and testing | Evidence |
+|---|---|---|
+| Which feature baseline works? | Logistic regression, RBF SVM, Extra Trees and gradient boosting on Rana time blocks | [Baseline comparison](reports/rana_new_training/README.md) |
+| Does an external settings search help? | Hyperparameters explored on public EEGEyeNet EP10, candidate models fitted on Rana | [Tuning results](reports/rana_public_hyperparameters/README.md) |
+| Does learning a blink waveform help? | 12 XGBoost settings, four CNN configurations with two seeds each, and three CNN/XGBoost blending weights | [Offline model comparison](reports/rana_cnn_xgb/README.md) |
+| Does it transfer to a different wearer? | Frozen Rana → Noor 4, pooled Rana + Noor 4 on held-out minutes, and Noor 4 → Rana | [Transfer results](reports/rana_noor4_cnn/README.md) |
+| Can we reduce false alerts in continuous use? | Deployed rule, signal-quality gates, difficult negative examples, wider filter, clipping exclusions and score blending | [Streaming settings and scores](reports/live_blink_experiments/comparison.csv) |
+| Does window length matter on a new session? | Train and validate on one Rana session and test the other, in both directions. Compare 0.75, 1.0 and 1.5 seconds and the shorter-window blend | [Session-swap results](reports/rana_window_length/summary.csv) |
 
-## Installation
+For the two Rana sessions, one-based minutes 1, 2, 4, 6, 7 and 9 supply training. Minutes 3 and 8 supply validation. Minutes 5 and 10 supply testing. Boundary guards and tracking checks limit usable time. The later recordings were unscripted. The guided ten-block recorder shown in the presentation is the repeat protocol.
 
-## Team
-Rana Ezzeddine
-Rahma Bezzaouia
-Noor Khadra
-Katrina Issa
+## Data and interpretation
 
+Raw numerical recordings, capture timestamps and webcam labels are in [data/raw/datasets](data/raw/datasets). Aligned events, example indices and split manifests are in [data/model](data/model). The [recording release](https://github.com/Noor-Khadra/Blinking_Detection_Blinkit/releases/tag/blinkit-recordings-20261116) contains the original three archives including videos. Verify and restore with `python src/acquisition/restore_recordings.py PATH_TO_ARCHIVES`. Public tuning inputs and their attribution are in [data/external/eegeyenet_ep10](data/external/eegeyenet_ep10).
 
-## Webcam labeling (Rana)
+The submitted live rule matched 112 of 158 reference blinks on Rana replay with 17 unmatched alerts (86.8% precision, 70.9% recall, 78.0% event F1). The frozen offline CNN scored 31.0% F1 across scorable Noor 4 intervals. These results use different evaluation rules. Automatic webcam labels, estimated host-clock alignment and repeated use of the same test minutes limit interpretation.
 
-See [the webcam workflow](src/webcam/README.md) for extraction, candidate generation,
-manual review, timing limitations, and the handoff to EEG modeling.
+## Reproduce
 
-## Reviewed webcam results
+Run from the repository root in a fresh Python virtual environment. The scripts write outputs under data/model and reports, so use a separate checkout when retraining. Windows live setup is separate from this analysis environment.
 
-| Recording | Accepted blinks | Accepted sustained closures | Labels |
-| --- | ---: | ---: | --- |
-| Noor 1 | 62 | 7 | [session1/labels.csv](data/derived/noor/session1/labels.csv) |
-| Noor 2 | 81 | 9 | [session2/labels.csv](data/derived/noor/session2/labels.csv) |
-| Noor 3 | 86 | 15 | [session3/labels.csv](data/derived/noor/session3/labels.csv) |
+```sh
+python -m pip install -r src/model/requirements-rana-cnn-xgb.txt
+python src/model/train_rana_new.py
+python src/model/tune_public_transfer.py
+python src/model/train_rana_cnn_xgb.py
+python src/model/train_noor4_addition.py
+python src/model/experiment_live_blink.py
+python src/model/experiment_rana_window_length.py
+python -m unittest discover -s src/live_blink -p "test_*.py" -v
+```
 
-Each CSV contains accepted visual annotations with onset, peak, and offset in source video playback seconds and corresponding zero-based frame indices.
-
-![Noor 1 pilot review graphic](reports/figures/webcam_results.png)
-
-The figure shows the original Noor 1 pilot. To generate an updated figure, run
-`python reports/plot_webcam_results.py` with NumPy, Matplotlib, and the
-local `webcam_ear.csv` measurements.
-
-The [model data guide](data/model/README.md) documents the cleaned event tables, EEG tensors, and commands to rebuild them.
-
-## EEG training experiments
-
-See the [experiment results and plots](reports/blink_experiments/README.md) for the window-classification pilot, continuous EEG comparisons, and false-alarm analysis.
+On macOS the two training launchers in src/model expect .venv/rana-training and configure PyTorch's bundled OpenMP library for XGBoost. See the [streaming README](reports/live_blink_experiments/README.md) for the corresponding shell environment when running the experiments directly.

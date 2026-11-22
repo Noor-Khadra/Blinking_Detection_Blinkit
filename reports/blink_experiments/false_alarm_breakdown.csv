@@ -1,4 +1,0 @@
-session,reviewed_blinks,missed_blinks,true_positive,extra_alert_for_blink,near_blink_outside_tolerance,inside_sustained_closure,away_from_labeled_events
-noor1,62,13,49,2,14,0,29
-noor2,81,24,57,4,18,16,20
-noor3,86,45,41,1,12,3,63

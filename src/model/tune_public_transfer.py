@@ -20,6 +20,7 @@ import joblib
 import train_rana_new as base
 
 ROOT=base.ROOT
+PUBLIC=ROOT/'data/external/eegeyenet_ep10'
 OUT=ROOT/'reports/rana_public_hyperparameters'
 DATA=ROOT/'data/model/public_ep10_tuning'
 SEED=20261116
@@ -45,13 +46,13 @@ def score(model,x):
 
 def prepare_public():
  DATA.mkdir(parents=True,exist_ok=True)
- prov=json.loads((ROOT/'data/derived/rana/session1/provenance.json').read_text())
+ prov=json.loads((PUBLIC/'provenance.json').read_text())
  for f in ['eye-events.tsv','eye-samples.tsv']:
-  assert base.sha(ROOT/'data/raw/rana/session1'/f)==prov['source_files'][f]['sha256']
- raw=pd.read_csv(ROOT/'data/eeg/derived/rana_recording1.csv')['A3 raw (ADC)'].to_numpy(dtype=float)
- event=pd.read_csv(ROOT/'data/raw/rana/session1/eye-events.tsv',sep='\t',header=None,names=['onset','duration','type','value','sample'])
+  assert base.sha(PUBLIC/f)==prov['source_files'][f]['sha256']
+ raw=pd.read_csv(PUBLIC/'eeg_adc.csv')['A3 raw (ADC)'].to_numpy(dtype=float)
+ event=pd.read_csv(PUBLIC/'eye-events.tsv',sep='\t',header=None,names=['onset','duration','type','value','sample'])
  blink=event[event.type=='blink'].copy(); peaks=(blink.onset+blink.duration/2).to_numpy()
- gaze=pd.read_csv(ROOT/'data/raw/rana/session1/eye-samples.tsv',sep='\t',header=None).to_numpy()
+ gaze=pd.read_csv(PUBLIC/'eye-samples.tsv',sep='\t',header=None).to_numpy()
  valid=np.isfinite(gaze).all(axis=1)&(gaze[:,3]>0)&(gaze[:,1]>0)&(gaze[:,2]>0)
  rows=[]; features=[]
  for minute in range(6):
@@ -71,7 +72,7 @@ def prepare_public():
    features.append(base.features(x[u:v],low[u:v],broad[u:v]))
  df=pd.DataFrame(rows); X=np.array(features,dtype=np.float32)
  df.to_csv(DATA/'windows.csv',index=False); np.savez_compressed(DATA/'features.npz',features=X,labels=df.label.to_numpy(),feature_names=np.array(base.FEATURES))
- base.save_json(DATA/'provenance.json',{'source':prov,'used_for':'hyperparameter selection only, not final model fitting','target':'eye-tracker interval midpoint; NOT earlier EEG-derived peak','raw_derived_sha256':base.sha(ROOT/'data/eeg/derived/rana_recording1.csv'),'public_blinks':len(blink),'folds':'minute modulo 3, two-second plus half-window guards; filters independent per minute','rows':len(df),'positives':int(df.label.sum())})
+ base.save_json(DATA/'provenance.json',{'source':prov,'used_for':'hyperparameter selection only, not final model fitting','target':'eye-tracker interval midpoint; NOT earlier EEG-derived peak','raw_derived_sha256':base.sha(PUBLIC/'eeg_adc.csv'),'public_blinks':len(blink),'folds':'minute modulo 3, two-second plus half-window guards; filters independent per minute','rows':len(df),'positives':int(df.label.sum())})
  return df,X
 
 def balanced_indices(y,pool,seed):
@@ -137,9 +138,9 @@ def render(result):
  fig,ax=plt.subplots(figsize=(11,5)); xs=np.arange(len(rs)); width=.25
  for i,key in enumerate(['precision','recall','f1']): ax.bar(xs+(i-1)*width,[r['test_event'][key] for r in rs],width,label=key)
  ax.set_xticks(xs,[r['id']+('*' if r['id']==winner['id'] else '') for r in rs],rotation=25,ha='right'); ax.set_ylim(0,1); ax.legend(); ax.set_title('Public-tuned settings, fresh Rana-only models — reused test\n* selected by validation, not by test'); fig.tight_layout(); fig.savefig(OUT/'results.png',dpi=180); plt.close(fig)
- lines=['# Public-data hyperparameters → fresh Rana-only training','',f"Validation-selected model: **{winner['id']}**.",'', '29 configurations across SVM, extra trees, gradient boosting and logistic regression were compared using three public time-block folds (87 public fits). The top two per family were instantiated afresh and fitted only on the existing real Rana training split (8 fresh fits). Validation event F1 selected thresholds and the final model. Public trained weights were not transferred.','', 'Public source: EEGEyeNet EP10, OpenNeuro ds007338 v1.0.0, https://openneuro.org/datasets/ds007338/versions/1.0.0 . The historical folder alias `rana1` is an external public import, NOT a recording of Rana. EEG E22 originally 500Hz, resampled to 1000Hz and mapped to ADC in the prior import. Target times here are independent eye-tracker blink interval midpoints, not EEG-derived peaks.','', 'The public set has only 68 blink annotations from one recording, so the search provides limited evidence about transferable settings. “Best” means best among this explicit search, not a global optimum.','', '## Frozen selection','', '```json',json.dumps({'hyperparameters':winner['params'],'threshold':winner['threshold']},indent=2),'```','', '## Reused-test comparison','', '| Configuration | Public CV AP | Validation event F1 | Test window accuracy | Event precision | Event recall | Event F1 |','|---|---:|---:|---:|---:|---:|---:|']
+ lines=['# Public-data hyperparameters → fresh Rana-only training','',f"Validation-selected model: **{winner['id']}**.",'', '29 configurations across SVM, extra trees, gradient boosting and logistic regression were compared using three public time-block folds (87 public fits). The top two per family were instantiated afresh and fitted only on the existing real Rana training split (8 fresh fits). Validation event F1 selected thresholds and the final model. Public trained weights were not transferred.','', 'Public source: EEGEyeNet EP10, OpenNeuro ds007338 v1.0.0, https://openneuro.org/datasets/ds007338/versions/1.0.0 . Public inputs are stored in data/external/eegeyenet_ep10. EEG E22 originally 500Hz, resampled to 1000Hz and mapped to ADC in the prior import. Target times here are independent eye-tracker blink interval midpoints, not EEG-derived peaks.','', 'The public set has only 68 blink annotations from one recording, so the search provides limited evidence about transferable settings. “Best” means best among this explicit search, not a global optimum.','', '## Frozen selection','', '```json',json.dumps({'hyperparameters':winner['params'],'threshold':winner['threshold']},indent=2),'```','', '## Reused-test comparison','', '| Configuration | Public CV AP | Validation event F1 | Test window accuracy | Event precision | Event recall | Event F1 |','|---|---:|---:|---:|---:|---:|---:|']
  for r in rs: lines.append(f"| {r['id']} | {r['public_mean_ap']:.1%} | {r['validation_event']['f1']:.1%} | {r['test_window']['accuracy']:.1%} | {r['test_event']['precision']:.1%} | {r['test_event']['recall']:.1%} | {r['test_event']['f1']:.1%} |")
- lines+=['','## Interpretation','', 'The model settings and thresholds were frozen before this run evaluated test predictions. However, these same test blocks were already viewed during the baseline experiment, so this is not an untouched confirmatory test. Do not choose a different winner by inspecting this test table. A new recording is needed for a fresh final evaluation.','', 'The 60/20/20 time-block split, automatic labels, guard gaps, causal filtering, features, 350ms suppression, 250ms event matching and provisional host-clock synchronization are unchanged from the baseline. All final models use only real Rana recordings. The 1.5-second centered window requires 750ms lookahead. Classifier inputs are EEG-only; face-validity and closure exclusions limit the evaluated intervals.','', 'No additional synchronization correction was applied in this experiment. The known uncertainty in labels and timing remains. Sustained closures are excluded rather than silently converted to no-blink.','', 'No guarantee of improvement: compare the validation-selected model to the original SVM, not whichever test row looks best. Baseline SVM: event precision 82.4%, recall 56.3%, F1 66.9%, window accuracy 77.2%.','', '## Reproduce','', '`python3 src/model/tune_public_transfer.py` after `python3 src/model/train_rana_new.py`; dependencies: `src/model/requirements-rana-new.txt`. All outputs remain local.','', '![Results](results.png)']
+ lines+=['','## Interpretation','', 'The model settings and thresholds were frozen before this run evaluated test predictions. However, these same test blocks were already viewed during the baseline experiment, so this is not an untouched confirmatory test. Do not choose a different winner by inspecting this test table. A new recording is needed for a fresh final evaluation.','', 'The 60/20/20 time-block split, automatic labels, guard gaps, causal filtering, features, 350ms suppression, 250ms event matching and provisional host-clock synchronization are unchanged from the baseline. All final models use only real Rana recordings. The 1.5-second centered window requires 750ms lookahead. Classifier inputs are EEG-only; face-validity and closure exclusions limit the evaluated intervals.','', 'No additional synchronization correction was applied in this experiment. The known uncertainty in labels and timing remains. Sustained closures are excluded rather than silently converted to no-blink.','', 'No guarantee of improvement: compare the validation-selected model to the original SVM, not whichever test row looks best. Baseline SVM: event precision 82.4%, recall 56.3%, F1 66.9%, window accuracy 77.2%.','', '## Reproduce','', '`python3 src/model/tune_public_transfer.py` after `python3 src/model/train_rana_new.py`; dependencies: `src/model/requirements-rana-new.txt`.','', '![Results](results.png)']
  (OUT/'README.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
 
 if __name__=='__main__': main()

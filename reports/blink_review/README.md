@@ -1,0 +1,1 @@
+Selected Rana video judgments from a historical disagreement review. The queue is a targeted sample. The main replay analysis and full-session F1 use automatic webcam references. Retained for inspecting individual examples.

@@ -36,7 +36,7 @@ src/acquisition/Run_Dataset_Recorder.command
 
 1. Pair the BITalino and select its serial port (`/dev/cu.…`) in the app.
    You can paste a path or supply `--port` at launch. Choose the EEG input
-   you physically used. The app defaults to A3 and samples at 1,000 Hz.
+   you physically used. Select A4 for the presented setup. Sampling is at 1,000 Hz.
 2. Click **Connect devices**. Both devices stream in preview before they are
    ready. Enter a new session name such as `participant03_session02`.
 3. Click **Start recording** once. Both streams use the same host-clock start
@@ -48,25 +48,13 @@ src/acquisition/Run_Dataset_Recorder.command
 
 ## Ten-minute protocol
 
-The [recording guidelines](https://docs.google.com/document/d/1wD1WGZYFQbeyb9kgjj-LlHo_UHn5Zugk/edit)
-list 11 minutes of activities. The app scales those durations to fit ten
-minutes including eight recorded three-second countdowns. The display shows
-the next instruction during each countdown and sounds a system bell.
+Each run takes 12 minutes 30 seconds and saves ten one-minute activities. Before each activity, allow 12 seconds to read and 3 seconds for the countdown. Only activity frames and EEG samples are saved. EEG sample indices and session times retain the gaps. Video playback skips the pauses. For modeling, use session time and build windows separately within each block. The brighter start tone signals when to act. Keep the electrodes in place for all three runs. Use a fresh session name each time.
 
-| Activity | Countdown begins | Activity time in seconds | Activity duration |
-|---|---:|---:|---:|
-| Fixed gaze, eyes open | 0 | [3, 82) | 79 s |
-| Silent reading | 82 | [85, 164) | 79 s |
-| Watch a video | 164 | [167, 246) | 79 s |
-| Talk or read aloud | 246 | [249, 328) | 79 s |
-| Voluntary blinks | 328 | [331, 435) | 104 s |
-| Eye movements | 435 | [438, 490) | 52 s |
-| Other artifacts | 490 | [493, 545) | 52 s |
-| Rest with eyes closed | 545 | [548, 600) | 52 s |
+Choose order A, B or C for a custom session name. The guided repeat protocol is shown as a design in the presentation. The three evaluated recordings use the earlier unscripted acquisition procedure.
 
-Prepare the reading material and video before starting. The app shows
-instructions for each activity. Eye movements and other artifacts can still
-contain real blinks. Section and phase describe the task at that time.
+A full-screen participant view contains the reading passage, spoken prompts as on-screen text, conversation questions, and an offline 60-second harbor animation. Head turns, facial actions and single, double and triple blinks appear one at a time. Use Test countdown sound before starting. A higher tone cues reopening after sustained closure. Escape leaves full-screen mode. Leave participant audio enabled.
+
+Each run includes quiet fixation, reading, video, cued blinks, gaze shifts, head movement, talking, facial movements, sustained closures and a mixed activity. The order is saved in session.json. Protocol.csv lists planned boundaries. Cues.csv records prompts dispatched by the interface and their session times. Actual participant actions can differ from prompts. Webcam frames and exported events carry the block and phase. Use the timeline for extracting EEG windows later. Automatic blink and open-eye labels come from the webcam.
 
 ## Files
 

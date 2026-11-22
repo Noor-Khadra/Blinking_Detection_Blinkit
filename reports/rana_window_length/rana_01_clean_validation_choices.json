@@ -1,0 +1,197 @@
+{
+  "settings": {
+    "750_f1": [
+      750,
+      0.825,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 40,
+        "fp": 12,
+        "fn": 10,
+        "precision": 0.7692307692307693,
+        "recall": 0.8,
+        "f1": 0.7843137254901961,
+        "false_per_min": 7.0796460176991145,
+        "measured_minutes": 1.695,
+        "closure_alerts": 5,
+        "outside_scored_alerts": 15,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "750_budget": [
+      750,
+      0.9,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 34,
+        "fp": 7,
+        "fn": 16,
+        "precision": 0.8292682926829268,
+        "recall": 0.68,
+        "f1": 0.7472527472527473,
+        "false_per_min": 4.129793510324483,
+        "measured_minutes": 1.695,
+        "closure_alerts": 3,
+        "outside_scored_alerts": 9,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "1000_f1": [
+      1000,
+      0.825,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 40,
+        "fp": 8,
+        "fn": 10,
+        "precision": 0.8333333333333334,
+        "recall": 0.8,
+        "f1": 0.8163265306122449,
+        "false_per_min": 4.71976401179941,
+        "measured_minutes": 1.695,
+        "closure_alerts": 6,
+        "outside_scored_alerts": 12,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "1000_budget": [
+      1000,
+      0.825,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 40,
+        "fp": 8,
+        "fn": 10,
+        "precision": 0.8333333333333334,
+        "recall": 0.8,
+        "f1": 0.8163265306122449,
+        "false_per_min": 4.71976401179941,
+        "measured_minutes": 1.695,
+        "closure_alerts": 6,
+        "outside_scored_alerts": 12,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "1500_f1": [
+      1500,
+      0.7,
+      [
+        3,
+        3,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 44,
+        "fp": 14,
+        "fn": 6,
+        "precision": 0.7586206896551724,
+        "recall": 0.88,
+        "f1": 0.8148148148148148,
+        "false_per_min": 8.259587020648967,
+        "measured_minutes": 1.695,
+        "closure_alerts": 6,
+        "outside_scored_alerts": 13,
+        "blocked_fraction": 0.0,
+        "delay_s": 1.0495
+      }
+    ],
+    "1500_budget": [
+      1500,
+      0.825,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 39,
+        "fp": 7,
+        "fn": 11,
+        "precision": 0.8478260869565217,
+        "recall": 0.78,
+        "f1": 0.8125,
+        "false_per_min": 4.129793510324483,
+        "measured_minutes": 1.695,
+        "closure_alerts": 5,
+        "outside_scored_alerts": 11,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "750+1000_f1": [
+      "750+1000",
+      0.825,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 41,
+        "fp": 9,
+        "fn": 9,
+        "precision": 0.82,
+        "recall": 0.82,
+        "f1": 0.82,
+        "false_per_min": 5.309734513274336,
+        "measured_minutes": 1.695,
+        "closure_alerts": 5,
+        "outside_scored_alerts": 12,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "750+1000_budget": [
+      "750+1000",
+      0.875,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 37,
+        "fp": 7,
+        "fn": 13,
+        "precision": 0.8409090909090909,
+        "recall": 0.74,
+        "f1": 0.7872340425531915,
+        "false_per_min": 4.129793510324483,
+        "measured_minutes": 1.695,
+        "closure_alerts": 3,
+        "outside_scored_alerts": 9,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ]
+  },
+  "false_alert_budget": 5.0
+}

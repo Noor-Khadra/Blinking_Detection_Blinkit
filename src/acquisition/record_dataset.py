@@ -23,22 +23,39 @@ from build_candidates import propose
 
 HZ = 1000
 SECOND = 10**9
-COUNTDOWN = 3
+from participant_guide import ACTIVITIES, ACTIVE, BLOCK_SECONDS, BREAK, START, ParticipantView, beep, cue_at
 PREVIEW_WIDTH = 440
 PLOT_WIDTH = 440
 PLOT_SECONDS = 10
-BLOCKS = (
-    ("rest", "Rest with eyes open", "Look at one point and blink naturally.", 79),
-    ("reading", "Read silently", "Read text on the screen and blink naturally.", 79),
-    ("video", "Watch a video", "Watch a video and blink naturally.", 79),
-    ("talking", "Talk or read aloud", "Speak normally and blink naturally.", 79),
-    ("voluntary", "Voluntary blinks", "Try single, double, hard, and slow blinks, with pauses.", 104),
-    ("eye_movements", "Eye movements", "Look left and right, up and down, then track a moving point.", 52),
-    ("artifacts", "Other artifacts", "Raise eyebrows, clench jaw, swallow, then move your head.", 52),
-    ("eyes_closed", "Rest with eyes closed", "Close both eyes and keep still. Reopen when recording ends.", 52),
-)
-DURATION = sum(block[3] + COUNTDOWN for block in BLOCKS)
-EDGES = np.cumsum([0] + [block[3] + COUNTDOWN for block in BLOCKS]).tolist()
+ORDERS = {
+    "A": "rest reading eye_movements voluntary talking video head_motion sustained artifacts mixed".split(),
+    "B": "rest head_motion video artifacts reading sustained mixed eye_movements talking voluntary".split(),
+    "C": "rest talking sustained eye_movements mixed voluntary artifacts head_motion video reading".split(),
+}
+ASSIGNMENTS = {"rana": "ABC", "noor": "BCA", "katrina": "CAB", "rahma": "BAC"}
+DURATION = 10 * BLOCK_SECONDS
+EDGES = list(range(0, DURATION + 1, BLOCK_SECONDS))
+
+
+def activity_ns(elapsed_ns):
+    """Accumulated active time, with pre-block pauses removed."""
+    blocks, local = divmod(max(0, elapsed_ns), BLOCK_SECONDS * SECOND)
+    return blocks * ACTIVE * SECOND + max(0, local - START * SECOND)
+
+
+def is_activity_ns(elapsed_ns):
+    return 0 <= elapsed_ns < DURATION * SECOND and elapsed_ns % (BLOCK_SECONDS * SECOND) >= START * SECOND
+
+
+def recording_order(name, choice):
+    if choice in ORDERS:
+        return choice
+    match = re.fullmatch(r"(rana|noor|katrina|rahma)_v([123])", name.lower())
+    if not match:
+        raise ValueError("Use a name such as rana_v1 or select order A, B or C for a custom session.")
+    return ASSIGNMENTS[match[1]][int(match[2]) - 1]
+
+
 BOUNDARIES = ("onset", "peak", "offset")
 EAR_FIELDS = ("face_found", "ear_left", "ear_right", "ear_mean", "blink_left", "blink_right")
 EVENT_FIELDS = (
@@ -47,15 +64,17 @@ EVENT_FIELDS = (
 ) + tuple(f"{p}_{unit}" for p in BOUNDARIES for unit in ("session_s", "sample", "eeg_s")) + ("use_for_training",)
 
 
-def section(elapsed):
+def section(elapsed, order):
     if not 0 <= elapsed < DURATION:
         return "", ""
     i = bisect_right(EDGES, elapsed) - 1
-    return BLOCKS[i][0], "countdown" if elapsed - EDGES[i] < COUNTDOWN else "activity"
+    local = elapsed - EDGES[i]
+    phase = "briefing" if local < BREAK else "countdown" if local < START else "activity"
+    return ORDERS[order][i], phase
 
 
 def open_csv(folder, name, fields):
-    handle = (folder / name).open("w", newline="", buffering=1)
+    handle = (folder / name).open("w", encoding="utf-8", newline="", buffering=1)
     writer = csv.writer(handle)
     writer.writerow(fields)
     return handle, writer
@@ -68,20 +87,22 @@ def json_file(path, contents):
 
 
 class Session:
-    def __init__(self, root, name, port, channel, camera_index, size, ratio):
+    def __init__(self, root, name, port, channel, camera_index, size, ratio, order):
         import av
 
         if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}", name):
             raise ValueError("Use a session name such as rana_02, with letters, numbers, underscores or hyphens.")
         self.folder = root / name
         self.folder.mkdir(parents=True)
-        self.name, self.ratio = name, ratio
+        self.name, self.ratio, self.order = name, ratio, order
         self.webcam_count = self.eeg_count = self.eeg_gaps = 0
         self.done_camera, self.done_eeg = Event(), Event()
         self.error = None
         self.requested_stop = False
         files = []
         try:
+            self.cues, self.write_cue = open_csv(self.folder, "cues.csv", ("section", "phase", "prompt", "scheduled_s", "ui_dispatch_s"))
+            files.append(self.cues)
             self.frames, self.write_frame = open_csv(self.folder, "webcam_frames.csv", (
                 "frame_index", "video_time_s", "session_elapsed_s", "host_monotonic_ns",
                 "section", "phase", *EAR_FIELDS,
@@ -110,7 +131,8 @@ class Session:
             self.start_ns = time.monotonic_ns()
             self.end_ns = self.start_ns + DURATION * SECOND
             self.meta = {
-                "session": name, "state": "recording", "planned_duration_s": DURATION,
+                "session": name, "state": "recording", "planned_duration_s": 10 * ACTIVE, "planned_wall_duration_s": DURATION,
+                "active_only": True, "protocol_order": order,
                 "session_start_utc": datetime.now(timezone.utc).isoformat(),
                 "session_start_monotonic_ns": self.start_ns, "eeg_sampling_rate_hz": HZ,
                 "eeg_address": port, "eeg_channel": f"A{channel}", "camera_index": camera_index,
@@ -119,11 +141,12 @@ class Session:
                 "hardware_sync_verified": False, "ear_threshold_ratio": ratio,
             }
             json_file(self.folder / "session.json", self.meta)
-            with (self.folder / "protocol.csv").open("w", newline="") as handle:
+            with (self.folder / "protocol.csv").open("w", encoding="utf-8", newline="") as handle:
                 writer = csv.writer(handle)
-                writer.writerow(("section", "activity", "instruction", "countdown_start_s", "activity_start_s", "end_s"))
-                for i, (key, title, instruction, _) in enumerate(BLOCKS):
-                    writer.writerow((key, title, instruction, EDGES[i], EDGES[i] + COUNTDOWN, EDGES[i + 1]))
+                writer.writerow(("section", "activity", "instruction", "briefing_start_s", "countdown_start_s", "activity_start_s", "end_s"))
+                for i, key in enumerate(ORDERS[order]):
+                    title, instruction = ACTIVITIES[key]
+                    writer.writerow((key, title, instruction, EDGES[i], EDGES[i] + BREAK, EDGES[i] + START, EDGES[i + 1]))
         except Exception:
             for handle in reversed(files):
                 handle.close()
@@ -137,9 +160,13 @@ class Session:
     def camera_frame(self, image, host_ns, values):
         import av
 
+        elapsed_ns = host_ns - self.start_ns
+        if not is_activity_ns(elapsed_ns):
+            return
+        active_ns = activity_ns(elapsed_ns)
         if self.first_camera_ns is None:
-            self.first_camera_ns = host_ns
-        pts = max((host_ns - self.first_camera_ns) // 1000, self.last_pts + 1)
+            self.first_camera_ns = active_ns
+        pts = max((active_ns - self.first_camera_ns) // 1000, self.last_pts + 1)
         frame = av.VideoFrame.from_ndarray(image, format="bgr24")
         frame.pts, frame.time_base = pts, self.time_base
         for packet in self.stream.encode(frame):
@@ -147,7 +174,7 @@ class Session:
         elapsed = (host_ns - self.start_ns) / SECOND
         self.write_frame.writerow((
             self.webcam_count, f"{pts / 1000000:.6f}", f"{elapsed:.9f}", host_ns,
-            *section(elapsed), *(values.get(key, "") for key in EAR_FIELDS),
+            *section(elapsed, self.order), *(values.get(key, "") for key in EAR_FIELDS),
         ))
         self.webcam_count += 1
         self.last_pts = pts
@@ -172,6 +199,7 @@ class Session:
             self.done_eeg.set()
 
     def finalize(self):
+        self.cues.close()
         if not self.webcam_count or not self.eeg_count:
             self.error = self.error or "At least one stream did not save any samples."
         complete = not self.error and not self.requested_stop
@@ -182,7 +210,7 @@ class Session:
             summary = {}
         duration = max(0, (self.end_ns - self.start_ns) / SECOND)
         self.meta.update(summary, state="complete" if not self.error and not self.requested_stop else "partial",
-                         recorded_duration_s=duration, webcam_frames=self.webcam_count,
+                         wall_duration_s=duration, recorded_duration_s=activity_ns(self.end_ns - self.start_ns) / SECOND, webcam_frames=self.webcam_count,
                          eeg_rows=self.eeg_count, estimated_missing_eeg_samples=self.eeg_gaps,
                          error=self.error)
         json_file(self.folder / "session.json", self.meta)
@@ -227,7 +255,7 @@ def auto_coverage(folder, name, frames, times, eyes, events, eeg, eeg_times, thr
             first, after = np.searchsorted(eeg_times, [times[a], times[b-1]])
             if after - first >= HZ:
                 rows.append((name, sections[a], "mediapipe_ear_auto", int(eeg[first]), int(eeg[after-1]) + 1))
-    with (folder / "no_blink_coverage_auto.csv").open("w", newline="") as handle:
+    with (folder / "no_blink_coverage_auto.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.writer(handle)
         writer.writerow(("session", "section", "label_source", "start_sample", "end_sample"))
         writer.writerows(rows)
@@ -262,7 +290,19 @@ def export_labels(folder, reviewed=None, alignment_reviewed=False, *, completed=
                   and e.get("human_review_status") == "completed"
                   and e["event_type"] in ("blink", "sustained_closure")]
     elif valid:
-        events, reference = propose(video_times, eyes[:, 2], meta["ear_threshold_ratio"])
+        ratio = meta["ear_threshold_ratio"]
+        if meta.get("active_only"):
+            reference = float(np.nanpercentile(eyes[:, 2], 80))
+            events = []
+            boundaries = [i for i in range(1, len(frames)) if frames[i]["section"] != frames[i-1]["section"]]
+            for first, after in zip([0] + boundaries, boundaries + [len(frames)]):
+                candidates, _ = propose(video_times[first:after], eyes[first:after, 2], ratio, reference)
+                for candidate in candidates:
+                    for point in BOUNDARIES:
+                        candidate[f"{point}_frame"] += first
+                events.extend(candidates)
+        else:
+            events, reference = propose(video_times, eyes[:, 2], ratio)
         for e in events:
             e["event_type"] = "sustained_closure" if e["offset_s"] - e["onset_s"] > .5 else "blink"
             if e["offset_s"] - e["onset_s"] > .5:
@@ -295,15 +335,15 @@ def export_labels(folder, reviewed=None, alignment_reviewed=False, *, completed=
             e[f"{point}_sample"] = int(eeg[j])
             e[f"{point}_eeg_s"] = f"{eeg_times[j]:.9f}"
         peak = int(e["peak_frame"])
-        e["section"], e["phase"] = section(float(session_times[peak]))
-        crosses = len({section(float(session_times[int(e[f"{p}_frame"])])) for p in BOUNDARIES}) > 1
+        e["section"], e["phase"] = (frames[peak]["section"], frames[peak]["phase"])
+        crosses = len({(frames[int(e[f"{p}_frame"])]["section"], frames[int(e[f"{p}_frame"])]["phase"]) for p in BOUNDARIES}) > 1
         if crosses:
             e["flags"] = ";".join(filter(None, (e.get("flags"), "crosses_protocol_boundary")))
         e["use_for_training"] = int(bool(complete and good and not crosses and e["phase"] == "activity"
                                          and (not reviewed or alignment_reviewed)))
         output.append(e)
     name = "eeg_events_reviewed.csv" if reviewed else "eeg_events_auto.csv"
-    with (folder / name).open("w", newline="") as handle:
+    with (folder / name).open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, EVENT_FIELDS, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(output)
@@ -467,7 +507,7 @@ class Devices:
                     if not saving:
                         continue
                     sample_host = host_origin + index * (SECOND // HZ)
-                    if trial.start_ns <= sample_host < trial.end_ns:
+                    if sample_host < trial.end_ns and is_activity_ns(sample_host - trial.start_ns):
                         trial.write_eeg.writerow((index, *(int(value) for value in row)))
                         trial.eeg_count += 1
                         trial.eeg_gaps += step - 1
@@ -562,7 +602,8 @@ def run_app(args):
     shell.grid(sticky="nsew")
     root.columnconfigure(0, weight=1)
     shell.columnconfigure(1, weight=1)
-    name = tk.StringVar()
+    name = tk.StringVar(value=args.session_name)
+    order_choice = tk.StringVar(value="Auto from name")
     port = tk.StringVar(value=args.port or "")
     channel = tk.StringVar(value=str(args.channel))
     port_field = ttk.Combobox(shell, textvariable=port)
@@ -574,6 +615,7 @@ def run_app(args):
         if not port.get().strip() and len(bit_ports) == 1:
             port.set(bit_ports[0])
 
+    ttk.Button(shell, text="Test countdown sound", command=lambda: beep(root)).grid(row=8, column=0, sticky="w")
     port_field.config(postcommand=refresh_ports)
     refresh_ports()
     fields = [
@@ -584,6 +626,9 @@ def run_app(args):
     for i, (label, field) in enumerate(fields):
         ttk.Label(shell, text=label).grid(row=i, column=0, sticky="w", padx=(0, 10), pady=3)
         field.grid(row=i, column=1, columnspan=2, sticky="ew", pady=3)
+    fields[0][1].grid_configure(columnspan=1)
+    ttk.Combobox(shell, textvariable=order_choice, values=("Auto from name", "A", "B", "C"),
+                 width=15, state="readonly").grid(row=0, column=2)
     status = ttk.Label(shell, text="Connect the laptop camera and BITalino to begin.", wraplength=560)
     status.grid(row=4, column=0, columnspan=3, sticky="w", pady=(9, 4))
     task = ttk.Label(shell, font=("TkDefaultFont", 20), wraplength=560)
@@ -601,7 +646,7 @@ def run_app(args):
     ear_history = deque()
     last_preview = None
     last_plot_ns = 0
-    devices = trial = finishing = None
+    devices = trial = finishing = participant = None
     closing = False
     shown = None
     configured = False
@@ -623,16 +668,24 @@ def run_app(args):
         status.config(text="Connecting devices…")
 
     def start():
-        nonlocal trial, shown
+        nonlocal trial, shown, participant
         if not devices or not devices.ready():
             return
         try:
+            order = recording_order(name.get().strip(), order_choice.get())
+            participant = ParticipantView(root, stop)
             trial = Session(args.output, name.get().strip(), devices.port, devices.channel,
-                            devices.camera_index, devices.size, args.ear_ratio)
+                            devices.camera_index, devices.size, args.ear_ratio,
+                            order)
         except FileExistsError:
+            participant.close()
+            participant = None
             status.config(text="That session name already exists. Choose a new name.")
             return
         except (OSError, RuntimeError, ValueError) as exc:
+            if participant:
+                participant.close()
+                participant = None
             status.config(text=str(exc))
             return
         shown = None
@@ -720,7 +773,7 @@ def run_app(args):
             eeg_chart.create_line(x, y, x, max(y+1, y_at(low)), fill="#f4c27e")
 
     def refresh():
-        nonlocal trial, finishing, shown, configured, last_preview, last_plot_ns
+        nonlocal trial, finishing, shown, configured, last_preview, last_plot_ns, participant
         latest_preview = devices.preview if devices else None
         if latest_preview is not None and latest_preview is not last_preview:
             last_preview = latest_preview
@@ -742,6 +795,8 @@ def run_app(args):
                 if not devices.threads[1].is_alive() and not trial.done_eeg.is_set():
                     trial.close_eeg()
             if trial.done_camera.is_set() and trial.done_eeg.is_set():
+                participant.close()
+                participant = None
                 finishing = Thread(target=trial.finalize, daemon=True)
                 finishing.trial = trial
                 finishing.start()
@@ -749,14 +804,19 @@ def run_app(args):
                 status.config(text="Saving and generating blink labels…")
             elif elapsed < DURATION and not trial.requested_stop:
                 i = bisect_right(EDGES, elapsed) - 1
-                _, title, action, _ = BLOCKS[i]
-                countdown = max(0, math.ceil(EDGES[i] + COUNTDOWN - elapsed))
-                status.config(text=f"Recording {trial.name} · {int(elapsed)//60:02d}:{int(elapsed)%60:02d} / 10:00")
-                task.config(text=f"{title} in {countdown}" if countdown else title)
-                instructions.config(text=action)
-                if shown != (i, countdown):
-                    root.bell()
-                    shown = (i, countdown)
+                key = ORDERS[trial.order][i]
+                title, action = ACTIVITIES[key]
+                local = elapsed - EDGES[i]
+                phase, scheduled, prompt = cue_at(key, local)
+                status.config(text=f"{trial.name} · Order {trial.order} · Block {i+1}/10 · {int(elapsed)//60:02d}:{int(elapsed)%60:02d}")
+                task.config(text=title)
+                instructions.config(text=prompt)
+                participant.render(key, i+1, local, phase, prompt)
+                if shown != (i, scheduled):
+                    if phase == "countdown" or scheduled == START or prompt == "Open your eyes":
+                        beep(root, high=phase == "activity")
+                    trial.write_cue.writerow((key, phase, prompt, EDGES[i] + scheduled, f"{elapsed:.6f}"))
+                    shown = (i, scheduled)
             else:
                 status.config(text="Stopping both streams…")
         elif finishing and not finishing.is_alive():
@@ -769,9 +829,12 @@ def run_app(args):
                 close()
                 return
         elif not finishing and devices and devices.error:
+            if configured:
+                print(devices.error, flush=True)
             status.config(text=devices.error)
             configured = False
         elif configured and not finishing and devices.ready():
+            print("Camera and EEG streams ready.", flush=True)
             status.config(text="Both streams ready. Enter a session name and start recording.")
             configured = False
         ready = bool(devices and devices.ready())
@@ -783,14 +846,18 @@ def run_app(args):
 
     root.protocol("WM_DELETE_WINDOW", close)
     refresh()
+    if args.connect:
+        root.after_idle(connect)
     root.mainloop()
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--session-name", default="", help="Prefill the recording session name")
+    parser.add_argument("--connect", action="store_true", help="Connect devices when the window opens")
     parser.add_argument("--port", help="BITalino serial device, for example /dev/cu.BITalino")
     parser.add_argument("--test-eeg", action="store_true", help="Run an EEG connection check with the camera off")
-    parser.add_argument("--channel", type=int, choices=range(1, 5), default=3)
+    parser.add_argument("--channel", type=int, choices=range(1, 5), default=4)
     parser.add_argument("--camera", type=int, default=0)
     parser.add_argument("--model", type=Path, default=ROOT / "face_landmarker.task")
     parser.add_argument("--output", type=Path, default=ROOT / "data/raw/datasets")

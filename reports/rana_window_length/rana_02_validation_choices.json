@@ -1,0 +1,197 @@
+{
+  "settings": {
+    "750_f1": [
+      750,
+      0.85,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 59,
+        "fp": 9,
+        "fn": 17,
+        "precision": 0.8676470588235294,
+        "recall": 0.7763157894736842,
+        "f1": 0.8194444444444444,
+        "false_per_min": 4.958677685950414,
+        "measured_minutes": 1.815,
+        "closure_alerts": 0,
+        "outside_scored_alerts": 6,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "750_budget": [
+      750,
+      0.85,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 59,
+        "fp": 9,
+        "fn": 17,
+        "precision": 0.8676470588235294,
+        "recall": 0.7763157894736842,
+        "f1": 0.8194444444444444,
+        "false_per_min": 4.958677685950414,
+        "measured_minutes": 1.815,
+        "closure_alerts": 0,
+        "outside_scored_alerts": 6,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "1000_f1": [
+      1000,
+      0.725,
+      [
+        3,
+        3,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 63,
+        "fp": 9,
+        "fn": 13,
+        "precision": 0.875,
+        "recall": 0.8289473684210527,
+        "f1": 0.8513513513513513,
+        "false_per_min": 4.958677685950414,
+        "measured_minutes": 1.815,
+        "closure_alerts": 0,
+        "outside_scored_alerts": 5,
+        "blocked_fraction": 0.0,
+        "delay_s": 1.0495
+      }
+    ],
+    "1000_budget": [
+      1000,
+      0.725,
+      [
+        3,
+        3,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 63,
+        "fp": 9,
+        "fn": 13,
+        "precision": 0.875,
+        "recall": 0.8289473684210527,
+        "f1": 0.8513513513513513,
+        "false_per_min": 4.958677685950414,
+        "measured_minutes": 1.815,
+        "closure_alerts": 0,
+        "outside_scored_alerts": 5,
+        "blocked_fraction": 0.0,
+        "delay_s": 1.0495
+      }
+    ],
+    "1500_f1": [
+      1500,
+      0.7,
+      [
+        3,
+        3,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 66,
+        "fp": 6,
+        "fn": 10,
+        "precision": 0.9166666666666666,
+        "recall": 0.868421052631579,
+        "f1": 0.8918918918918919,
+        "false_per_min": 3.3057851239669422,
+        "measured_minutes": 1.815,
+        "closure_alerts": 0,
+        "outside_scored_alerts": 6,
+        "blocked_fraction": 0.0,
+        "delay_s": 1.0495
+      }
+    ],
+    "1500_budget": [
+      1500,
+      0.7,
+      [
+        3,
+        3,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 66,
+        "fp": 6,
+        "fn": 10,
+        "precision": 0.9166666666666666,
+        "recall": 0.868421052631579,
+        "f1": 0.8918918918918919,
+        "false_per_min": 3.3057851239669422,
+        "measured_minutes": 1.815,
+        "closure_alerts": 0,
+        "outside_scored_alerts": 6,
+        "blocked_fraction": 0.0,
+        "delay_s": 1.0495
+      }
+    ],
+    "750+1000_f1": [
+      "750+1000",
+      0.825,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 59,
+        "fp": 5,
+        "fn": 17,
+        "precision": 0.921875,
+        "recall": 0.7763157894736842,
+        "f1": 0.8428571428571429,
+        "false_per_min": 2.7548209366391188,
+        "measured_minutes": 1.815,
+        "closure_alerts": 0,
+        "outside_scored_alerts": 5,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ],
+    "750+1000_budget": [
+      "750+1000",
+      0.775,
+      [
+        3,
+        2,
+        0.35,
+        1.0
+      ],
+      {
+        "tp": 61,
+        "fp": 8,
+        "fn": 15,
+        "precision": 0.8840579710144928,
+        "recall": 0.8026315789473685,
+        "f1": 0.8413793103448276,
+        "false_per_min": 4.40771349862259,
+        "measured_minutes": 1.815,
+        "closure_alerts": 0,
+        "outside_scored_alerts": 5,
+        "blocked_fraction": 0.0,
+        "delay_s": 0.9495
+      }
+    ]
+  },
+  "false_alert_budget": 5.0
+}

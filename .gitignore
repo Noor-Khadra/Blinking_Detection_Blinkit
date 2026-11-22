@@ -1,6 +1,7 @@
+.DS_Store
+.venv/
 __pycache__/
 *.py[cod]
-.venv/
-data/raw/
-data/derived/
-*.task
+/dist/
+/data/raw/live_blinks/
+/data/raw/datasets/*/webcam.mp4

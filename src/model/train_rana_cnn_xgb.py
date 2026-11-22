@@ -36,13 +36,13 @@ def choose_threshold(d,p,events):
  m,t=max(trials,key=lambda r:(r[0]['f1'],r[0]['precision']))
  return t,m
 
-def train_cnn(config,seed,signal,y,fit,valid):
+def train_cnn(config,seed,signal,y,fit,valid,max_epochs=50):
  torch.manual_seed(seed); random.seed(seed); rng=np.random.default_rng(seed)
  model=BlinkCNN(config['width'],config['dropout'])
  optimizer=torch.optim.AdamW(model.parameters(),lr=config['lr'],weight_decay=.001)
  lossfn=nn.BCEWithLogitsLoss()
  target=torch.from_numpy(y.astype(np.float32)); best=-1.; state=None; patience=0; history=[]
- for epoch in range(1,51):
+ for epoch in range(1,max_epochs+1):
   model.train(); total=0.
   for ix in np.array_split(rng.permutation(fit),int(np.ceil(len(fit)/128))):
    optimizer.zero_grad(); loss=lossfn(model(signal[ix]),target[ix]); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(),5); optimizer.step(); total+=loss.item()*len(ix)
@@ -132,7 +132,7 @@ def report(result):
  lines=['# CNN and XGBoost on the two real Rana recordings','',f"Validation-selected winner: **{result['winner_by_validation']}**.",'', 'Twelve XGBoost hyperparameter configurations; four CNN configurations each trained with two seeds (eight CNN runs). CNN seeds are averaged per configuration rather than selecting a lucky seed. Three averaging weights combine the two validation-selected family models. No public data or pretrained weights were used.','', 'XGBoost uses the same 58 EEG features as the baseline. CNN receives the saved 192-point, low-pass-filtered waveform per 1.5-second window as two channels: training-scale normalization and within-window normalization. Three convolution blocks retain coarse position with adaptive pooling and a small classification head. Training uses AdamW and binary cross entropy; epoch selection uses validation average precision with early stopping.','', 'All models use the existing 60/20/20 time-block split and original selected training rows. Normalization is fitted on training only. XGBoost tree count and CNN epoch count use validation only. Detection thresholds and ensemble weights maximize validation event F1. Test predictions are produced after frozen_selection.json is written. Saved weights were reloaded and reproduced test scores.','', '| Model | Validation event F1 | Test window accuracy | Event precision | Event recall | Event F1 | False alarms/min |','|---|---:|---:|---:|---:|---:|---:|']
  for r in rows:
   w=r['test_window']; e=r['test_event']; lines.append(f"| {r['name']} | {r['validation_event']['f1']:.1%} | {w['accuracy']:.1%} | {e['precision']:.1%} | {e['recall']:.1%} | {e['f1']:.1%} | {e['false_alarms_per_minute']:.2f} |")
- lines+=['','## Limits','', 'These test blocks were already inspected in earlier experiments: this is a reused-test development comparison, not an untouched confirmatory estimate. Automatic webcam labels remain unreviewed. Synchronization is the unchanged provisional host-clock map; no blink-delay correction was introduced. Sustained closures and invalid tracking are excluded from scoring. Clipping is retained and flagged. Only same-person time-block generalization is assessed. Centered windows require 750ms lookahead; this is not yet a validated real-time detector.','', '## Reproduce','', '`src/model/Run_Rana_CNN_XGB.command` on macOS (or `python src/model/train_rana_cnn_xgb.py` on other platforms) after generating `data/model/rana_new` with `train_rana_new.py`. Requirements are in `src/model/requirements-rana-cnn-xgb.txt`. Model files, validation searches, training histories, scores, and frozen decisions are in this folder. Raw files and baseline results are unchanged; nothing was pushed.','', '![Comparison](comparison.png)']
+ lines+=['','## Limits','', 'These test blocks were already inspected in earlier experiments: this is a reused-test development comparison, not an untouched confirmatory estimate. Automatic webcam labels remain unreviewed. Synchronization is the unchanged provisional host-clock map; no blink-delay correction was introduced. Sustained closures and invalid tracking are excluded from scoring. Clipping is retained and flagged. Only same-person time-block generalization is assessed. Centered windows require 750ms lookahead; this is not yet a validated real-time detector.','', '## Reproduce','', '`src/model/Run_Rana_CNN_XGB.command` on macOS (or `python src/model/train_rana_cnn_xgb.py` on other platforms) after generating `data/model/rana_new` with `train_rana_new.py`. Requirements are in `src/model/requirements-rana-cnn-xgb.txt`. Model files, validation searches, training histories, scores, and frozen decisions are in this folder.','', '![Comparison](comparison.png)']
  (OUT/'README.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
 
 if __name__=='__main__': main()

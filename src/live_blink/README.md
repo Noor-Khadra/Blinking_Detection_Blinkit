@@ -1,10 +1,10 @@
 # BlinkIt live EEG blink detector
 
-Connect BITalino and detect blinks with the saved `cnn_01` model. This is an EEG-only desktop app; it does not need the webcam. Two trained CNN seeds are averaged, exactly as in the reported CNN experiment. The user chose this CNN rather than the validation-selected CNN/XGBoost combination.
+Connect BITalino and detect blinks with the saved `cnn_01` model. This is an EEG-only desktop app; it does not need the webcam. Two trained CNN seeds are averaged, exactly as in the reported CNN experiment. The submitted demo deploys the standalone CNN pair. The offline comparison also reports a validation-selected CNN/XGBoost blend.
 
 ## Windows (the working BITalino laptop)
 
-1. Extract `BlinkIt_Live_CNN.zip` completely to a local folder.
+1. Clone this repository or fully extract its ZIP.
 2. Install 64-bit Python 3.12 with the Python Launcher and Tcl/Tk, if not installed.
 3. Open `src/live_blink/Setup_Windows.cmd` once. Internet is needed for dependencies. Model weights are already included.
 4. Pair BITalino in Windows Bluetooth settings. Close OpenSignals and the dataset recorder; only one program can hold the device.

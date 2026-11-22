@@ -1,6 +1,6 @@
 # Adding Noor4 to the real-data CNN
 
-Only `rana_01_clean`, `rana_02`, and the new `noor4-clean` recording are used. Historical Noor/Rahma and public recordings are excluded. Raw data and earlier results are preserved.
+Only `rana_01_clean`, `rana_02`, and the new `noor4-clean` recording are used. Raw data and earlier results are preserved.
 
 Architecture is the previously chosen 1D CNN (width 16, dropout 0.2, learning rate 0.001), averaged across two seeds. Pooled and Noor-only models are trained afresh with early stopping on their source validation data. The same purged 60/20/20 minute split is retained. Training uses up to three eligible negatives per positive separately per session. Validation chooses epochs and threshold; the configuration is not searched again.
 
