@@ -32,7 +32,7 @@ ORDERS = {
     "B": "rest head_motion video artifacts reading sustained mixed eye_movements talking voluntary".split(),
     "C": "rest talking sustained eye_movements mixed voluntary artifacts head_motion video reading".split(),
 }
-ASSIGNMENTS = {"rana": "ABC", "noor": "BCA", "katrina": "CAB", "rahma": "BAC"}
+ASSIGNMENTS = {"rana": "ABC", "noor": "BCA"}
 DURATION = 10 * BLOCK_SECONDS
 EDGES = list(range(0, DURATION + 1, BLOCK_SECONDS))
 
@@ -50,7 +50,7 @@ def is_activity_ns(elapsed_ns):
 def recording_order(name, choice):
     if choice in ORDERS:
         return choice
-    match = re.fullmatch(r"(rana|noor|katrina|rahma)_v([123])", name.lower())
+    match = re.fullmatch(r"(rana|noor)_v([123])", name.lower())
     if not match:
         raise ValueError("Use a name such as rana_v1 or select order A, B or C for a custom session.")
     return ASSIGNMENTS[match[1]][int(match[2]) - 1]
